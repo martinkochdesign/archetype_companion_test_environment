@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    
+   
 
     <div id="loading_page" aria-busy="true" aria-label="Loading">
         <div class="loader"></div>
@@ -88,6 +88,8 @@
 
 
     <div id="main">
+
+         
 
         <!-- ADD ALL WINDOWS HERE -->
 
@@ -249,6 +251,11 @@
             <div class="resize-handle left"></div>
 
 
+            
+            <img src="images/back_in_time.png" alt="Undo" height="25" 
+                style="position:absolute; top: 30px; left:10px; cursor: pointer; z-index: 2;"
+            title="Go back in history" onclick="oneStepBackInHistory()" id="visualization_back_btn">
+
             <img src="images/1F4F7_color.png" alt="Save image" height="35" onclick="downloadSVG('network')"
                 style="position:absolute; bottom: 60px; right:10px; cursor: pointer; z-index: 2;"
                 title="Save as SVG image">
@@ -261,6 +268,7 @@
             <div id="visualization">
                 <select id="select_vis_view" style="border-radius:5px; padding:3px;" onchange="updateLists();resetZoom();">
                     <option value="ARCHETYPE" selected>Archetype</option>
+                    <option value="ARCHETYPEMINDMAP">Archetype Structure</option>
                     <option value="SIMILAR">Similar</option>
                     <option value="COMBINATION">Archetype+Similar</option>
                     <option value="COLLECTION">Collection</option>
@@ -551,7 +559,7 @@
                         autocomplete="off" /><br>
 
                     <label><strong>Archetype ID:</strong></label><br>
-                    <input type="text" id="new_archetype_id" onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" /><br>
+                    <input type="text" id="new_archetype_id" onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" disabled/><br>
 
                     <label><strong>UUID: </strong></label><span id="new_archetype_uuid"></span><br>
 
@@ -804,11 +812,11 @@
             <div class="resize-handle left"></div>
 
             <img src="images/back_in_time.png" alt="Back" height="35"
-                style="position:absolute; top: 30px; right:5px; cursor: pointer;" title="Back" id="HistoryBackButton">
+                style="position:absolute; top: 30px; right:5px; cursor: pointer;" title="Back" id="HistoryBackButton" onclick="oneStepBackInHistory()">
 
             <img src="images/delete_history.png" alt="Clear" height="35"
                 style="position:absolute; top: 80px; right:5px; cursor: pointer;" onclick="clearVisitedHistory()"
-                title="Clear History" id="HistoryBackButton">
+                title="Clear History" id="HistoryClearButton">
 
 
             <div id="search_history_content">
@@ -1035,13 +1043,19 @@
                     Select a class from the left to view details.
                     <em>
                         <p>
+                            <span id="glossary_extraction_date" ></span>
+
+                            <br><br>
+
                             The Archetype Companion provides a glossary of openEHR classes. The information on openEHR
                             classes has been extracted previously from the following sources:
                             <br><br>
+
+
                             <span style="display: block; margin-left: 1em;">
                                 <a
-                                    href="https://specifications.openehr.org/releases/BASE/Release-1.2.0/base_types.html">BASE
-                                    Types 1.2.0</a><br>
+                                    href="https://specifications.openehr.org/releases/BASE/latest/base_types.html">BASE
+                                    Types</a><br>
                                 <a href="https://specifications.openehr.org/releases/RM/latest/common.html">Reference
                                     Model: Common</a><br>
                                 <a href="https://specifications.openehr.org/releases/RM/latest/data_structures.html">Reference
@@ -1088,10 +1102,7 @@
     <script src="dataset.js"></script>
     <script src="index.js"></script>
     <script src="glossary_data.js"></script>
-    <script src="glossary_functions.js"></script>
-
-
-    
+    <script src="glossary_functions.js"></script>  
 
 </body>
 

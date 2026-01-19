@@ -9,6 +9,8 @@ const glossary_searchAttrName = document.getElementById('glossary_searchAttrName
 const glossary_searchAttrDesc = document.getElementById('glossary_searchAttrDesc');
 const glossary_searchAttrDataType = document.getElementById('glossary_searchAttrDataType');
 
+document.getElementById('glossary_extraction_date').innerHTML = '<b>Updated:</b> ' + glossary_extraction_date ;
+
 let glossaryClassNames = Object.keys(glossary_data).sort();
 let filteredGlossaryClassNames = glossaryClassNames.slice();
 let lastGlossarySearch = '';
@@ -94,6 +96,20 @@ function renderGlossaryClass(className){
       </tr>`;
     }
     html += `</table>`;
+  }
+ if (cls.functions && Object.keys(cls.functions).length) {
+    html += `<table class="attributes-table"><tr><th>Function</th><th>Description</th><th>Existence</th><th>Return Type</th></tr>`;
+    for (const [attr, details] of Object.entries(cls.functions)) {
+      html += `<tr>
+        <td>${attr} ${details.prerequisite && details.prerequisite.trim() !== '' ? '<br><br><i>Prerequisite:</i> '+ details.prerequisite : ''}</td>
+        <td>${highlightFoundGlossaryText(details.description || '', glossary_searchAttrDesc.checked ? lastGlossarySearch : '')}</td>
+        <td>${details.existence || ''}</td>
+        <td>${highlightFoundGlossaryText((details.return_type || []).join(', '), glossary_searchAttrDataType.checked ? lastGlossarySearch : '')}</td>
+        <!--<td>${(details.return_type || []).join(', ')}</td>-->
+      </tr>`;
+    }
+    html += `</table>`;
+
   }
   return html
 }
