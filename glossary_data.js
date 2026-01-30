@@ -1,6 +1,6 @@
-const glossary_extraction_date = "2025-12-10 09:05:59";
+const glossary_extraction_date = "2026-01-30 13:20:44";
 
-const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html'];
+const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
 const glossary_data = {
     "ACTION": {
@@ -369,6 +369,13 @@ const glossary_data = {
     "AUTHORED_RESOURCE": {
         "abstract": "true",
         "attributes": {
+            "annotations": {
+                "description": "Annotations on individual items within the resource, keyed by path. The inner table takes the form of a Hash table of String values keyed by String tags.",
+                "existence": "0..1",
+                "type": [
+                    "RESOURCE_ANNOTATIONS"
+                ]
+            },
             "description": {
                 "description": "Description and lifecycle information of the resource.",
                 "existence": "0..1",
@@ -387,23 +394,23 @@ const glossary_data = {
                 "description": "Language in which this resource was initially authored. Although there is no language primacy of resources overall, the language of original authoring is required to ensure natural language translations can preserve quality. Language is relevant in both the description and ontology sections.",
                 "existence": "1..1",
                 "type": [
-                    "CODE_PHRASE"
-                ]
-            },
-            "revision_history": {
-                "description": "The revision history of the resource. Only required if is_controlled = True (avoids large revision histories for informal or private editing situations).",
-                "existence": "0..1",
-                "type": [
-                    "REVISION_HISTORY"
+                    "Terminology_code"
                 ]
             },
             "translations": {
-                "description": "List of details for each natural-language translation made of this resource, keyed by language. For each translation listed here, there must be corresponding sections in all language-dependent parts of the resource. The original_language does not appear in this list.",
+                "description": "List of details for each natural translation made of this resource, keyed by language code. For each translation listed here, there must be corresponding sections in all language-dependent parts of the resource. The original_language does not appear in this list.",
                 "existence": "0..1",
                 "type": [
                     "Hash",
                     "String",
                     "TRANSLATION_DETAILS"
+                ]
+            },
+            "uid": {
+                "description": "Unique identifier of the family of archetypes having the same interface identifier (same major version).",
+                "existence": "0..1",
+                "type": [
+                    "UUID"
                 ]
             }
         },
@@ -430,10 +437,110 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_authored_resource_class"
     },
+    "Any": {
+        "abstract": "true",
+        "description": "Abstract ancestor class for all other classes. Usually maps to a type like Any or Object in an object-oriented technology. Defined here to provide value and reference equality semantics.",
+        "functions": {
+            "is_equal (other: Any[1])": {
+                "description": "Value equality: return True if this and other are attached to objects considered to be equal in value.\n\n\nParameters\n\n\n\nother\n\n\nOther object for comparison.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "specialization": [
+            "Boolean",
+            "Ordered"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_any_class"
+    },
+    "Array": {
+        "description": "Container whose storage is assumed to be contiguous.",
+        "functions": {
+            "item alias \"[]\" (a_key: Integer[1])": {
+                "description": "Return item for key  a_key.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "T"
+                ]
+            }
+        },
+        "inherit": "Container",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_array_class"
+    },
     "BASIC_DEFINITIONS": {
         "description": "Defines globally used constant values.",
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_basic_definitions_class"
+    },
+    "Boolean": {
+        "description": "Type representing minimal interface of built-in Boolean type.",
+        "functions": {
+            "conjunction alias \"and\", \"\u2227\", \"&\" (other: Boolean[1])": {
+                "description": "Logical conjunction of this with other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "disjunction alias \"or\", \"\u2228\", \"|\" (other: Boolean[1])": {
+                "description": "Boolean disjunction with other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "exclusive_disjunction alias \"xor\", \"\u22bb\" (other: Boolean[1])": {
+                "description": "Boolean exclusive or with other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "implication alias \"implies\", \"\u21d2\" (other: Boolean[1])": {
+                "description": "Boolean implication of other (semi-strict)",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "negation alias \"not\", \"\u00ac\", \"!\" ()": {
+                "description": "Boolean negation of the current value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "semistrict_conjunction alias \"and then\", \"&&\" (other: Boolean[1])": {
+                "description": "Boolean semi-strict conjunction with other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "semistrict_disjunction alias \"or else\", \"||\" (other: Boolean[1])": {
+                "description": "Boolean semi-strict disjunction with other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Any",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_boolean_class"
     },
     "CAPABILITY": {
         "attributes": {
@@ -704,6 +811,138 @@ const glossary_data = {
         "description": "Documents a Contribution (change set) of one or more versions added to a change-controlled repository.",
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/common.html#_contribution_class"
+    },
+    "Cardinality": {
+        "attributes": {
+            "interval": {
+                "description": "The interval of this cardinality.",
+                "existence": "1..1",
+                "type": [
+                    "Multiplicity_interval"
+                ]
+            },
+            "is_ordered": {
+                "description": "True if the members of the container attribute to which this cardinality refers are ordered.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "is_unique": {
+                "description": "True if the members of the container attribute to which this cardinality refers are unique.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "description": "Express constraints on the cardinality of container objects which are the values of multiply-valued attributes, including uniqueness and ordering, providing the means to state that a container acts like a logical list, set or bag.",
+        "functions": {
+            "is_bag ()": {
+                "description": "True if the semantics of this cardinality represent a bag, i.e. unordered, non-unique membership.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_list ()": {
+                "description": "True if the semantics of this cardinality represent a list, i.e. ordered, non-unique membership.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_set ()": {
+                "description": "True if the semantics of this cardinality represent a set, i.e. unordered, unique membership.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_cardinality_class"
+    },
+    "Character": {
+        "description": "Type representing minimal interface of built-in Character type.",
+        "inherit": "Ordered",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_character_class"
+    },
+    "Container": {
+        "abstract": "true",
+        "description": "Abstract ancestor of container types whose items are addressable in some way.",
+        "functions": {
+            "count ()": {
+                "description": "Number of items in container.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "for_all alias \"for all\", \"\u2200\" (test: Operation[1])": {
+                "description": "Universal quantifier applied to container, taking one agent argument test whose signature is (v:T): Boolean.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "has (v: T[1])": {
+                "description": "Test for membership of a value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_empty ()": {
+                "description": "True if container is empty.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "matching (test: Operation[1])": {
+                "description": "Return a List all items matching the predicate function test which has signature (v:T): Boolean. If no matches, an empty List is returned.",
+                "existence": "0..1",
+                "prerequisite": "",
+                "return_type": [
+                    "List",
+                    "T"
+                ]
+            },
+            "select (test: Operation[1])": {
+                "description": "Return first item matching the predicate function test which has signature (v:T): Boolean, or Void if no match.",
+                "existence": "0..1",
+                "prerequisite": "",
+                "return_type": [
+                    "T"
+                ]
+            },
+            "there_exists alias \"there exists\", \"\u2203\" (test: Operation[1])": {
+                "description": "Existential quantifier applied to container, taking one agent argument test whose signature is (v:T): Boolean.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Any",
+        "specialization": [
+            "List",
+            "Set",
+            "Array",
+            "Hash<K,V>"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_container_class"
     },
     "DATA_STRUCTURE": {
         "abstract": "true",
@@ -1284,10 +1523,11 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_identifier_class"
     },
-    "DV_INTERVAL<T>": {
+    "DV_INTERVAL": {
         "description": "Generic class defining an interval (i.e. range) of a comparable type. An interval is a contiguous subrange of a comparable base type. Used to define intervals of dates, times, quantities (whose units match) and so on. The type parameter, T, must be a descendant of the type DV_ORDERED, which is necessary (but not sufficient) for instances to be compared (strictly_comparable is also needed).\n\n\nWithout the DV_INTERVAL class, quite a few more DV_ classes would be needed to express logical intervals, namely interval versions of all the date/time classes, and of quantity classes. Further, it allows the semantics of intervals to be stated in one place unequivocally, including the conditions for strict comparison.\n\n\nThe basic semantics are derived from the class Interval<T>, described in the support RM.",
         "inherit": "DATA_VALUE, Interval",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_interval_class"
     },
     "DV_MULTIMEDIA": {
         "attributes": {
@@ -2184,6 +2424,86 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_uri_class"
     },
+    "Double": {
+        "description": "Type used to represent double-precision decimal numbers. Corresponds to a double-precision floating point value in most languages.",
+        "functions": {
+            "add alias \"+\" (other: Double[1])": {
+                "description": "Double-precision real number addition.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "divide alias \"/\" (other: Double[1])": {
+                "description": "Double-precision real number division.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "exponent alias \"^\" (other: Double[1])": {
+                "description": "Double-precision real number exponentiation.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "floor ()": {
+                "description": "Return the greatest integer no greater than the value of this object.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_equal (other: Double[1])": {
+                "description": "Value equality: return True if this and other are attached to objects considered to be equal in value.\n\n\nParameters\n\n\n\nother\n\n\nOther object for comparison.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: Double[1])": {
+                "description": "Returns True if current Double is less than other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "multiply alias \"*\" (other: Double[1])": {
+                "description": "Double-precision real number multiplication.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current Double value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "subtract alias \"-\" (other: Double[1])": {
+                "description": "Double-precision real number subtraction.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            }
+        },
+        "inherit": "Ordered_Numeric",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_double_class"
+    },
     "EHR": {
         "attributes": {
             "ehr_id": {
@@ -2386,7 +2706,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_evaluation_class"
     },
-    "EVENT<T>": {
+    "EVENT": {
         "abstract": "true",
         "attributes": {
             "data": {
@@ -2423,7 +2743,12 @@ const glossary_data = {
             }
         },
         "inherit": "LOCATABLE",
-        "type": "Class"
+        "specialization": [
+            "POINT_EVENT",
+            "INTERVAL_EVENT"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/PROC/development/task_planning.html#_event_class"
     },
     "EVENT_CONTEXT": {
         "attributes": {
@@ -3106,6 +3431,11 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/common.html#_folder_class"
     },
+    "FUNCTION<ARGS,RESULT>": {
+        "description": "Type representing a function with a return type and 0 or more arguments represented as a TUPLE.",
+        "inherit": "ROUTINE",
+        "type": "Class"
+    },
     "GENERIC_CONTENT_ITEM": {
         "attributes": {
             "author": {
@@ -3242,7 +3572,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_hier_object_id_class"
     },
-    "HISTORY<T>": {
+    "HISTORY": {
         "attributes": {
             "duration": {
                 "description": "Duration of the entire History; either corresponds to the duration of all the events, and/or the duration represented by the summary, if it exists.",
@@ -3293,9 +3623,33 @@ const glossary_data = {
             }
         },
         "inherit": "DATA_STRUCTURE",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_history_class"
+    },
+    "Hash<K,V>": {
+        "description": "Type representing a keyed table of values. V is the value type, and K the type of the keys.",
+        "functions": {
+            "has_key (a_key: K[1])": {
+                "description": "Test for presence of a_key.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "item alias \"[]\" (a_key: K[1])": {
+                "description": "Return item for key a_key.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "V"
+                ]
+            }
+        },
+        "inherit": "Container",
         "type": "Class"
     },
-    "IMPORTED_VERSION<T>": {
+    "IMPORTED_VERSION": {
         "attributes": {
             "item": {
                 "description": "The ORIGINAL_VERSION object that was imported.",
@@ -3341,7 +3695,8 @@ const glossary_data = {
             }
         },
         "inherit": "VERSION",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_imported_version_class"
     },
     "INSTRUCTION": {
         "attributes": {
@@ -3415,7 +3770,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_internet_id_class"
     },
-    "INTERVAL_EVENT<T>": {
+    "INTERVAL_EVENT": {
         "attributes": {
             "math_function": {
                 "description": "Mathematical function of the data of this event, e.g.  maximum, mean etc. Coded using openEHR vocabulary event math function. Default value 640|actual|, meaning 'actual value'.",
@@ -3451,7 +3806,8 @@ const glossary_data = {
             }
         },
         "inherit": "EVENT",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class"
     },
     "ISM_TRANSITION": {
         "attributes": {
@@ -3762,6 +4118,952 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_tree_class"
     },
+    "Integer": {
+        "description": "Type representing minimal interface of built-in Integer type.",
+        "functions": {
+            "add alias \"+\" (other: Integer[1])": {
+                "description": "Integer addition.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "divide alias \"/\" (other: Integer[1])": {
+                "description": "Integer division.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "exponent alias \"^\" (other: Double[1])": {
+                "description": "Integer exponentiation.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "is_equal (other: Integer[1])": {
+                "description": "Value equality: return True if this and other are attached to objects considered to be equal in value.\n\n\nParameters\n\n\n\nother\n\n\nOther object for comparison.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: Integer[1])": {
+                "description": "Returns True if current Integer is less than other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "modulo alias \"mod\", \"\\\\\" (mod: Integer[1])": {
+                "description": "Return self modulo other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "multiply alias \"*\" (other: Integer[1])": {
+                "description": "Integer multiplication.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current Integer value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "subtract alias \"-\" (other: Integer[1])": {
+                "description": "Integer subtraction.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            }
+        },
+        "inherit": "Ordered_Numeric",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_integer_class"
+    },
+    "Integer64": {
+        "description": "Type representing minimal interface of built-in Integer64 type.",
+        "functions": {
+            "add alias \"+\" (other: Integer[1])": {
+                "description": "Large integer addition.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer64"
+                ]
+            },
+            "divide alias \"/\" (other: Integer[1])": {
+                "description": "Large integer division.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "exponent alias \"^\" (other: Double[1])": {
+                "description": "Large integer exponentiation.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "is_equal (other: Integer64[1])": {
+                "description": "Value equality: return True if this and other are attached to objects considered to be equal in value.\n\n\nParameters\n\n\n\nother\n\n\nOther object for comparison.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: Integer64[1])": {
+                "description": "Returns True if current Integer is less than other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "modulo alias \"mod\", \"\\\\\" (mod: Integer[1])": {
+                "description": "Large integer modulus.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer64"
+                ]
+            },
+            "multiply alias \"*\" (other: Integer[1])": {
+                "description": "Large integer multiplication.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer64"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current Integer value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer64"
+                ]
+            },
+            "subtract alias \"-\" (other: Integer[1])": {
+                "description": "Large integer subtraction.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer64"
+                ]
+            }
+        },
+        "inherit": "Ordered_Numeric",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_integer64_class"
+    },
+    "Interval": {
+        "abstract": "true",
+        "attributes": {
+            "lower": {
+                "description": "Lower bound.\nlower bound.",
+                "existence": "0..1",
+                "type": [
+                    "T"
+                ]
+            },
+            "lower_included": {
+                "description": "lower boundary value included in range if not lower_unbounded.\nlower boundary value included in range if not lower_unbounded.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "lower_unbounded": {
+                "description": "lower boundary open (i.e. = -infinity).\nlower boundary open (i.e. = -infinity)",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "upper": {
+                "description": "Upper bound.\nUpper bound.",
+                "existence": "0..1",
+                "type": [
+                    "T"
+                ]
+            },
+            "upper_included": {
+                "description": "upper boundary value included in range if not upper_unbounded.\nupper boundary value included in range if not upper_unbounded.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "upper_unbounded": {
+                "description": "upper boundary open (i.e. = +infinity).\nupper boundary open (i.e. = +infinity)",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "description": "Interval abstraction, featuring upper and lower limits that may be open or closed, included or not included.\nInterval of ordered items.",
+        "functions": {
+            "contains (other: Interval[1])": {
+                "description": "True if current interval properly contains other? True if all points of other are inside the current interval.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "has (e: T[1])": {
+                "description": "True if the value e is properly contained in this Interval.\nTrue if (lower_unbounded or\nlower_included and v >= lower) or v > lower and\n(upper_unbounded or\nupper_included and v <= upper or v < upper)",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "intersects (other: Interval[1])": {
+                "description": "True if there is any overlap between intervals represented by Current and other. True if at least one limit of other is strictly inside the limits of this interval.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_equal (other: Any[1])": {
+                "description": "True if current object\u2019s interval is semantically same as other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Any",
+        "specialization": [
+            "Point_interval",
+            "Proper_interval"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_interval_class"
+    },
+    "Iso8601_date": {
+        "description": "Represents an ISO 8601 date, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DD (extended, preferred)\n\n\nYYYYMMDD (compact)\n\n\na partial invariant.\n\n\n\n\nSee Time_definitions.valid_iso8601_date() for validity.",
+        "functions": {
+            "add alias \"+\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic addition of a duration to a date.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "add_nominal alias \"++\" (a_diff: Iso8601_duration[1])": {
+                "description": "Addition of nominal duration represented by a_diff. For example, a duration of 'P1Y' means advance to the same date next year, with the exception of the date 29 February in a leap year, to which the addition of a nominal year will result in 28 February of the following year. Similarly, 'P1M' is understood here as a nominal month, the addition of which will result in one of:\n\n\n\n\nthe same day in the following month, if it exists, or;\n\n\none or two days less where the following month is shorter, or;\n\n\nin the case of adding a month to the date 31 Jan, the result will be 28 Feb in a non-leap year (i.e. three less) and 29 Feb in a leap year (i.e. two less).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "as_string ()": {
+                "description": "Return string value in extended format.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "day ()": {
+                "description": "Extract the day part of the date as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not day_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "day_unknown ()": {
+                "description": "Indicates whether day in month is unknown. If so, and month is known, the date is of the form \"YYYY-MM\" or \"YYYYMM\".",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "diff alias \"-\" (a_date: Iso8601_date[1])": {
+                "description": "Difference of two dates.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "is_extended ()": {
+                "description": "True if this date uses '-' separators.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "True if this date is partial, i.e. if days or more is missing.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "month ()": {
+                "description": "Extract the month part of the date as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not month_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "month_unknown ()": {
+                "description": "Indicates whether month in year is unknown. If so, the date is of the form \"YYYY\".",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "subtract alias \"-\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic subtraction of a duration from a date.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "subtract_nominal alias \"--\" (a_diff: Iso8601_duration[1])": {
+                "description": "Subtraction of nominal duration represented by a_diff. See add_nominal() for semantics.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "timezone ()": {
+                "description": "Timezone; may be Void.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_timezone"
+                ]
+            },
+            "year ()": {
+                "description": "Extract the year part of the date as an Integer.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            }
+        },
+        "inherit": "Iso8601_type",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_date_class"
+    },
+    "Iso8601_date_time": {
+        "description": "Represents an ISO 8601 date/time, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DDThh:mm:ss[(,|.)sss][Z | \u00b1hh[:mm]] (extended, preferred) or\n\n\nYYYYMMDDThhmmss[(,|.)sss][Z | \u00b1hh[mm]] (compact)\n\n\nor a partial variant.\n\n\n\n\nSee valid_iso8601_date_time() for validity.\n\n\nNote that this class includes 2 deviations from ISO 8601:2004:\n\n\n\n\nfor partial date/times, any part of the date/time up to the month may be missing, not just seconds and minutes as in the standard;\n\n\nthe time 24:00:00 is not allowed, since it would mean the date was really on the next day.",
+        "functions": {
+            "add alias \"+\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic addition of a duration to a date/time.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date_time"
+                ]
+            },
+            "add_nominal alias \"++\" (a_diff: Iso8601_duration[1])": {
+                "description": "Addition of nominal duration represented by a_diff. See Iso8601_date.add_nominal() for semantics.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "as_string ()": {
+                "description": "Return the string value in extended format.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "day ()": {
+                "description": "Extract the day part of the date/time as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not day_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "day_unknown ()": {
+                "description": "Indicates whether day in month is unknown.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "diff alias \"-\" (a_date_time: Iso8601_date_time[1])": {
+                "description": "Difference of two date/times.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "fractional_second ()": {
+                "description": "Extract the fractional seconds part of the date/time (i.e. following to any decimal sign) as a Real, or return 0.0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "has_fractional_second ()": {
+                "description": "True if the fractional_second part is significant (i.e. even if = 0.0).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "hour ()": {
+                "description": "Extract the hour part of the date/time as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not hour_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_decimal_sign_comma ()": {
+                "description": "True if this time has a decimal part indicated by ',' (comma) rather than '.' (period).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_extended ()": {
+                "description": "True if this date/time uses '-', ':' separators.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "True if this date time is partial, i.e. if seconds or more is missing.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "minute ()": {
+                "description": "Extract the minute part of the date/time as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not minute_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "minute_unknown ()": {
+                "description": "Indicates whether minute in hour is known.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "month ()": {
+                "description": "Extract the month part of the date/time as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not month_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "month_unknown ()": {
+                "description": "Indicates whether month in year is unknown.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "second ()": {
+                "description": "Extract the integral seconds part of the date/time (i.e. prior to any decimal sign) as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not second_unknown",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "second_unknown ()": {
+                "description": "Indicates whether minute in hour is known.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "subtract alias \"-\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic subtraction of a duration from a date/time.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date_time"
+                ]
+            },
+            "subtract_nominal alias \"--\" (a_diff: Iso8601_duration[1])": {
+                "description": "Subtraction of nominal duration represented by a_diff. See add_nominal() for semantics.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_date"
+                ]
+            },
+            "timezone ()": {
+                "description": "Timezone; may be Void.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_timezone"
+                ]
+            },
+            "year ()": {
+                "description": "Extract the year part of the date as an Integer.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            }
+        },
+        "inherit": "Iso8601_type",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_date_time_class"
+    },
+    "Iso8601_duration": {
+        "description": "Represents an ISO 8601 duration, which may have multiple parts from years down to seconds. The value attribute is a String in the format:\n\n\n\n\nP[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]]\n\n\n\n\n\n\n\nNote\n\n\ntwo deviations from ISO 8601 are supported, the first, to allow a negative sign, and the second allowing the 'W' designator to be mixed with other designators.",
+        "functions": {
+            "add alias \"+\" (a_val: Iso8601_duration[1])": {
+                "description": "Arithmetic addition of a duration to a duration, via conversion to seconds, using Time_definitions.Average_days_in_year and Time_definitions.Average_days_in_month",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "as_string ()": {
+                "description": "Return the duration string value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "days ()": {
+                "description": "Number of days in the value, i.e. the number preceding the 'D' in the 'YMD' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "divide alias \"/\" (a_val: Real[1])": {
+                "description": "Arithmetic division of a duration by a number.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "fractional_seconds ()": {
+                "description": "Fractional seconds in the value, i.e. the decimal part of the number preceding the 'S' in the 'HMS' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "hours ()": {
+                "description": "Number of hours in the value, i.e. the number preceding the 'H' in the 'HMS' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_decimal_sign_comma ()": {
+                "description": "True if this time has a decimal part indicated by ',' (comma) rather than '.' (period).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_extended ()": {
+                "description": "Returns True.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "Returns False.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "minutes ()": {
+                "description": "Number of minutes in the value, i.e. the number preceding the 'M' in the 'HMS' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "months ()": {
+                "description": "Number of months in the value, i.e. the value preceding the 'M' in the 'YMD' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "multiply alias \"*\" (a_val: Real[1])": {
+                "description": "Arithmetic multiplication a duration by a number.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current duration value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "seconds ()": {
+                "description": "Number of seconds in the value, i.e. the integer number preceding the 'S' in the 'HMS' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "subtract alias \"-\" (a_val: Iso8601_duration[1])": {
+                "description": "Arithmetic subtraction of a duration from a duration, via conversion to seconds, using Time_definitions.Average_days_in_year and Time_definitions.Average_days_in_month",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "to_seconds ()": {
+                "description": "Total number of seconds equivalent (including fractional) of entire duration. Where non-definite elements such as year and month (i.e. 'Y' and 'M') are included, the corresponding 'average' durations from Time_definitions are used to compute the result.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "weeks ()": {
+                "description": "Number of weeks in the value, i.e. the value preceding the W, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "years ()": {
+                "description": "Number of years in the value, i.e. the number preceding the 'Y' in the 'YMD' part, if one exists.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            }
+        },
+        "inherit": "Iso8601_type",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_duration_class"
+    },
+    "Iso8601_time": {
+        "description": "Represents an ISO 8601 time, including partial and extended forms. Value may be:\n\n\n\n\nhh:mm:ss[(,|.)sss][Z|\u00b1hh[:mm]] (extended, preferred) or\n\n\nhhmmss[(,|.)sss][Z|\u00b1hh[mm]] (compact)\n\n\nor a partial invariant.\n\n\n\n\nSee valid_iso8601_time() for validity.\n\n\n\n\n\nNote\n\n\nA small deviation to the ISO 8601:2004 standard in this class is that the time 24:00:00 is not allowed, for consistency with Iso8601_date_time.",
+        "functions": {
+            "add alias \"+\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic addition of a duration to a time.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_time"
+                ]
+            },
+            "as_string ()": {
+                "description": "Return string value in extended format.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "diff alias \"-\" (a_time: Iso8601_time[1])": {
+                "description": "Difference of two times.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_duration"
+                ]
+            },
+            "fractional_second ()": {
+                "description": "Extract the fractional seconds part of the time (i.e. following to any decimal sign) as a Real, or return 0.0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "not second_unknown",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "has_fractional_second ()": {
+                "description": "True if the fractional_second part is significant (i.e. even if = 0.0).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "hour ()": {
+                "description": "Extract the hour part of the date/time as an Integer.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_decimal_sign_comma ()": {
+                "description": "True if this time has a decimal part indicated by ',' (comma) rather than '.' (period).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_extended ()": {
+                "description": "True if this time uses '-', ':' separators.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "True if this time is partial, i.e. if seconds or more is missing.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "minute ()": {
+                "description": "Extract the minute part of the time as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "minute_unknown ()": {
+                "description": "Indicates whether minute is unknown. If so, the time is of the form \u201chh\u201d.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "second ()": {
+                "description": "Extract the integral seconds part of the time (i.e. prior to any decimal sign) as an Integer, or return 0 if not present.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "second_unknown ()": {
+                "description": "Indicates whether second is unknown. If so and month is known, the time is of the form \"hh:mm\" or \"hhmm\".",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "subtract alias \"-\" (a_diff: Iso8601_duration[1])": {
+                "description": "Arithmetic subtraction of a duration from a time.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_time"
+                ]
+            },
+            "timezone ()": {
+                "description": "Timezone; may be Void.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Iso8601_timezone"
+                ]
+            }
+        },
+        "inherit": "Iso8601_type",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_time_class"
+    },
+    "Iso8601_timezone": {
+        "description": "ISO8601 timezone string, in format:\n\n\n\n\nZ | \u00b1hh[mm]\n\n\n\n\nwhere:\n\n\n\n\nhh is \"00\" - \"23\" (0-filled to two digits)\n\n\nmm is \"00\" - \"59\" (0-filled to two digits)\n\n\nZ is a literal meaning UTC (modern replacement for GMT), i.e. timezone +0000",
+        "functions": {
+            "as_string ()": {
+                "description": "Return timezone string in extended format.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "hour ()": {
+                "description": "Extract the hour part of timezone, as an Integer in the range 00 - 14.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_extended ()": {
+                "description": "True if this time-zone uses \u2018:\u2019 separators.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_gmt ()": {
+                "description": "True if timezone is UTC, i.e. +0000.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "True if this time zone is partial, i.e. if minutes is missing.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "minute ()": {
+                "description": "Extract the hour part of timezone, as an Integer, usually either 0 or 30.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "minute_unknown ()": {
+                "description": "Indicates whether minute part known.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "sign ()": {
+                "description": "Direction of timezone expresssed as +1 or -1.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            }
+        },
+        "inherit": "Iso8601_type",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_timezone_class"
+    },
+    "Iso8601_type": {
+        "abstract": "true",
+        "attributes": {
+            "value": {
+                "description": "Representation of all descendants is a single String.",
+                "existence": "1..1",
+                "type": [
+                    "String"
+                ]
+            }
+        },
+        "description": "Abstract ancestor type of ISO 8601 types, defining interface for 'extended' and 'partial' concepts from ISO 8601.",
+        "functions": {
+            "is_extended ()": {
+                "description": "True if this ISO8601 string is in the 'extended' form, i.e. uses '-' and / or ':' separators. This is the preferred format.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_partial ()": {
+                "description": "True if this date time is partial, i.e. if trailing end (right hand) value(s) is/are missing.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Temporal, Time_Definitions",
+        "specialization": [
+            "Iso8601_date",
+            "Iso8601_time",
+            "Iso8601_date_time",
+            "Iso8601_duration",
+            "Iso8601_timezone"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_type_class"
+    },
     "LINK": {
         "attributes": {
             "meaning": {
@@ -3892,6 +5194,30 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_locatable_ref_class"
     },
+    "List": {
+        "description": "Ordered container that may contain duplicates.",
+        "functions": {
+            "first ()": {
+                "description": "Return first element.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "T"
+                ]
+            },
+            "last ()": {
+                "description": "Return last element.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "T"
+                ]
+            }
+        },
+        "inherit": "Container",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_list_class"
+    },
     "Locale": {
         "description": "Class representing current Locale.",
         "functions": {
@@ -3988,6 +5314,103 @@ const glossary_data = {
         },
         "type": "Interface",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_math_interface"
+    },
+    "Multiplicity_interval": {
+        "description": "An Interval of Integer, used to represent multiplicity, cardinality and optionality in models.",
+        "functions": {
+            "is_mandatory ()": {
+                "description": "True if this interval expresses mandation, i.e. 1..1.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_open ()": {
+                "description": "True if this interval imposes no constraints, i.e. is set to 0..*.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_optional ()": {
+                "description": "True if this interval expresses optionality, i.e. 0..1.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_prohibited ()": {
+                "description": "True if this interval is set to 0..0.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Proper_interval",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_multiplicity_interval_class"
+    },
+    "Numeric": {
+        "abstract": "true",
+        "description": "Abstract parent class of numeric types, which are types which have various arithmetic and comparison operators defined.",
+        "functions": {
+            "add alias \"+\" (other: Numeric[1])": {
+                "description": "Sum with other (commutative). Actual type of result depends on arithmetic balancing rules.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            },
+            "divide alias \"/\" (other: Numeric[1])": {
+                "description": "Divide by`other`. Actual type of result depends on arithmetic balancing rules.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            },
+            "exponent alias \"^\" (other: Numeric[1])": {
+                "description": "Expontiation of this by other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            },
+            "multiply alias \"*\" (other: Numeric[1])": {
+                "description": "Product by other. Actual type of result depends on arithmetic balancing rules.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            },
+            "subtract alias \"-\" (other: Numeric[1])": {
+                "description": "Result of subtracting other. Actual type of result depends on arithmetic balancing rules.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Numeric"
+                ]
+            }
+        },
+        "inherit": "Any",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_numeric_class"
     },
     "OBJECT_ID": {
         "abstract": "true",
@@ -4165,7 +5588,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_organisation_class"
     },
-    "ORIGINAL_VERSION<T>": {
+    "ORIGINAL_VERSION": {
         "attributes": {
             "attestations": {
                 "description": "Set of attestations relating to this version.",
@@ -4224,7 +5647,73 @@ const glossary_data = {
             }
         },
         "inherit": "VERSION",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_original_version_class"
+    },
+    "Octet": {
+        "description": "Type representing minimal interface of built-in Octet type.",
+        "inherit": "Ordered",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_octet_class"
+    },
+    "Ordered": {
+        "abstract": "true",
+        "description": "Abstract parent class of ordered types i.e. types on which the '<' operator is defined.",
+        "functions": {
+            "greater_than alias \">\" (other: Ordered[1])": {
+                "description": "True if current object greater than other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "greater_than_or_equal alias \">=\", \"\u2265\" (other: Ordered[1])": {
+                "description": "True if current object greater than or equal to other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: Ordered[1])": {
+                "description": "Arithmetic value comparison. Returns True if current object is less than other. This operator is effected and/or redefined in descendants to provide the appropriate ordering semantics for concrete types.\n\n\nIn conjunction with =, enables the definition of the related functions greater_than() etc.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than_or_equal alias \"<=\", \"\u2264\" (other: Ordered[1])": {
+                "description": "True if current object less than or equal to other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Any",
+        "specialization": [
+            "Character",
+            "Octet",
+            "String"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_ordered_class"
+    },
+    "Ordered_Numeric": {
+        "abstract": "true",
+        "description": "Abstract notional parent class of ordered, numeric types, which are types with both the less_than() and arithmetic functions defined.",
+        "inherit": "Ordered, Numeric",
+        "specialization": [
+            "Integer",
+            "Integer64",
+            "Real",
+            "Double"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_ordered_numeric_class"
     },
     "PARTICIPATION": {
         "attributes": {
@@ -4528,9 +6017,15 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_person_class"
     },
-    "POINT_EVENT<T>": {
+    "POINT_EVENT": {
         "description": "Defines a single point event in a series.",
         "inherit": "EVENT",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_point_event_class"
+    },
+    "PROCEDURE<ARGS>": {
+        "description": "Type representing a procedure with 0 or more arguments represented as a TUPLE.",
+        "inherit": "ROUTINE",
         "type": "Class"
     },
     "PROPORTION_KIND": {
@@ -4548,6 +6043,48 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_proportion_kind_class"
     },
+    "Point_interval": {
+        "attributes": {
+            "lower_included": {
+                "description": "Lower boundary value included in range if not lower_unbounded.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "lower_unbounded": {
+                "description": "Lower boundary open (i.e. = -infinity).",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "upper_included": {
+                "description": "Upper boundary value included in range if not upper_unbounded.",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            },
+            "upper_unbounded": {
+                "description": "Upper boundary open (i.e. = +infinity).",
+                "existence": "1..1",
+                "type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "description": "Type representing an Interval that happens to be a point value. Provides an efficient representation that is substitutable for Interval<T> where needed.",
+        "inherit": "Interval",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_point_interval_class"
+    },
+    "Proper_interval": {
+        "description": "Type representing a 'proper' Interval, i.e. any two-sided or one-sided interval.",
+        "inherit": "Interval",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_proper_interval_class"
+    },
     "Quantity_converter": {
         "description": "Quantity conversion.",
         "functions": {
@@ -4563,7 +6100,7 @@ const glossary_data = {
         "type": "Interface",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_quantity_converter_interface"
     },
-    "REFERENCE_RANGE<T>": {
+    "REFERENCE_RANGE": {
         "attributes": {
             "meaning": {
                 "description": "Term whose value indicates the meaning of this range, e.g.  normal,  critical,  therapeutic  etc.",
@@ -4591,24 +6128,71 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_reference_range_class"
     },
     "RESOURCE_DESCRIPTION": {
         "attributes": {
+            "conversion_details": {
+                "description": "Details related to conversion process that generated this model from an original, if relevant, as a list of name/value pairs. Typical example with recommended tags:\n\n\n\nconversion_details = <\n    [\"source_model\"] = <\"CEM model xyz <http://location.in.clinicalelementmodels.com>\">\n    [\"tool\"] = <\"cem2adl v6.3.0\">\n    [\"time\"] = <\"2014-11-03T09:05:00\">\n>",
+                "existence": "0..1",
+                "type": [
+                    "Hash",
+                    "String",
+                    " String"
+                ]
+            },
+            "copyright": {
+                "description": "Optional copyright statement for the resource as a knowledge resource.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "custodian_namespace": {
+                "description": "Namespace in reverse internet id form, of current custodian organisation.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "custodian_organisation": {
+                "description": "Plain text name of current custodian organisation.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
             "details": {
                 "description": "Details of all parts of resource description that are natural language-dependent, keyed by language code.",
-                "existence": "1..1",
+                "existence": "0..1",
                 "type": [
                     "Hash",
                     "String",
                     "RESOURCE_DESCRIPTION_ITEM"
                 ]
             },
-            "lifecycle_state": {
-                "description": "Lifecycle state of the resource, typically including states such as: initial | submitted | experimental | awaiting_approval | approved | superseded | obsolete.",
-                "existence": "1..1",
+            "ip_acknowledgements": {
+                "description": "List of acknowledgements of other IP directly referenced in this archetype, typically terminology codes, ontology ids etc. Recommended keys are the widely known name or namespace for the IP source, as shown in the following example:\n\n\n\nip_acknowledgements = <\n    [\"loinc\"] = <\"This content from LOINC\u00ae is copyright \u00a9 1995 Regenstrief Institute, Inc. and the LOINC Committee, and available at no cost under the license at http://loinc.org/terms-of-use\">\n    [\"snomedct\"] = <\"Content from SNOMED CT\u00ae is copyright \u00a9 2007 IHTSDO <ihtsdo.org>\">\n>",
+                "existence": "0..1",
+                "type": [
+                    "Hash",
+                    "String",
+                    " String"
+                ]
+            },
+            "licence": {
+                "description": "Licence of current artefact, in format \"short licence name <URL of licence>\", e.g. \"Apache 2.0 License <http://www.apache.org/licenses/LICENSE-2.0.html>\"",
+                "existence": "0..1",
                 "type": [
                     "String"
+                ]
+            },
+            "lifecycle_state": {
+                "description": "Lifecycle state of the resource, typically including states such as: initial, in_development, in_review, published, superseded, obsolete.",
+                "existence": "1..1",
+                "type": [
+                    "Terminology_code"
                 ]
             },
             "original_author": {
@@ -4620,8 +6204,22 @@ const glossary_data = {
                     " String"
                 ]
             },
+            "original_namespace": {
+                "description": "Namespace of original author\u2019s organisation, in reverse internet form, if applicable.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "original_publisher": {
+                "description": "Plain text name of organisation that originally published this artefact, if any.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
             "other_contributors": {
-                "description": "Other contributors to the resource, probably listed in  'name <email>'  form.",
+                "description": "Other contributors to the resource, each listed in \"name <email>\"  form.",
                 "existence": "0..1",
                 "type": [
                     "List",
@@ -4629,7 +6227,7 @@ const glossary_data = {
                 ]
             },
             "other_details": {
-                "description": "Additional non language-senstive resource meta-data, as a list of name/value pairs.",
+                "description": "Additional non-language-sensitive resource meta-data, as a list of name/value pairs.",
                 "existence": "0..1",
                 "type": [
                     "Hash",
@@ -4642,6 +6240,15 @@ const glossary_data = {
                 "existence": "1..1",
                 "type": [
                     "AUTHORED_RESOURCE"
+                ]
+            },
+            "references": {
+                "description": "List of references of material on which this artefact is based, as a keyed list of strings. The keys should be in a standard citation format.",
+                "existence": "0..1",
+                "type": [
+                    "Hash",
+                    "String",
+                    " String"
                 ]
             },
             "resource_package_uri": {
@@ -4658,13 +6265,6 @@ const glossary_data = {
     },
     "RESOURCE_DESCRIPTION_ITEM": {
         "attributes": {
-            "copyright": {
-                "description": "Optional copyright statement for the resource as a knowledge resource.",
-                "existence": "0..1",
-                "type": [
-                    "String"
-                ]
-            },
             "keywords": {
                 "description": "Keywords which characterise this resource, used e.g. for indexing and searching.",
                 "existence": "0..1",
@@ -4674,10 +6274,10 @@ const glossary_data = {
                 ]
             },
             "language": {
-                "description": "The localised language in which the items in this description item are written. Coded from openEHR code set languages.",
+                "description": "The localised language in which the items in this description item are written. Coded using ISO 639-1 (2 character) language codes.",
                 "existence": "1..1",
                 "type": [
-                    "CODE_PHRASE"
+                    "Terminology_code"
                 ]
             },
             "misuse": {
@@ -4810,6 +6410,90 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_role_class"
     },
+    "ROUTINE<ARGS>": {
+        "description": "Type representing a function with a return type and 0 or more arguments represented as a TUPLE.",
+        "type": "Class"
+    },
+    "Real": {
+        "description": "Type used to represent decimal numbers. Corresponds to a single-precision floating point value in most languages.",
+        "functions": {
+            "add alias \"+\" (other: Real[1])": {
+                "description": "Real number addition.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "divide alias \"/\" (other: Real[1])": {
+                "description": "Real number division.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "exponent alias \"^\" (other: Double[1])": {
+                "description": "Real number exponentiation.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Double"
+                ]
+            },
+            "floor ()": {
+                "description": "Return the greatest integer no greater than the value of this object.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "is_equal (other: Real[1])": {
+                "description": "Value equality: return True if this and other are attached to objects considered to be equal in value.\n\n\nParameters\n\n\n\nother\n\n\nOther object for comparison.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: Real[1])": {
+                "description": "Returns True if current Real is less than other.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "multiply alias \"*\" (other: Real[1])": {
+                "description": "Real number multiplication.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "negative alias \"-\" ()": {
+                "description": "Generate negative of current Real value.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            },
+            "subtract alias \"-\" (other: Real[1])": {
+                "description": "Real number subtraction.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Real"
+                ]
+            }
+        },
+        "inherit": "Ordered_Numeric",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_real_class"
+    },
     "SECTION": {
         "attributes": {
             "items": {
@@ -4900,6 +6584,12 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_sync_extract_spec_class"
     },
+    "Set": {
+        "description": "Unordered container that may not contain duplicates.",
+        "inherit": "Container",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_set_class"
+    },
     "Statistical_evaluator": {
         "description": "A basic statistical evaluator class providing common functions on collections of numbers.",
         "functions": {
@@ -4978,6 +6668,62 @@ const glossary_data = {
         },
         "type": "Interface",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_statistical_evaluator_interface"
+    },
+    "String": {
+        "description": "Type representing minimal interface of built-in String type, as used to represent textual data in any natural or formal language.",
+        "functions": {
+            "append alias \"+\" (other: String[1])": {
+                "description": "Concatenation operator - causes other to be appended to this string.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "String"
+                ]
+            },
+            "as_integer ()": {
+                "description": "Return the integer corresponding to the integer value represented in this string.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Integer"
+                ]
+            },
+            "contains (other: String[1])": {
+                "description": "Return True if this String contains other (case-sensitive).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_empty ()": {
+                "description": "True if string is empty, i.e. equal to \"\".",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "is_integer ()": {
+                "description": "True if string can be parsed as an integer.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "less_than alias \"<\" (other: String[1])": {
+                "description": "Lexical comparison of string content based on ordering in relevant character set.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "inherit": "Ordered",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_string_class"
     },
     "TEMPLATE_ID": {
         "description": "Identifier for templates. Lexical form to be determined.",
@@ -5214,15 +6960,15 @@ const glossary_data = {
     },
     "TRANSLATION_DETAILS": {
         "attributes": {
-            "accreditaton": {
-                "description": "Accreditation of translator, usually a national translator\u2019s registration or association membership id.",
+            "accreditation": {
+                "description": "Accreditation of primary translator or group, usually a national translator\u2019s registration or association membership id.",
                 "existence": "0..1",
                 "type": [
                     "String"
                 ]
             },
             "author": {
-                "description": "Translator name and other demographic details.",
+                "description": "Primary translator name and other demographic details.",
                 "existence": "1..1",
                 "type": [
                     "Hash",
@@ -5231,10 +6977,18 @@ const glossary_data = {
                 ]
             },
             "language": {
-                "description": "Language of the translation.",
+                "description": "Language of the translation, coded using ISO 639-1 (2 character) language codes.",
                 "existence": "1..1",
                 "type": [
-                    "CODE_PHRASE"
+                    "Terminology_code"
+                ]
+            },
+            "other_contributors": {
+                "description": "Additional contributors to this translation, each listed in the preferred format of the relevant organisation for the artefacts in question. A typical default is \"name <email>\" if nothing else is specified.",
+                "existence": "0..1",
+                "type": [
+                    "List",
+                    "String"
                 ]
             },
             "other_details": {
@@ -5245,11 +6999,193 @@ const glossary_data = {
                     "String",
                     " String"
                 ]
+            },
+            "version_last_translated": {
+                "description": "Version of this resource last time it was translated into the language represented by this TRANSLATION_DETAILS object.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
             }
         },
         "description": "Class providing details of a natural language translation.",
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_translation_details_class"
+    },
+    "TUPLE": {
+        "description": "Parent type of all TUPLE types.",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_tuple_class"
+    },
+    "TUPLE1<A>": {
+        "description": "A Tuple type used, among other things, for representing a single typed argument within a Routine signature.",
+        "inherit": "TUPLE",
+        "type": "Class"
+    },
+    "TUPLE2<A,B>": {
+        "description": "A Tuple type used, among other things, for representing two typed arguments within a Routine signature.",
+        "inherit": "TUPLE",
+        "type": "Class"
+    },
+    "Temporal": {
+        "abstract": "true",
+        "description": "Abstract ancestor of time-related classes.",
+        "inherit": "Ordered",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_temporal_class"
+    },
+    "Terminology_code": {
+        "attributes": {
+            "code_string": {
+                "description": "A terminology code or post-coordinated code expression, if supported by the terminology. The code may refer to a single term, a value set consisting of multiple terms, or some other entity representable within the terminology.",
+                "existence": "1..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "terminology_id": {
+                "description": "The archetype environment namespace identifier used to identify a terminology. Typically a value like \"snomed_ct\" that is mapped elsewhere to the full URI identifying the terminology.",
+                "existence": "1..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "terminology_version": {
+                "description": "Optional string value representing terminology version, typically a date or dotted numeric.",
+                "existence": "0..1",
+                "type": [
+                    "String"
+                ]
+            },
+            "uri": {
+                "description": "The URI reference that may be used as a concrete key into a notional terminology service for queries that can obtain the term text, definition, and other associated elements.",
+                "existence": "0..1",
+                "type": [
+                    "Uri"
+                ]
+            }
+        },
+        "description": "Primitive type representing a standalone reference to a terminology concept, in the form of a terminology identifier, optional version, and a code or code string from the terminology.",
+        "inherit": "Any",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_terminology_code_class"
+    },
+    "Terminology_term": {
+        "attributes": {
+            "concept": {
+                "description": "Reference to the terminology concept formally representing this term.",
+                "existence": "1..1",
+                "type": [
+                    "Terminology_code"
+                ]
+            },
+            "text": {
+                "description": "Text of term.",
+                "existence": "1..1",
+                "type": [
+                    "String"
+                ]
+            }
+        },
+        "description": "Leaf type representing a standalone term from a terminology, which consists of the term text and the code, i.e. a concept reference.",
+        "inherit": "Any",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_terminology_term_class"
+    },
+    "Time_Definitions": {
+        "description": "Definitions for date/time classes. Note that the timezone limits are set by where the international dateline is. Thus, time in New Zealand is quoted using +12:00, not -12:00.",
+        "functions": {
+            "valid_day (y: Integer[1],m: Integer[1],d: Integer[1])": {
+                "description": "True if d >= 1 and d <= days_in_month (m, y).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_fractional_second (fs: Double[1])": {
+                "description": "True if fs >= 0.0 and fs < 1.0 .",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_hour (h: Integer[1],m: Integer[1],s: Integer[1])": {
+                "description": "True if (h >= 0 and h < Hours_in_day) or (h = Hours_in_day and m = 0 and s = 0) .",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_iso8601_date (s: String[1])": {
+                "description": "String is a valid ISO 8601 date, i.e. takes the complete form:\n\n\n\n\nYYYY-MM-DD (extended, preferred) or one of the partial forms YYYY-MM or YYYY\n\n\nYYYYMMDD (compact) or a partial variant YYYYMM.\n\n\n\n\nWhere:\n\n\n\n\nYYYY is the string form of any positive number in the range 0000 - 9999 (zero-filled to four digits)\n\n\nMM is 01 - 12 (zero-filled to two digits)\n\n\nDD is 01 - 31 (zero-filled to two digits)\n\n\n\n\nThe combinations of YYYY, MM, DD numbers must be correct with respect to the Gregorian calendar.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_iso8601_date_time (s: String[1])": {
+                "description": "String is a valid ISO 8601 date-time, i.e. takes the form:\n\n\n\n\nYYYY-MM-DDThh:mm:ss[(,|.)s+][Z|\u00b1hh[:mm]] (extended)\n\n\nYYYYMMDDThhmmss[(,|.)s+][Z|\u00b1hh[mm]] (compact)\n\n\nor one of the partial forms:\n\n\n\nYYYY-MM-DDThh:mm or YYYY-MM-DDThh (extended)\n\n\nYYYYMMDDThhmm or YYYYMMDDThh (compact)",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_iso8601_duration (s: String[1])": {
+                "description": "String is a valid ISO 8601 duration, i.e. takes the form:\n\n\n\n\nP[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]]\n\n\n\n\nWhere each nn represents a number of years, months, etc. nnW represents a number of 7-day weeks.\n\n\nNote: allowing the W designator in the same expression as other designators is an exception to the published standard, but necessary in clinical information (typically for representing pregnancy duration).\n\n\nParameters\n\n\n\ns\n\n\nString is a valid ISO 8601 duration, i.e. takes the form:\n\n\n\nP[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]]\n\n\n\n\n\n\n\n\nWhere each nn represents a number of years, months, etc. nnW represents a number of 7- day weeks.\n\n\n\n\n\nNote\n\n\nallowing the W designator in the same expression as other designators is an exception to the published standard, but necessary in clinical information (typically for representing pregnancy duration).",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_iso8601_time (s: String[1])": {
+                "description": "String is a valid ISO 8601 date, i.e. takes the form:\n\n\n\n\nhh:mm:ss[(,|.)s+][Z|\u00b1hh[:mm]] (extended)\n\n\nhhmmss[(,|.)s+][Z|\u00b1hh[mm]] (compact)\n\n\nor one of the partial forms:\n\n\n\nhh:mm (extended)\n\n\nhhmm or hh (compact)\n\n\n\n\n\n\n\nwith an additional optional timezone indicator of:\n\n\n\n\nZ or \u00b1hh[:mm] (extended)  \u00b1hh[mm] (compact)\n\n\n\n\nWhere:\n\n\n\n\nhh is \"00\" - \"23\" (0-filled to two digits)\n\n\nmm is \"00\" - \"59\" (0-filled to two digits)\n\n\nss is \"00\" - \"60\" (0-filled to two digits)\n\n\n[(,|.)s+] is an optional string consisting of a comma or decimal point followed by numeric string of 1 or more digits, representing a fractional second\n\n\nZ is a literal meaning UTC (modern replacement for GMT), i.e. timezone +0000",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_minute (m: Integer[1])": {
+                "description": "True if m >= 0 and m < Minutes_in_hour.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_month (m: Integer[1])": {
+                "description": "True if m >= 1 and m <= months_in_year.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_second (s: Integer[1])": {
+                "description": "True if s >= 0 and s < Seconds_in_minute .",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            },
+            "valid_year (y: Integer[1])": {
+                "description": "True if y >= 0.",
+                "existence": "1..1",
+                "prerequisite": "",
+                "return_type": [
+                    "Boolean"
+                ]
+            }
+        },
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_time_definitions_class"
     },
     "UID": {
         "abstract": "true",
@@ -5314,13 +7250,19 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_uuid_class"
     },
+    "Uri": {
+        "description": "A kind of String constrained to obey the syntax of RFC 3986.",
+        "inherit": "String",
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_uri_class"
+    },
     "VALIDITY_KIND": {
         "attributes": {},
         "description": "An enumeration of three values that may commonly occur in constraint models.\n\n\nUse as the type of any attribute within this model, which expresses constraint on some attribute in a class in a reference model. For example to indicate validity\nof Date/Time fields.",
         "type": "Enumeration",
         "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_validity_kind_enumeration"
     },
-    "VERSION<T>": {
+    "VERSION": {
         "abstract": "true",
         "attributes": {
             "commit_audit": {
@@ -5404,7 +7346,12 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "specialization": [
+            "ORIGINAL_VERSION",
+            "IMPORTED_VERSION"
+        ],
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_version_class"
     },
     "VERSIONED_COMPOSITION": {
         "description": "Version-controlled composition abstraction, defined by inheriting VERSIONED_OBJECT<COMPOSITION>.",
@@ -5440,7 +7387,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/common.html#_versioned_folder_class"
     },
-    "VERSIONED_OBJECT<T>": {
+    "VERSIONED_OBJECT": {
         "attributes": {
             "owner_id": {
                 "description": "Reference to object to which this version container belongs, e.g. the id of the containing EHR or other relevant owning entity.",
@@ -5597,7 +7544,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_versioned_object_class"
     },
     "VERSIONED_PARTY": {
         "description": "Static type formed by binding generic parameter of VERSIONED_OBJECT<T> to PARTY.",
@@ -5712,7 +7660,7 @@ const glossary_data = {
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_folder_class"
     },
-    "X_VERSIONED_OBJECT<T>": {
+    "X_VERSIONED_OBJECT": {
         "attributes": {
             "extract_version_count": {
                 "description": "The number of Versions in this extract for this Versioned object, i.e. the count of items in the versions attribute. May be 0 if only revision history is requested.",
@@ -5766,7 +7714,8 @@ const glossary_data = {
             }
         },
         "description": "Variety of Extract content that consists is a sharable data-oriented version of VERSIONED_OBJECT<T>.",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_object_class"
     },
     "X_VERSIONED_PARTY": {
         "description": "Form of X_VERSIONED_OBJECT for PARTY demographic object.",
