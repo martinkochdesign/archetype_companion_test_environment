@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archetype Companion</title>
     <link rel="icon" type="image/x-icon" href="images/icon.png">
-    
+
     <!-- BoxIcons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--Excel library-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!--D3 library-->
     <!--<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>-->
-    <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script> 
-      <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-   
+
 
     <div id="loading_page" aria-busy="true" aria-label="Loading">
         <div class="loader"></div>
@@ -89,7 +89,7 @@
 
     <div id="main">
 
-         
+
 
         <!-- ADD ALL WINDOWS HERE -->
 
@@ -125,9 +125,9 @@
                 style="position:absolute; top: 175px; left:0px; cursor: pointer;" title="Open search">
 
 
-            <img src="images/new_archetypes_list.png" alt="New archetypes" width="28"
+            <img src="images/new_archetypes_list.png" alt="New archetype placeholders" width="28"
                 onclick="show_new_archetype_list()" style="position:absolute;top: 225px; right:3px; cursor: pointer;"
-                title="Open New archetype list">
+                title="Open archetype placeholder list">
 
 
             <img src="images/1F333_color.png" alt="Template planner" width="30" onclick="show_template_planner()"
@@ -211,7 +211,7 @@
         ">
             <div class="header">
                 <span></span>
-                <span>New archetypes</span>
+                <span>New archetype placeholders</span>
                 <span style="cursor: pointer; margin-right: 5px" onclick="minimize(this)">🗙</span>
             </div>
             <div class="resize-handle top"></div>
@@ -219,12 +219,13 @@
             <div class="resize-handle bottom"></div>
             <div class="resize-handle left"></div>
 
-            <img src="images/new_archetype.png" alt="New archetype" height="25" onclick="createNewArchetype()"
-                style="position:absolute; top: 25px; right:20px; cursor: pointer;" title="Create new archetype">
+            <img src="images/new_archetype.png" alt="New archetype placeholder" height="25"
+                onclick="createNewArchetype()" style="position:absolute; top: 25px; right:20px; cursor: pointer;"
+                title="Create new archetype placeholder">
 
             <img src="images/remove_archetype.png" alt="Delete archetype" height="25"
                 onclick="deleteNewArchetype(event)" style="position:absolute; top: 65px; right:20px; cursor: pointer;"
-                title="Delete new archetype" id="delete_new_archetype_button">
+                title="Delete archetype placeholder" id="delete_new_archetype_button">
 
             <div id="collection_list">
                 <ul id="archetype_collection_list">
@@ -251,10 +252,14 @@
             <div class="resize-handle left"></div>
 
 
-            
-            <img src="images/back_in_time.png" alt="Undo" height="25" 
-                style="position:absolute; top: 30px; left:10px; cursor: pointer; z-index: 2;"
-            title="Go back in history" onclick="oneStepBackInHistory()" id="visualization_back_btn">
+
+            <img src="images/back_in_time.png" alt="Undo" height="25"
+                style="position:absolute; top: 30px; left:10px; cursor: pointer; z-index: 2;" title="Go back in history"
+                onclick="oneStepBackInHistory()" id="visualization_back_btn">
+            <div style="position:absolute; top: 33px; left:35px; z-index: 2; font-size: 9pt; color:#bbb;" id="lastArchetypeLabel">
+                    the last archetype
+            </div>            
+
 
             <img src="images/1F4F7_color.png" alt="Save image" height="35" onclick="downloadSVG('network')"
                 style="position:absolute; bottom: 60px; right:10px; cursor: pointer; z-index: 2;"
@@ -266,7 +271,8 @@
 
 
             <div id="visualization">
-                <select id="select_vis_view" style="border-radius:5px; padding:3px;" onchange="updateLists();resetZoom();">
+                <select id="select_vis_view" style="border-radius:5px; padding:3px;"
+                    onchange="updateLists();resetZoom();">
                     <option value="ARCHETYPE" selected>Archetype</option>
                     <option value="ARCHETYPEMINDMAP">Archetype Structure</option>
                     <option value="SIMILAR">Similar</option>
@@ -302,7 +308,7 @@
             <div class="resize-handle left"></div>
 
             <img src="images/270F_color.png" alt="Edit" height="35" onclick="show_new_archetype_editor()"
-                style="position:absolute; top: 30px; right:20px; cursor: pointer;" title="Edit new archetype"
+                style="position:absolute; top: 30px; right:20px; cursor: pointer;" title="Edit archetype placeholder"
                 id="new_archetype_edit_button">
 
             <img src="images/star_add.png" alt="Add to collection" height="25" onclick="addArchetypeToCollection()"
@@ -366,8 +372,10 @@
             <div class="resize-handle bottom"></div>
             <div class="resize-handle left"></div>
 
-            <div id="template_planner_container">
+            <!--<div id="template_planner_container">
                 <button id="toggleAllBtn" onclick="toggleAllArchetypeNodes()" >Collapse All</button>
+                <label id="checkBoxAutofill" class="checkboxLabel" style="position:relative;right:0px;"><input type="checkbox" id="promptAutofillTemplatePlanner"
+                            checked />prompt archetype autofill</label>
 
                 <img src="images/1F5D1_color.png" alt="?" height="40" onclick="clearArchetypeTree()"
                     style="position:absolute; bottom: 20px; right:20px; cursor: pointer;" title="Delete Archetype Tree">
@@ -376,6 +384,22 @@
                 <pre id="result"></pre>
                 <div id="tree-container"></div>
 
+            </div>-->
+            <div id="template_planner_container">
+                <div class="top-bar">
+                    <button id="toggleAllBtn" onclick="toggleAllArchetypeNodes()">Collapse All</button>
+                    <label id="checkBoxAutofill" class="checkboxLabel">
+                        <input type="checkbox" id="promptAutofillTemplatePlanner" checked />
+                        Prompt archetype autofill
+                    </label>
+                </div>
+
+                <img src="images/1F5D1_color.png" alt="?" height="40" onclick="clearArchetypeTree()"
+                    style="position:absolute; bottom: 20px; right:20px; cursor: pointer;" title="Delete Archetype Tree">
+
+                <div id="template_planner"></div>
+                <pre id="result"></pre>
+                <div id="tree-container"></div>
             </div>
         </div>
 
@@ -423,14 +447,15 @@
                     style="position:absolute; bottom: 20px; right:20px; cursor: pointer;" title="Delete Checklist">
 
                 <div id="checklistSectionButton">
-                   <!--
+                    <!--
                     <span style="display:flex;align-items: center;">
                         <img src="images/add.png" alt="Add" height="14" title="Add section" onclick="addSection()"
                             style="cursor:pointer;">&nbsp;Add section
                     </span>
                     -->
 
-                    <button id="toggleAllSectionsBtn" onclick="toggleAllSections()" style="position:absolute; top: 22px; right: 70px;">Collapse All</button>
+                    <button id="toggleAllSectionsBtn" onclick="toggleAllSections()"
+                        style="position:absolute; top: 22px; right: 70px;">Collapse All</button>
 
                 </div>
 
@@ -468,8 +493,8 @@
                     </label>
 
 
-                    <input type="text" id="searchInput" placeholder="Filter existing archetypes..."
-                        autocomplete="off" onchange="this.value=this.value.trim();"/>
+                    <input type="text" id="searchInput" placeholder="Filter existing archetypes..." autocomplete="off"
+                        onchange="this.value=this.value.trim();" />
 
                     <div class="tooltip" id="tooltip_searchbar"><strong>?</strong></div>
 
@@ -485,8 +510,8 @@
                 <div id="filter_section">
                     <label id="checkBoxID" class="checkboxLabel"><input type="checkbox" id="includeID"
                             checked />ID</label>
-                    <label id="checkBoxName" class="checkboxLabel"><input type="checkbox"
-                            id="includeName" checked />Name</label>
+                    <label id="checkBoxName" class="checkboxLabel"><input type="checkbox" id="includeName"
+                            checked />Name</label>
                     <label id="checkBoxPurpose" class="checkboxLabel"><input type="checkbox"
                             id="includePurpose" />Purpose</label>
                     <label id="checkBoxUse" class="checkboxLabel"><input type="checkbox" id="includeUse" />Use</label>
@@ -501,7 +526,8 @@
             </div>
 
             <div id="filter_section_2">
-                <select id="filter_class" style="border-radius:5px; margin-left:5px; margin-bottom:5px;margin-top:0px;" onchange="updateLists()">
+                <select id="filter_class" style="border-radius:5px; margin-left:5px; margin-bottom:5px;margin-top:0px;"
+                    onchange="updateLists()">
                     <option value="" selected>-- Select class --</option>
                 </select>
             </div>
@@ -542,7 +568,7 @@
         ">
             <div class="header">
                 <span></span>
-                <span>New archetype editor</span>
+                <span>New archetype placeholder editor</span>
                 <span style="cursor: pointer; margin-right: 5px" onclick="minimize(this)">🗙</span>
             </div>
             <div class="resize-handle top"></div>
@@ -555,11 +581,12 @@
 
                 <div id="new_archetype_parameters">
                     <label><strong>Concept name:</strong></label><br>
-                    <input type="text" id="new_archetype_concept_name" onchange="this.value=this.value.trim();setNewNodeData()"
-                        autocomplete="off" /><br>
+                    <input type="text" id="new_archetype_concept_name"
+                        onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" /><br>
 
                     <label><strong>Archetype ID:</strong></label><br>
-                    <input type="text" id="new_archetype_id" onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" disabled/><br>
+                    <input type="text" id="new_archetype_id" onchange="this.value=this.value.trim();setNewNodeData()"
+                        autocomplete="off" disabled /><br>
 
                     <label><strong>UUID: </strong></label><span id="new_archetype_uuid"></span><br>
 
@@ -577,10 +604,12 @@
                     </select><br>
 
                     <label><strong>Purpose:</strong></label><br>
-                    <textarea id="new_archetype_purpose" oninput="" onchange="this.value=this.value.trim();setNewNodeData() "></textarea><br>
+                    <textarea id="new_archetype_purpose" oninput=""
+                        onchange="this.value=this.value.trim();setNewNodeData() "></textarea><br>
 
                     <label><strong>Keywords:</strong></label><br>
-                    <input type="text" id="new_archetype_keywords" onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" /><br>
+                    <input type="text" id="new_archetype_keywords"
+                        onchange="this.value=this.value.trim();setNewNodeData()" autocomplete="off" /><br>
                     <hr>
                     <label><strong>Assigned elements:</strong></label>
                     <div id="assigned_elements_container">
@@ -591,8 +620,10 @@
 
                     <label><strong>Included archetypes:</strong></label><br>
                     <div id="new_archetype_inclusions_container">
-                        
-                        <input list="myArchetypeCollectionOptions" type="search" id="new_archetype_listArchetypes" name="myInputNewArchetypeInclusion" placeholder="-- Select archetype --" autocomplete="off"/>
+
+                        <input list="myArchetypeCollectionOptions" type="search" id="new_archetype_listArchetypes"
+                            name="myInputNewArchetypeInclusion" placeholder="-- Select archetype --"
+                            autocomplete="off" />
 
                         <!--
                         <select id="new_archetype_listArchetypes">
@@ -657,20 +688,23 @@
 
 
                 <label><strong>Project name: </strong></label><span style="color:red;">*</span><br>
-                <input type="text" id="project_name" autocomplete="off" onchange="this.value=this.value.trim();"/><br>
+                <input type="text" id="project_name" autocomplete="off" onchange="this.value=this.value.trim();" /><br>
 
                 <label><strong>Description:</strong></label><br>
                 <textarea id="project_description" placeholder="Type your description here..."></textarea><br>
 
                 <label><strong>Author: </strong></label><br>
-                <input type="text" id="project_author" autocomplete="off" onchange="this.value=this.value.trim();"/><br>
+                <input type="text" id="project_author" autocomplete="off"
+                    onchange="this.value=this.value.trim();" /><br>
 
                 <label><strong>Author contact: </strong></label><br>
-                <input type="text" id="project_contact" autocomplete="off" onchange="this.value=this.value.trim();"/><br>
+                <input type="text" id="project_contact" autocomplete="off"
+                    onchange="this.value=this.value.trim();" /><br>
 
 
                 <label><strong>Copyright: </strong></label><br>
-                <input type="text" id="project_copyright" autocomplete="off" onchange="this.value=this.value.trim();"/><br>
+                <input type="text" id="project_copyright" autocomplete="off"
+                    onchange="this.value=this.value.trim();" /><br>
 
                 <div style="display: flex; justify-content: left; margin-top: 10px;">
                     <label style="display: flex; align-items: left;">
@@ -756,7 +790,15 @@
                                 href="https://creativecommons.org/licenses/by-sa/4.0/#" rel="nofollow">CC BY-SA 4.0</a>)
                         </dd>
                     </dl>
-                    This tool was developed as part of the <strong>openEHR 2025/26 Fellowship Programme</strong>.
+                    This tool was developed as part of the <strong>openEHR 2025/26 Fellowship Programme</strong>
+                    <p><strong>Disclaimer: </strong>This application is provided "as is" without any warranties, express
+                        or implied. By using this application, you acknowledge and agree that you do so at your own
+                        risk. The developers and authors of this application shall not be held liable for any direct,
+                        indirect, incidental, special, or consequential damages arising out of or in connection with the
+                        use or inability to use this application, even if advised of the possibility of such damages.
+                        Users are solely responsible for any decisions or actions taken based on the information
+                        provided by this tool.</p>
+
                 </section>
 
                 <section class="about-section">
@@ -765,10 +807,12 @@
                     <span id="data_source_about"></span>
                     <div class="about-disclaimer">
                         <strong>Disclaimer:</strong>
-                        The openEHR archetype information in this tool is extracted automatically from external sources
-                        (such as CKM) and provided for convenience only. Accuracy, completeness, or currency of the data
-                        is not guaranteed. For authoritative information, consult the original archetype source as
-                        stated within the tool.
+                        The information about openEHR archetypes presented in this tool has been extracted automatically
+                        from external sources (such as CKM) and is provided for convenience only. We do not guarantee
+                        the accuracy, completeness, or correctness of the extracted data, nor do we claim that it is up
+                        to date. This tool does not assert or imply any copyright ownership over the archetypes
+                        themselves. For authoritative information regarding authorship, copyright, and licensing, users
+                        are strongly advised to consult the original archetype source as stated within the tool.
                     </div>
                 </section>
 
@@ -812,7 +856,8 @@
             <div class="resize-handle left"></div>
 
             <img src="images/back_in_time.png" alt="Back" height="35"
-                style="position:absolute; top: 30px; right:5px; cursor: pointer;" title="Back" id="HistoryBackButton" onclick="oneStepBackInHistory()">
+                style="position:absolute; top: 30px; right:5px; cursor: pointer;" title="Back" id="HistoryBackButton"
+                onclick="oneStepBackInHistory()">
 
             <img src="images/delete_history.png" alt="Clear" height="35"
                 style="position:absolute; top: 80px; right:5px; cursor: pointer;" onclick="clearVisitedHistory()"
@@ -857,12 +902,13 @@
         <div class="resize-handle bottom"></div>
         <div class="resize-handle left"></div>
 
-        <div class="splash-content" style="padding: 24px; height:calc(100% - 45px); overflow-y: auto; font-family: inherit; background: #f8fafc;">
+        <div class="splash-content"
+            style="padding: 24px; height:calc(100% - 45px); overflow-y: auto; font-family: inherit; background: #f8fafc;">
             <!-- Welcome Graphic -->
             <!--<div style="display: flex; justify-content: center; margin-bottom: 16px;">
                 <img src="welcome_icon.svg" alt="Welcome" style="height: 64px; width: 64px;">
             </div>-->
-        
+
             <h2 style="text-align: center; color: #2a4d69;">Welcome to the openEHR Archetype Companion</h2>
             <p style="text-align: center; font-size: 0.97em; color: #2a4d69; margin-bottom: 0px;">
                 New here? Start with the manual or see the quick start steps below!
@@ -887,7 +933,7 @@
                 </a>
             </div>
 
-        
+
             <!-- Quick Start / Tips Section -->
             <div style="
                 background-color:rgb(191, 235, 255); 
@@ -899,20 +945,28 @@
                 margin-left: auto;
                 margin-right: auto;
             ">
-                <h3 style="margin-top: 0; color: #2a4d69; font-size: 1em; text-align: center;">Quick Start <span style=" font-size: 0.85em;">(📺 See videos <a href="manual.html#video-tutorials" target="_blank" rel="noopener noreferrer">here</a>!📺)</span></h3>
+                <h3 style="margin-top: 0; color: #2a4d69; font-size: 1em; text-align: center;">Quick Start <span
+                        style=" font-size: 0.85em;">(📺 See videos <a href="manual.html#video-tutorials" target="_blank"
+                            rel="noopener noreferrer">here</a>!📺)</span></h3>
                 <ul style="margin: 0px 18px 0px 18px; padding: 0; color: #2a4d69;">
-                    <li class="notselectable" style="font-size: 14px;">🗂️ <strong>Create or open a project</strong> to begin modelling.</li>
-                    <li class="notselectable" style="font-size: 14px;">📝 <strong>Use the checklist</strong> to track your modelling progress.</li>
-                    <li class="notselectable" style="font-size: 14px;">🔍 <strong>Browse archetypes</strong> and add them to your collection.</li>
-                    <li class="notselectable" style="font-size: 14px;">📝 <strong>Assign archetypes</strong> to your checklist elements.</li>
-                    <li class="notselectable" style="font-size: 14px;">🌳 <strong>Plan an archetype hierarchy</strong> for your next steps in modelling.</li>                    
+                    <li class="notselectable" style="font-size: 14px;">🗂️ <strong>Create or open a project</strong> to
+                        begin modelling.</li>
+                    <li class="notselectable" style="font-size: 14px;">📝 <strong>Use the checklist</strong> to track
+                        your modelling progress.</li>
+                    <li class="notselectable" style="font-size: 14px;">🔍 <strong>Browse archetypes</strong> and add
+                        them to your collection.</li>
+                    <li class="notselectable" style="font-size: 14px;">📝 <strong>Assign archetypes</strong> to your
+                        checklist elements.</li>
+                    <li class="notselectable" style="font-size: 14px;">🌳 <strong>Plan an archetype hierarchy</strong>
+                        for your next steps in modelling.</li>
                 </ul>
             </div>
-        
+
             <p style="text-align: center; font-size: 0.85em; color: #3d3d3d;">
-                Developed as part of the <strong>openEHR 2025/26 Fellowship Programme</strong> to support the design and management of clinical knowledge models.
+                Developed as part of the <strong>openEHR 2025/26 Fellowship Programme</strong> to support the design and
+                management of clinical knowledge models.
             </p>
-        
+
             <!-- Collapsible Disclaimer Section -->
             <details style="margin-top: 18px; margin-bottom: 8px; border:none;">
                 <summary style="font-size: 0.85em; color: #666; cursor: pointer;">
@@ -920,18 +974,30 @@
                 </summary>
                 <div style="font-size: 0.85em; color: #666; margin-top: 8px;">
                     <p>
-                        <strong>Disclaimer:</strong> The archetype data is extracted automatically from external sources (e.g., CKM) for convenience. Accuracy and completeness are not guaranteed. For authoritative information, consult the original sources.
+                        <strong>Disclaimer:</strong> The information about openEHR archetypes presented in this tool has
+                        been extracted automatically from external sources (such as CKM) and is provided for convenience
+                        only. We do not guarantee the accuracy, completeness, or correctness of the extracted data, nor
+                        do we claim that it is up to date. This tool does not assert or imply any copyright ownership
+                        over the archetypes themselves. For authoritative information regarding authorship, copyright,
+                        and licensing, users are strongly advised to consult the original archetype source as stated
+                        within the tool.
                     </p>
                     <p>
-                        This application is provided "as is" without any warranties, express or implied. By using this application, you acknowledge and agree that you do so at your own risk. The developers and authors of this application shall not be held liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with the use or inability to use this application, even if advised of the possibility of such damages. Users are solely responsible for any decisions or actions taken based on the information provided by this tool.
+                        This application is provided "as is" without any warranties, express or implied. By using this
+                        application, you acknowledge and agree that you do so at your own risk. The developers and
+                        authors of this application shall not be held liable for any direct, indirect, incidental,
+                        special, or consequential damages arising out of or in connection with the use or inability to
+                        use this application, even if advised of the possibility of such damages. Users are solely
+                        responsible for any decisions or actions taken based on the information provided by this tool.
                     </p>
                 </div>
             </details>
-        
+
             <!-- Do not show again -->
             <div style="display: flex; justify-content: center; margin-top: 18px;">
                 <label style="display: flex; align-items: center;">
-                    <input type="checkbox" id="dont_show_splash" style="margin-right: 8px;" onchange="createProjectFile()">
+                    <input type="checkbox" id="dont_show_splash" style="margin-right: 8px;"
+                        onchange="createProjectFile()">
                     Do not show this screen on start
                 </label>
             </div>
@@ -1021,7 +1087,8 @@
         <div class="glossary_container" id="glossaryContainer">
             <div class="glossary_sidebar">
                 <div class="glossary_search_bar">
-                    <input type="text" id="glossary_searchInput" placeholder="Search classes..." autocomplete="off" onchange="this.value=this.value.trim();">
+                    <input type="text" id="glossary_searchInput" placeholder="Search classes..." autocomplete="off"
+                        onchange="this.value=this.value.trim();">
                     <div class="search-options">
                         <small style="color:black;">
                             <span>Include:</span><br>
@@ -1043,7 +1110,7 @@
                     Select a class from the left to view details.
                     <em>
                         <p>
-                            <span id="glossary_extraction_date" ></span>
+                            <span id="glossary_extraction_date"></span>
 
                             <br><br>
 
@@ -1053,8 +1120,11 @@
 
 
                             <span style="display: block; margin-left: 1em;">
-                                <a
-                                    href="https://specifications.openehr.org/releases/BASE/latest/base_types.html">BASE
+                                <a href="https://specifications.openehr.org/releases/BASE/latest/resource.html">BASE
+                                    Resource</a><br>
+                                <a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html">BASE
+                                    Foundation</a><br>
+                                <a href="https://specifications.openehr.org/releases/BASE/latest/base_types.html">BASE
                                     Types</a><br>
                                 <a href="https://specifications.openehr.org/releases/RM/latest/common.html">Reference
                                     Model: Common</a><br>
@@ -1102,7 +1172,7 @@
     <script src="dataset.js"></script>
     <script src="index.js"></script>
     <script src="glossary_data.js"></script>
-    <script src="glossary_functions.js"></script>  
+    <script src="glossary_functions.js"></script>
 
 </body>
 

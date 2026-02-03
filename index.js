@@ -1,5 +1,6 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.68.0-beta';
+const version = '0.69.0-beta';
+
 
 let newNodes = []
 
@@ -87,7 +88,7 @@ let circles = svg
   .attr('stroke', (node) => node.stroke || 'transparent')
   .attr('r', (node) => node.size || 10)
   .on("click", (event, d) => {
-    focusNode(d.id);
+      focusNode(d.id);
   });
 
 
@@ -146,6 +147,7 @@ function updateHeaderGradientForHoliday() {
   let color = 'black';
 
   wholeProject.color_theme_changes = document.getElementById('apply_theme_changes').checked;
+  
 
   if (!wholeProject.color_theme_changes) {
     //apply standard colors
@@ -713,8 +715,11 @@ function updateLists() {
 
     if (lastIds.length > 1 && (document.getElementById('select_vis_view').value=='ARCHETYPE' || document.getElementById('select_vis_view').value=='ARCHETYPEMINDMAP')) {
       document.getElementById('visualization_back_btn').style.display = 'inline';
+      document.getElementById('lastArchetypeLabel').style.display = 'inline';
+      document.getElementById('lastArchetypeLabel').innerText = lastIds[lastIds.length-2];
     } else {
       document.getElementById('visualization_back_btn').style.display = 'none';
+      document.getElementById('lastArchetypeLabel').style.display = 'none';
     }
 
   }
@@ -1539,7 +1544,7 @@ function onArchetypeChange(input, i, j) {
   let archetype = value;
   // Find the matching option in the datalist
   for (const option of datalist.options) {
-    if (option.value === value) {
+    if (option.textContent === value) {
       archetype_id = option.textContent || '';
       break;
     }
@@ -1612,7 +1617,7 @@ function renderEditor() {
 
 
               <span class="combo-wrapper">
-              <input node_input_type="checklist_archetype_input" type="search" list="" data-datalist-id="myArchetypeCollectionOptions_${i}_${j}" id="myInput${i}_${j}" name="myInput${i}_${j}" class="checklisttextinput_element mySelect combo-input" placeholder="Select archetype from collection" value="${el.archetype_id || ''}"  node_i="${i}" node_j="${j}" autocomplete="off"/> 
+              <input node_input_type="checklist_archetype_input" type="text" list="" data-datalist-id="myArchetypeCollectionOptions_${i}_${j}" id="myInput${i}_${j}" name="myInput${i}_${j}" class="checklisttextinput_element mySelect combo-input" placeholder="Select archetype from collection" value="${el.archetype_id || ''}"  node_i="${i}" node_j="${j}" autocomplete="off"/> 
               
               <button type="button" class="input_clear_button" aria-label="Clear">&times;</button>
      
@@ -1860,7 +1865,7 @@ function createNewArchetypeObject() {
     "keywords": [],
     "include": [],
     "exclude": [],
-    "concept_name": document.getElementById('new_archetype_id').value,
+    "concept_name": document.getElementById('new_archetype_concept_name').value,
     "concept_description": "",
     "items": [],
     "parent": "",
@@ -2191,20 +2196,37 @@ function createNewArchetype() {
       allArchetypeNames.push(item.textContent);
     })
 
-  let baseTitle = "A New Archetype";
+  function createArchetypeId(title){
+    return 'openEHR-EHR-CLASS-' + title.trim()
+    // normalize accents: "Körpertemperatur" -> "Korpertemperatur"
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    // spaces and hyphens to underscore
+    .replace(/[\s-]+/g, '_')
+    // remove all characters that are not a-z, 0-9 or underscore
+    .replace(/[^a-z0-9_]/g, '')
+    // collapse multiple underscores
+    .replace(/_+/g, '_')
+    // trim leading/trailing underscores
+    .replace(/^_+|_+$/g, '')
+    // enforce max length if you like
+    .slice(0, 100) + '_v0';
+  }
+
+  let baseTitle = "A New Archetype Placeholder";
   let title = baseTitle;
   let counter = 1;
   const existingTitles = new Set(allArchetypeNames.map(a => a));
-  while (existingTitles.has(title)) {
+  while (existingTitles.has(createArchetypeId(title))) {
     title = `${baseTitle} (${counter++})`;
   }
 
   //add name to the archetype id field
-  document.getElementById('new_archetype_id').value = title;
+  document.getElementById('new_archetype_id').value = createArchetypeId(title);
 
   //CLEAR ALL OTHER FIELDS!
   document.getElementById('new_archetype_uuid').value = '';
-  document.getElementById('new_archetype_concept_name').value = '';
+  document.getElementById('new_archetype_concept_name').value = title;
   document.getElementById('new_archetype_class').value = '';
   document.getElementById('new_archetype_keywords').value = '';
   document.getElementById('new_archetype_purpose').value = '';
@@ -2304,6 +2326,8 @@ function createProjectFile() {
     document.getElementById('dont_show_splash2').checked = document.getElementById('dont_show_splash').checked
 
     wholeProject.color_theme_changes = document.getElementById('apply_theme_changes').checked;
+    wholeProject.autofill_archetype_elements = document.getElementById('promptAutofillTemplatePlanner').checked;
+
     wholeProject.archetype_tree_data = archetypeTree;
   }
 }
@@ -2385,6 +2409,8 @@ function populateProject() {
   document.getElementById('dont_show_splash2').checked = document.getElementById('dont_show_splash').checked;
 
   document.getElementById('apply_theme_changes').checked = wholeProject.color_theme_changes;
+  document.getElementById('promptAutofillTemplatePlanner').checked = wholeProject.autofill_archetype_elements;
+
   newNodes = wholeProject.new_nodes;
   if (wholeProject.archetype_tree_data) {
     archetypeTree = wholeProject.archetype_tree_data;
@@ -2680,10 +2706,14 @@ function redraw() {
     .attr('fill', (node) => node.color)
     .attr('r', (node) => node.size || 10)
     .attr('stroke-width', 3)
-    .attr('stroke', (node) => node.stroke || 'transparent')
+    .attr('stroke', (node) => node.stroke || 'transparent')  
     .on("click", (event, d) => {
+    if (document.getElementById('select_vis_view').value === 'TREEPLANNER') {
+      focusNode(d.secondary_text);
+    }else{
       focusNode(d.id);
-      updateLists();
+    }
+    updateLists();
     });
 
   // Rebind data to text
@@ -2727,7 +2757,7 @@ function getConnectedNodesforNewNode(nodeId) {
 
   if (sel_view === 'ARCHETYPEMINDMAP') {
     //get selected item from newNode array
-    selected = allNodes.find(n => n.id === nodeId);
+    selected = newNodes.find(n => n.id === nodeId);
     selected.color = 'red';
     selected.size = 10;
     selected.stroke = 'black';
@@ -2808,10 +2838,18 @@ function getConnectedNodes(nodeId) {
       posX+=150;
       // null or primitive → endpoint
       if (p === null || typeof p !== "object") {
+        let endpointtext1 = p;
+        let endpointtext2 = '';
+        if (p.includes("||")) {
+            const parts = p.split("||");
+            endpointtext2 = parts[0];
+            endpointtext1  = parts[1] ?? ""; // empty string (or null) if there's no "after" part
+        }
         //CREATE A VALUE NODE
         tempNode = {};
         tempNode.id = uuidv4();
-        tempNode.archetype_id = p;
+        tempNode.archetype_id = endpointtext1;
+        tempNode.secondary_text = endpointtext2;
         tempNode.color = 'hotpink';
         tempNode.size = 13;
         tempNode.stroke = 'transparent';
@@ -2827,7 +2865,6 @@ function getConnectedNodes(nodeId) {
                 'marker_start': 'None',
                 'marker_end': 'None'
               });
-        console.log('Endpoint:', path.join('.'), 'Value:', p);
         return true;
       }
       
@@ -2848,11 +2885,10 @@ function getConnectedNodes(nodeId) {
       const keys = Object.keys(p);
       if (keys.length === 0) {
         // empty object: treat as endpoint with empty value
-        console.log('Endpoint (empty object):', path.join('.'), 'Value:', p);
         return;
       }
       for (const key of keys) {      
-        console.log('Key:', key);
+
         let text1 = key;
         let text2 = '';
         if (key.includes("||")) {
@@ -3817,7 +3853,7 @@ function show_warning_page(warningHTML) {
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-  background-color: rgb(235,190,180);
+  background-color: rgba(180, 208, 235, 1);
   "  
   >` + warningHTML + '</div>';
 }
@@ -4730,6 +4766,7 @@ function updateTreeNodeID(uid, value) {
       result.node.id = item ? item.id : "";
 
       //ask if you want to add elements for each atcode in this result
+      if (document.getElementById('promptAutofillTemplatePlanner').checked){
       const message = `Do you want to add one element for each atcode in this archetype to this branch? \n Total of ${item.atcode_items.length} elements will be added.`;
       const confirmed = confirm(message);
 
@@ -4748,6 +4785,7 @@ function updateTreeNodeID(uid, value) {
           result.node.children.push(temp_node);
         });
       }
+    }
 
 
     } else {
@@ -4921,7 +4959,7 @@ function renderTree(node, parent) {
 
   html.push(`<div class="archetypeTree-node${node.mode === "element" ? " element-mode" : ""}" id="${node.node_uid}"  draggable="false" style="display:${node.display}">
      
-  <div class="node-controls combo-wrapper_old">
+  <div class="node-controls" style=${node.mode == 'archetype' ? 'background-color:#d2dafc;' : 'background-color:#d0f2ce;'}>
     <div class="drag-handle"  style="cursor: grab; min-width:15px; border-radius: 5px 0px 0px 5px; fill: url(#circles-2) #fff;">
 
      <img src="images/2195_color.png" width="15">
@@ -5351,7 +5389,7 @@ function archetypeTreeToHTML(node) {
 
   // Recursive rendering
   function renderHTMLnodeTree(node) {
-    let html = `<li style="margin-bottom: 8px; padding: 8px; border-left: 2px solid #ccc;">${HTMLnodeDetails(node)}`;
+    let html = `<li style="margin-bottom: 8px; padding: 8px; border-left: 2px solid #ccc; ">${HTMLnodeDetails(node)}`;
     if (node.children && node.children.length > 0) {
       html += `<ul style="margin-left: 20px; border-left: 1px dashed #ddd; padding-left: 12px;">`;
       for (const child of node.children) {
@@ -5495,6 +5533,7 @@ function attachDropDownToComboInput(classes) {
     let currentFocus = -1;
     const options = Array.from(datalist.options);
 
+    
     // Show dropdown on focus
     input.addEventListener('focus', (e) => {
       const rect = input.getBoundingClientRect();
@@ -5519,7 +5558,9 @@ function attachDropDownToComboInput(classes) {
 
       input.style.borderRadius = '5px';
     });
+    
 
+    
 
     //remember if the mouse is over the datalist
     let mouseOverDatalist = false;
@@ -5531,6 +5572,8 @@ function attachDropDownToComboInput(classes) {
       mouseOverDatalist = false;
     });
 
+
+
     //when exiting the input
     input.addEventListener('blur', () => {
       //if the mouse is over an option DON'T make the datalist disappear, you silly goose!
@@ -5539,13 +5582,15 @@ function attachDropDownToComboInput(classes) {
       }
     });
 
+    
     input.addEventListener('change', () => {
+      if (!mouseOverDatalist){
       //hide the datalist
       datalist.style.display = 'none';
       //if this is not the element name input...
       if (input.getAttribute('node_input_type') != 'tree_element_name') {
         //...check if the input is in the options....
-        const currentValue = input.value;
+        const currentValue = input.value;     
         const hasMatch = Array.from(options).some((opt) => {
           return opt.textContent === currentValue;
         });
@@ -5557,32 +5602,32 @@ function attachDropDownToComboInput(classes) {
         }
       } //end of if statement
 
-      //in any case, update the node tree informationa and refresh the tree view
+        //in any case, update the node tree information and refresh the tree view
 
-      if (input.getAttribute('node_input_type') == 'tree_archetype_id') {
-        updateTreeNodeID(input.getAttribute('node_uid'), input.value);
-        lookup_datalist_text_by_value(input);
-      };
-      if (input.getAttribute('node_input_type') == 'tree_archetype_atcode') {
-        updateNodeElementEquivalentValue(input.getAttribute('node_uid'), input.value);
-      };
-      if (input.getAttribute('node_input_type') == 'tree_element_atcode') {
-        updateNodeElementEquivalentValue(input.getAttribute('node_uid'), input.value);
-      };
-      if (input.getAttribute('node_input_type') == 'tree_element_name') {
-        updateNodeElementValue(input.getAttribute('node_uid'), input.value);
-      };
-      if (input.getAttribute('node_input_type') == 'checklist_archetype_input') {
-        onArchetypeChange(input, input.getAttribute('node_i'), input.getAttribute('node_j'))
-      };
-
+        if (input.getAttribute('node_input_type') == 'tree_archetype_id') {
+          updateTreeNodeID(input.getAttribute('node_uid'), input.value);
+          lookup_datalist_text_by_value(input);
+        };
+        if (input.getAttribute('node_input_type') == 'tree_archetype_atcode') {
+          updateNodeElementEquivalentValue(input.getAttribute('node_uid'), input.value);
+        };
+        if (input.getAttribute('node_input_type') == 'tree_element_atcode') {
+          updateNodeElementEquivalentValue(input.getAttribute('node_uid'), input.value);
+        };
+        if (input.getAttribute('node_input_type') == 'tree_element_name') {
+          updateNodeElementValue(input.getAttribute('node_uid'), input.value);
+        };
+        if (input.getAttribute('node_input_type') == 'checklist_archetype_input') {
+          onArchetypeChange(input, input.getAttribute('node_i'), input.getAttribute('node_j'))
+        };
+      
       //make all options visible again...
       Array.from(datalist.options).forEach((opt) => {
         opt.style.display = 'block';
       });
-
+    }//end of checking if over datalist
     });
-
+    
 
     // Filter options on input
     input.addEventListener('input', () => {
@@ -5602,8 +5647,9 @@ function attachDropDownToComboInput(classes) {
     // Click on option
     options.forEach((option) => {
       option.addEventListener('click', () => {
-        console.log('click')
         input.value = option.textContent;
+        datalist.style.display = 'none';
+        mouseOverDatalist = false;
         // Inform that the input has changed
         var event = new Event('change');
         input.dispatchEvent(event);
@@ -5670,7 +5716,42 @@ document.addEventListener('dragstart', function (e) {
   }
 }, true);
 
+
+//If we scroll in the checklist editor, we want to unfocus all entries and hide all datalists
+const checklisteditordiv = document.getElementById('checklistSections');
+
+  checklisteditordiv.addEventListener('scroll', function (event) {
+    // Get all elements with class "datalist"
+    checklisteditordiv.querySelectorAll('datalist').forEach(dl => {
+        // Basic visibility check
+        if (dl.style.display!= 'none') {
+          dl.style.display = 'none';  // hide
+        }
+    });
+
+    if (document.activeElement && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
+  });
+
+  const treeplannereditordiv = document.getElementById('template_planner_container');
+  treeplannereditordiv.addEventListener('scroll', function (event) {
+    // Get all elements with class "datalist"
+    treeplannereditordiv.querySelectorAll('datalist').forEach(dl => {
+        // Basic visibility check
+        if (dl.style.display!= 'none') {
+          dl.style.display = 'none';  // hide
+        }
+    });
+
+    if (document.activeElement && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
+  });
+
+
 //after loading everything, make the loading signal invisible
 document.getElementById('loading_page').style.display = 'none';
+
 
 

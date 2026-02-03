@@ -895,8 +895,6 @@ label {
 }
 
 
-
-
 /* TEMPLATE PLANNER STYLES*/
 .archetypeTree-node {
     margin-left: 20px;
@@ -914,6 +912,7 @@ label {
     padding: 2px;
     padding-top: 7px;
     padding-bottom: 7px;
+    width:930px;
 }
 
 .node-controls input[type="text"], .checklisttextinput_element, .checklisttextinput_section {
@@ -937,7 +936,7 @@ label {
 }
 
 .mySelect{
-    width: 340px;
+    width: 320px;
     /*text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;*/

@@ -13,7 +13,7 @@ import time
 
 # VARIABLES ******************************************************************
 # general things
-version = 'v4.26'
+version = 'v4.25'
 author = 'Martin A. Koch, PhD'
 copyright = '(c) 2026, CatSalut. Servei Català de la Salut'
 license = 'License: Apache 2.0'
@@ -792,18 +792,6 @@ def deleteEmptyLines(definition_text):
 			new_lines.append(lines[i])
 	return '\n'.join(new_lines)
 
-def replace_atcode_values(mydict,code,label):
-	if isinstance(mydict,dict):
-		for key in mydict.keys():
-
-			if isinstance(mydict[key],dict):
-
-				replace_atcode_values(mydict[key], code, label)
-			else:
-				if mydict[key] == code:
-					mydict[key] = mydict[key] + '||' + label
-	return mydict
-
 def replace_keys(obj, code, label, occurrence):
 	"""Recursively replace keys in a nested structure."""
 	pattern = f"[{code}]"
@@ -1382,8 +1370,8 @@ def parse_definition_for_elements(temp_JSON, element_list):
 				else:
 					inner = def_code
 				# remove the prefix and split by comma
-				inner = inner.replace('local::', '').strip()
 
+				inner = inner.replace('local::', '').strip()
 
 				temp_JSON[key]['property'] = {}
 				if inner.find('openehr::')>-1:
@@ -1400,15 +1388,10 @@ def parse_definition_for_elements(temp_JSON, element_list):
 						element_list.append(('property',d))
 						temp_JSON[key]['property'][d] = ''
 
-			parse_definition_for_elements(temp_JSON[key],element_list)
-		if isinstance(temp_JSON[key],str):
-			if temp_JSON[key].find('::at')>-1:
-				code_index =  temp_JSON[key].find('::at')
-				code =  temp_JSON[key][code_index+2:-1]
-				type = temp_JSON[key][1:code_index]
-				temp_JSON[key] = code
 
-				element_list.append((type,code))
+
+
+			parse_definition_for_elements(temp_JSON[key],element_list)
 	return element_list
 
 def parse_definition_for_inclusions(temp_JSON, inclusion_list, includeorexclude):
@@ -1517,6 +1500,8 @@ def convert_and_parse_definition_section(definition_section):
 	#structure_html = dict_to_html(definition_JSON)
 	structure_html = dict_to_collapsible_html(definition_JSON)
 
+
+
 	element_list = []
 	element_list = parse_definition_for_elements(definition_JSON, element_list)
 	inclusion_list = []
@@ -1533,7 +1518,7 @@ def convert_and_parse_definition_section(definition_section):
 					rule_list = [rule.strip() for rule in my_dict[key]['archetype_id/value'].split('|')]
 					my_dict[key]['archetype_id/value']={}
 					for r in range(len(rule_list)):
-						my_dict[key]['archetype_id/value'][str(r)]=rule_list[r]
+						my_dict[key]['archetype_id/value'][r]=rule_list[r]
 			else:
 				if isinstance(my_dict[key], dict):
 					parse_for_rules(my_dict[key])
@@ -1885,10 +1870,6 @@ def transformWorkflow(zipFileName):
 		structure_html = structure_html.replace('\n','')
 		node['structure'] = structure_html
 
-
-
-
-
 		#structure_json = str(structure_json).replace('['+item['code']+']','['+item['code']+'] '+'||'+item['label'])
 		for item in node['items']:
 			structure_json = replace_keys(
@@ -1897,12 +1878,6 @@ def transformWorkflow(zipFileName):
 				label=item['label'],
 				occurrence = item['occurrence']
 			)
-			structure_json = replace_atcode_values(
-				structure_json,
-				code=item['code'],
-				label=item['label']
-			)
-
 
 		node['structure_json'] = structure_json
 
