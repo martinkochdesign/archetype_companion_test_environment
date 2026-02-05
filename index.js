@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.70.0-beta';
+const version = '0.70.1-beta';
 
 let newNodes = []
 
@@ -2025,6 +2025,7 @@ function formatNewNodeItemAsHTML(item) {
     }
   }
 
+  /*
   function formatRecommendationArray(arr) {
     if (!arr || arr.length === 0)
       return '<em>None</em>';
@@ -2033,6 +2034,7 @@ function formatNewNodeItemAsHTML(item) {
       ${obj}
     </li>`).join('') + '</ul>';
   }
+  */
   let warning = '<p class="warning">This is a proposal for a new archetype.</p>';
   return `
   <div id="info_header">
@@ -2136,7 +2138,7 @@ function setNewNodeData() {
 
   addNewArchetypesListItems();
   updateLists();
-
+  renderEditor();
 }
 
 // NEW ARCHETYPES - EVENT LISTENERS ***************************************************************************
