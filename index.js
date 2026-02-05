@@ -1,6 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.69.0-beta';
-
+const version = '0.70.0-beta';
 
 let newNodes = []
 
@@ -137,87 +136,177 @@ function updateVisAtTypeChange() {
 
 // Change colors to holiday/seasonal/international theme
 function updateHeaderGradientForHoliday() {
-  //console.log('updateHeaderGradientForHoliday()')
   const headers = document.querySelectorAll('.header');
   const now = new Date();
   const month = now.getMonth(); // 0 = January
   const day = now.getDate();
-  //let gradient = 'linear-gradient(45deg, rgb(90,155,215) 0%, rgb(180,210,235) 50%, rgb(90,155,215) 100%)'; // default
+
   let gradient = 'linear-gradient(45deg, rgb(240,240,255) 0%, rgb(180,210,235) 50%, rgb(90,155,215) 100%)'; // default
   let color = 'black';
+  let themed = false; // track whether a holiday/season theme was applied
 
   wholeProject.color_theme_changes = document.getElementById('apply_theme_changes').checked;
-  
 
   if (!wholeProject.color_theme_changes) {
-    //apply standard colors
+    // apply standard colors
+    headers.forEach(header => {
+      header.style.backgroundImage = gradient;
+      header.style.color = color;
+    });
+    return;
   }
+
+  
   // Pride Month: June (month === 5)
-  else if (month === 5) {
+  if (month === 5 && day >= 1 && day <= 15) {
     gradient = 'linear-gradient(-45deg, red, orange, yellow, green, blue, indigo, violet)';
     color = 'white';
+    themed = true;
+  }
+  // Sant Jordi
+  else if (month === 3 && day == 23) {
+    gradient = `linear-gradient(
+      90deg,
+      yellow 0%,  yellow 15%,
+      red    20%, red    25%,
+      yellow 30%, yellow 35%,
+      red    40%, red    45%,
+      yellow 50%, yellow 55%,
+      red    60%, red    65%,
+      yellow 70%, yellow 75%,
+      red    80%, red    85%,
+      yellow 90%, yellow 100%
+    )`;
+    color = 'black';
+    themed = true;
   }
   // Christmas: Dec 15 - Jan 7
   else if ((month === 11 && day >= 15) || (month === 0 && day <= 7)) {
     gradient = 'linear-gradient(30deg, red, white, red, white, red, white, red, white,red, white,red, white,red)';
     color = 'green';
+    themed = true;
   }
   // Halloween: Oct 14 - Nov 2
   else if ((month === 9 && day >= 14) || (month === 10 && day <= 2)) {
     gradient = 'linear-gradient(45deg, black, orange, black, orange, black)';
     color = 'white';
+    themed = true;
   }
   // St. Patrick's Day: March 17
   else if (month === 2 && day === 17) {
     gradient = 'linear-gradient(45deg, #007f3f 0%, #b6e880 100%)'; // green shades
     color = 'white';
+    themed = true;
   }
+  /*
   // Spring (Northern Hemisphere): March 20 - June 20
   else if ((month === 2 && day >= 20) || (month > 2 && month < 5) || (month === 5 && day <= 20)) {
     gradient = 'linear-gradient(90deg, #a8e063 0%, #f8ffae 100%)'; // fresh green to yellow
     color = '#2d4739';
+    themed = true;
   }
   // Summer (Northern Hemisphere): June 21 - Sep 21
-
   else if ((month === 5 && day >= 21) || (month > 5 && month < 8) || (month === 8 && day <= 21)) {
     gradient = 'linear-gradient(90deg, #f7971e 0%, #ffd200 100%)'; // orange to yellow
     color = '#7a4f00';
+    themed = true;
   }
   // Autumn/Fall (Northern Hemisphere): Sep 22 - Dec 19
   else if ((month === 8 && day >= 22) || (month > 8 && month < 11) || (month === 11 && day <= 19)) {
     gradient = 'linear-gradient(90deg, #ff9966 0%, #ff5e62 100%)'; // orange to red
     color = '#5a2e0c';
+    themed = true;
   }
   // Winter (Northern Hemisphere): Dec 20 - Mar 19
   else if ((month === 11 && day >= 20) || (month < 2) || (month === 2 && day <= 19)) {
     gradient = 'linear-gradient(90deg, #83a4d4 0%, #b6fbff 100%)'; // blue to icy blue
     color = '#1a2a4f';
+    themed = true;
   }
-  // International Workers' Day / Labour Day: May 1
-  /*else if (month === 4 && day === 1) {
-      gradient = 'linear-gradient(45deg, #e52d27 0%, #b31217 100%)'; // strong red
-      color = 'white';
-  }*/
-  // Lunar New Year (approx late Jan - mid Feb, varies by year, here: Feb 1-15)
-  else if ((month === 1 && day >= 1 && day <= 15)) {
+  */
+  // Lunar New Year: Feb 1-15
+  else if (month === 1 && day >= 1 && day <= 7) {
     gradient = 'linear-gradient(45deg, #ffcc29 0%, #ff5757 100%)'; // gold to red
     color = '#7a2f00';
+    themed = true;
   }
   // Earth Day: April 22
   else if (month === 3 && day === 22) {
     gradient = 'linear-gradient(45deg, #56ab2f 0%, #a8e063 100%)'; // green shades
     color = 'white';
+    themed = true;
   }
   // International Day of Peace: September 21
   else if (month === 8 && day === 21) {
     gradient = 'linear-gradient(45deg, #2193b0 0%, #6dd5ed 100%)'; // blue shades
     color = 'white';
+    themed = true;
+  }
+    
+
+  // ----------------------------------------------------------------
+  // Weekly fallback theme (only if no holiday/season theme applied)
+  // ----------------------------------------------------------------
+  if (!themed) {
+    // Get ISO week number to have a consistent "week" definition
+    const weekNumber = getISOWeekNumber(now); // 1–53
+
+    // Define a list of weekly themes
+    const weeklyThemes = [
+      {
+        gradient: 'linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%)',
+        color: '#4a1f2f'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #a18cd1 0%, #fbc2eb 100%)',
+        color: '#2d1848'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #f6d365 0%, #fda085 100%)',
+        color: '#5a2c00'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)',
+        color: '#084c3c'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #cfd9df 0%, #e2ebf0 100%)',
+        color: '#1f2b38'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%)',
+        color: '#5a3522'
+      },
+      {
+        gradient: 'linear-gradient(45deg, #ff9966 0%, #ff5e62 100%)',
+        color: '#3b1a0c'
+      }
+    ];
+
+    // Pick theme based on week number, cycling through array
+    const theme = weeklyThemes[(weekNumber - 1) % weeklyThemes.length];
+    gradient = theme.gradient;
+    color = theme.color;
   }
 
+  // Apply the computed styles
   headers.forEach(header => {
     header.style.backgroundImage = gradient;
     header.style.color = color;
   });
+}
+
+/**
+ * ISO week number, 1–53
+ * Based on Monday as the first day of the week.
+ */
+function getISOWeekNumber(date) {
+    const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    // Thursday in current week decides the year
+    const dayNum = tmp.getUTCDay() || 7;
+    tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+    return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
 }
 
 function loadFilterData() {
@@ -350,7 +439,6 @@ anyArchetype = {
   "keyword_synonyms": [],
   "similar": []
 }
-//allNodes.push(anyArchetype); //add a placeholder for "any archetype" inclusions or exclusions
 
 //check if there is stored data....
 const stored = localStorage.getItem('ArchetypeExplorerProject');
@@ -713,7 +801,7 @@ function updateLists() {
       document.getElementById('show_collection_sidebar_button').style.top = '125px';
     }
 
-    if (lastIds.length > 1 && (document.getElementById('select_vis_view').value=='ARCHETYPE' || document.getElementById('select_vis_view').value=='ARCHETYPEMINDMAP')) {
+    if (lastIds.length > 1 && (document.getElementById('select_vis_view').value=='ARCHETYPE' || document.getElementById('select_vis_view').value=='ARCHETYPEMINDMAP'  || document.getElementById('select_vis_view').value=='SIMILAR'  || document.getElementById('select_vis_view').value=='COMBINATION')) {
       document.getElementById('visualization_back_btn').style.display = 'inline';
       document.getElementById('lastArchetypeLabel').style.display = 'inline';
       document.getElementById('lastArchetypeLabel').innerText = lastIds[lastIds.length-2];
@@ -750,7 +838,7 @@ function updateLists() {
   var myDiv = document.getElementById('archetype_info');
   myDiv.scrollTop = 0;
 
-  updateArchetypeSelect();
+  createDataLists();
 
 }
 
@@ -804,25 +892,6 @@ function clearSearchFilter() {
   renderViewer();
 }
 
-/*
-function populateNewNodeInclSelection() {
-  //get the selector
-  const options = document.getElementById("new_archetype_listArchetypes");
-  //clear all options
-  options.innerHTML = "<option value='' selected>-- Select archetype --</option>";
-  //add all options
-  archetypeListItems
-    .forEach(item => {
-      if (item.classList.contains('collection')) {
-        const option = document.createElement('option');
-        option.value = item.id;
-        option.text = item.textContent;
-        options.appendChild(option);
-      }
-    });
-}
-    */
-
 //sorting a ul list in alphabetical order
 function sortList(ul) {
   var my_ul = document.getElementById(ul);
@@ -835,7 +904,6 @@ function sortList(ul) {
 }
 
 //filters the existing archetype list by the term introduced in the search bar
-
 function tokenize(query) {
   const regex = /"([^"]+)"|(\()|(\))|(\bAND\b|\bOR\b|\bNOT\b)|(\S+)/gi;
   const tokens = [];
@@ -1012,8 +1080,6 @@ function link_expand_structure_button() {
     details.forEach(d => d.open = expanded);
     btn.textContent = expanded ? 'Collapse All' : 'Expand All';
   });
-  // Optional: Set initial state (all open)
-  //document.querySelectorAll('details').forEach(d => d.open = true);
 }
 
 
@@ -1123,8 +1189,6 @@ function formatNodeItemAsHTML(item) {
   ${formatString(item.author_name)}
   <br>
   ${formatString(item.author_organisation)}
-  <!--<br>
-  ${formatString(item.author_email)} -->
   <br><br>
   <strong>Original copyright and license:</strong>
   <br>
@@ -1397,45 +1461,6 @@ function createDataLists() {
   document.body.append(collectionDatalist);
 }
 
-function updateArchetypeSelect() {
-  // use archetypeListItems
-  //const selectFields = document.getElementsByClassName('mySelect');
-
-  createDataLists();
-
-  /*
-  Array.from(selectFields)
-    .forEach(select => {
-      const selectValue = select.value;
-      select.innerHTML = '<option value="">Select archetype from collection</option>';
-
-      archetypeListItems
-        .forEach(item => {
-          if (item.classList.contains('collection')) {
-            const option = document.createElement('option');
-            option.value = item.id;
-            option.textContent = item.textContent;
-            select.appendChild(option);
-          }
-        });
-
-      let exists = false;
-      for (let i = 0; i < select.options.length; i++) {
-        if (select.options[i].value === selectValue) {
-          exists = true;
-          break;
-        }
-      }
-      if (exists) {
-        select.value = selectValue;
-      } else {
-        select.value = "";
-        select.dispatchEvent(new Event('change'));
-      }
-    })
-  */
-
-}
 
 //FUNCTIONS FOR THE CHECKLIST EDITOR
 function addSection() {
@@ -1587,13 +1612,6 @@ function renderEditor() {
     sectionContentDiv.className = 'section-content';
     sectionContentDiv.style.display = section.contentDisplay;
     sectionContentDiv.innerHTML = `
-  <!--
-  <div>
-<span style="display:flex;align-items: center;">
-<img src="images/add.png" alt="Add" height="14" title="Add element" onclick="addElement(${i})"style="cursor:pointer;" >&nbsp;Add element
-</span>
-</div>
--->
 `
 
     section.elements.forEach((el, j) => {
@@ -1673,8 +1691,6 @@ function renderEditor() {
   </span>
   `
   container.appendChild(addSectionButtonDiv);
-  //updateArchetypeSelect();
-  //populateNewNodeInclSelection();
   attachDropDownToComboInput('.mySelect');
 
 }
@@ -1843,12 +1859,6 @@ function addNewArchetypesListItems() {
         renderViewer();
       };
       archetypeListItems.push(li);
-
-      /*
-      if (selectedListItem)selectedListItem.classList.remove('selected');
-      li.classList.add('selected');
-      selectedListItem = li;
-      */
     });
 
 }
@@ -2126,8 +2136,7 @@ function setNewNodeData() {
 
   addNewArchetypesListItems();
   updateLists();
-  //updateArchetypeSelect();
-  //populateNewNodeInclSelection();
+
 }
 
 // NEW ARCHETYPES - EVENT LISTENERS ***************************************************************************
@@ -2808,7 +2817,6 @@ function getConnectedNodesforNewNode(nodeId) {
 }
 
 function getConnectedNodes(nodeId) {
-  //console.log('getConnectedNodes(nodeId)')
   if (nodeId != lastIds[lastIds.length - 1]) {
     lastIds.push(nodeId); //add IDs to the array of last visited IDs.
     updateVisitedHistory();
@@ -2868,18 +2876,7 @@ function getConnectedNodes(nodeId) {
         return true;
       }
       
-      /*
-      // If it's an array, iterate indices
-      if (Array.isArray(p)) {
-        console.log('Key (array index)')
-        p.forEach((item, index) => {
-          console.log('Key (array index):', index);
-          posY+=100; posX+=250
-          parse_archetype_structure(item, path.concat(index)); ///////////////////////////////////////////////////////// <-------------
-        });
-        return;
-      }
-      */
+
 
       // Otherwise it's a plain object
       const keys = Object.keys(p);
@@ -3107,7 +3104,6 @@ function getConnectedNodes(nodeId) {
 }
 
 function focusNode(nodeId) {
-  //console.log('focusNode(nodeId)')
   //only do the rest if the nodeid exists in the archetypeListItems arrayt
   if (archetypeListItems.filter(item => item.id === nodeId).length > 0) {
     //SELECT CURRENT NODE IN LIST
@@ -3507,7 +3503,6 @@ function focusNode(nodeId) {
     }
 
     redraw();
-    //resetZoom();
 
     //restart simulation
     simulation.alpha(1).restart();
@@ -4320,7 +4315,6 @@ document.getElementById('project_name').addEventListener('change', function () {
 })
 
 // BUTTON FUNCTION
-//document.getElementById('HistoryBackButton').addEventListener('click', function () {
 
 function oneStepBackInHistory() {
   if (lastIds.length > 0) {
@@ -4328,13 +4322,10 @@ function oneStepBackInHistory() {
     // Get the last ID
     let idToUse = lastIds.pop(); // pop() removes and returns the last element
     focusNode(idToUse);
-  } else {
-    //console.log("No more IDs left to use!");
   }
   updateVisitedHistory();
   updateLists();
 };
-//});
 
 function clearVisitedHistory() {
   lastIds = [];
@@ -4478,11 +4469,7 @@ function generatePrintableReport(wholeProject) {
       
       th:nth-child(2),th:nth-child(3) {
         width: 150px;
-        /*text-align: center;
-      }
-     
-      td:nth-child(2),th:nth-child(3) {
-        text-align: center;*/
+       
       }
      
 
@@ -4514,7 +4501,7 @@ function generatePrintableReport(wholeProject) {
   <body>
     <header>
     <hr>
-      <!--<img src="images/logo.png" alt="Project Icon" style="height:60px; vertical-align:middle; margin-right:1em;">-->
+      
       <h1>Archetype Companion Report</h1>
     <hr>
       <h2>Project: ${project.title}</h2>
@@ -4659,7 +4646,6 @@ function downloadSVG(svgId, filename = 'visualization.svg') {
   // Append to DOM (hidden) to compute bounding box with transforms
   clone.style.position = 'absolute';
   clone.style.fontFamily = 'Arial, Helvetica, sans-serif';
-  //clone.style.visibility = 'hidden';
   document.body.appendChild(clone);
 
   // Get the bounding box of all content
@@ -4745,7 +4731,6 @@ function updateTreeNodeName(uid, value) {
   if (result) {
     result.node.name = value;
     updateLists();
-    //updateTreeView();
   }
 }
 
@@ -4755,9 +4740,6 @@ function updateTreeNodeID(uid, value) {
   if (result) {
     if (value !== "") {
       result.node.id = value;
-      //console.log(value)
-      //const item = archetype_collection_data.find(obj => obj.archetype_id === value);
-      //const item = archetype_collection_data.find(obj => obj.id === value);
       const item = archetype_collection_data.find(obj => obj.archetype_id === value);
 
       result.node.archetype_id = item ? item.archetype_id : "";
@@ -4791,7 +4773,6 @@ function updateTreeNodeID(uid, value) {
     } else {
       result.node.id = "";
       result.node.type = "";
-      //result.node.name = "";
       result.node.archetype_id = "";
     }
     updateTreeView();
@@ -4806,7 +4787,6 @@ function updateNodeElementValue(uid, value) {
   const result = findNodeByUID(archetypeTree, uid);
   if (result) {
     result.node.element_value = value;
-    //updateTreeView();
     updateLists();
   }
 }
@@ -4818,7 +4798,6 @@ function updateNodeComment(uid, value) {
   if (result) {
     result.node.comment = value;
   }
-  //updateTreeView();
   updateLists();
 }
 
@@ -4831,7 +4810,6 @@ function updateNodeElementEquivalentValue(uid, value) {
   if (result) {
     result.node.equivalent = value;
     updateLists();
-    //updateTreeView();
   }
 }
 
@@ -4870,7 +4848,6 @@ function deleteTreeNode(uid) {
     return;
   }
   if (archetypeTree.node_uid === uid) return; // Don't delete root
-  //const result = findNodeByUID(archetypeTree, uid);
   if (result && result.parent) {
     result.parent.children = result.parent.children.filter(child => child.node_uid !== uid);
     updateTreeView();
@@ -4986,8 +4963,6 @@ function renderTree(node, parent) {
     `);
 
     if (parent && parent.id) {
-      //const parentArchetype = archetype_collection_data.find(a => a.id === parent.id);
-      //const atcodeItems = parentArchetype ? parentArchetype.atcode_items : [];
 
       html.push(`
       <span class="combo-wrapper">
@@ -5066,7 +5041,7 @@ function renderTree(node, parent) {
       <button class="icon-btn" title="Delete" onclick="deleteTreeNode('${node.node_uid}')" ${!parent ? 'hidden' : ''}>
       <img src="images/remove.png" alt="Delete element" height="14" style="cursor: pointer;" title="Delete element">
       </button>
-      <!--<span class="uid-label">${node.node_uid}</span>-->
+     
       <span class="archetype-class"><small>${node.type ? node.type.toUpperCase() : ''}</small></span>
       <span class="compatibility-warning">${class_compatibility_check(node, parent)}</span>
       
@@ -5479,9 +5454,6 @@ Examples for the use of boolean operators:<br />
 <b>NOT</b>: composition AND NOT v0<br />
 <b>Parentheses</b>: location AND ( anatomical OR geo )<br />`)
 
-//addListenersToTooltip('tooltip_topbar', 'HELLO SQUIRREL FRIENDS!')
-
-
 
 // EXPERIMENTAL ******************************
 
@@ -5639,7 +5611,6 @@ function attachDropDownToComboInput(classes) {
         } else {
           opt.style.display = 'none';
         }
-        //opt.classList.remove('active');
       });
       datalist.style.display = 'block'; // re-open while typing
     });
@@ -5695,7 +5666,6 @@ function attachDropDownToComboInput(classes) {
             Array.from(datalist.options).forEach((opt) => {
               opt.style.display = 'block';
             });
-            //datalist.style.display = 'block';
           }
         };
 

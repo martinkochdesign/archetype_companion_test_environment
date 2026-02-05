@@ -47,7 +47,6 @@ function renderGlossaryEntryList() {
   glossary_entryList.innerHTML = '';
   filteredGlossaryClassNames.forEach(className => {
     const li = document.createElement('li');
-    //li.innerHTML = highlightFoundGlossaryText(className, lastGlossarySearch);
     li.innerHTML = className;
     li.onclick = () => showGlossaryClass(className);
     li.id = 'entry-' + className;
@@ -72,23 +71,10 @@ function showGlossaryClass(className) {
 
 function renderGlossaryClass(className){
   const cls = glossary_data[className];
-  // let html = `<div class="class-title" id="class-${className}">${highlightFoundGlossaryText(className, lastGlossarySearch)}</div>`;
   let html = `<div class="class-title" id="class-${className}">${className}</div>`;
   html += `<div class="class-desc">${highlightFoundGlossaryText(cls.description || '', lastGlossarySearch)}</div>`;
-  /*
-  if (cls.inherit) {
-    console.log(cls.inherit)
-    // If the inherited class exists, make it a link
-    if (glossary_data[cls.inherit]) {
-      html += `<div class="class-inherit">Inherits: <a href="#class-${cls.inherit}" onclick="scrollToClass('${cls.inherit}');return false;">${highlightFoundGlossaryText(cls.inherit, lastGlossarySearch)}</a></div>`;
-    } else {
-      html += `<div class="class-inherit">Inherits: ${highlightFoundGlossaryText(cls.inherit, lastGlossarySearch)}</div>`;
-    }
-  }
-  */
 
   if (cls.inherit) {
-  // cls.inherit might be something like "BaseClass, OtherClass, ThirdClass"
   const inheritList = cls.inherit
     .split(",")
     .map(s => s.trim())
@@ -156,7 +142,6 @@ function updateSearch() {
   if (lastSelectedGlossaryClass && lastSelectedGlossaryClass!=''){
   showGlossaryClass(lastSelectedGlossaryClass);
   }
-  //glossary_mainPanel.innerHTML = `<div style="color:#888;">Select a class from the left to view details.</div>`;
 }
 
 glossary_searchInput.addEventListener('input', updateSearch);

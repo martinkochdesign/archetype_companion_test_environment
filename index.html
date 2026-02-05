@@ -345,12 +345,6 @@
                 <img src="images/checklist_editor_button.png" alt="Edit" height="30" onclick="show_checklist_editor()"
                     style="position:absolute; top: 30px; right:20px; cursor: pointer;" title="Enter edit mode">
 
-                <!--
-                <img src="images/1F333_color.png" alt="Template planner" height="35" onclick="show_template_planner()"
-                    style="position:absolute; bottom: 10px; right:15px; cursor: pointer;" title="Open Template Planner"
-                    id="template_planner_button">
-              -->
-
                 <div id="checklistView"></div>
             </div>
         </div>
@@ -372,19 +366,6 @@
             <div class="resize-handle bottom"></div>
             <div class="resize-handle left"></div>
 
-            <!--<div id="template_planner_container">
-                <button id="toggleAllBtn" onclick="toggleAllArchetypeNodes()" >Collapse All</button>
-                <label id="checkBoxAutofill" class="checkboxLabel" style="position:relative;right:0px;"><input type="checkbox" id="promptAutofillTemplatePlanner"
-                            checked />prompt archetype autofill</label>
-
-                <img src="images/1F5D1_color.png" alt="?" height="40" onclick="clearArchetypeTree()"
-                    style="position:absolute; bottom: 20px; right:20px; cursor: pointer;" title="Delete Archetype Tree">
-
-                <div id="template_planner"></div>
-                <pre id="result"></pre>
-                <div id="tree-container"></div>
-
-            </div>-->
             <div id="template_planner_container">
                 <div class="top-bar">
                     <button id="toggleAllBtn" onclick="toggleAllArchetypeNodes()">Collapse All</button>
@@ -422,12 +403,6 @@
             <div class="resize-handle left"></div>
             <div id="checklistEditor">
 
-                <!--
-                <img src="images/1F333_color.png" alt="Template planner" height="35" onclick="show_template_planner()"
-                    style="position:absolute; bottom: 170px; right:20px; cursor: pointer;" title="Open Template Planner"
-                    id="template_planner_button">
-                -->
-
                 <img src="images/1F4BE_color_CL.png" alt="?" height="35" onclick="downloadExcel()"
                     style="position:absolute; bottom: 120px; right:20px; cursor: pointer;"
                     title="Save Checklist to Excel">
@@ -447,12 +422,6 @@
                     style="position:absolute; bottom: 20px; right:20px; cursor: pointer;" title="Delete Checklist">
 
                 <div id="checklistSectionButton">
-                    <!--
-                    <span style="display:flex;align-items: center;">
-                        <img src="images/add.png" alt="Add" height="14" title="Add section" onclick="addSection()"
-                            style="cursor:pointer;">&nbsp;Add section
-                    </span>
-                    -->
 
                     <button id="toggleAllSectionsBtn" onclick="toggleAllSections()"
                         style="position:absolute; top: 22px; right: 70px;">Collapse All</button>
@@ -624,12 +593,6 @@
                         <input list="myArchetypeCollectionOptions" type="search" id="new_archetype_listArchetypes"
                             name="myInputNewArchetypeInclusion" placeholder="-- Select archetype --"
                             autocomplete="off" />
-
-                        <!--
-                        <select id="new_archetype_listArchetypes">
-                            <option value="" selected>-- Select archetype --</option>
-                        </select>
-                        -->
 
                         <img src="images/add.png" alt="" width="15" title="Add selected archetype to included"
                             onclick=" addArchetypeToNewArchetypeInclusionList()">
@@ -904,10 +867,6 @@
 
         <div class="splash-content"
             style="padding: 24px; height:calc(100% - 45px); overflow-y: auto; font-family: inherit; background: #f8fafc;">
-            <!-- Welcome Graphic -->
-            <!--<div style="display: flex; justify-content: center; margin-bottom: 16px;">
-                <img src="welcome_icon.svg" alt="Welcome" style="height: 64px; width: 64px;">
-            </div>-->
 
             <h2 style="text-align: center; color: #2a4d69;">Welcome to the openEHR Archetype Companion</h2>
             <p style="text-align: center; font-size: 0.97em; color: #2a4d69; margin-bottom: 0px;">
@@ -1003,45 +962,6 @@
             </div>
         </div>
 
-
-        <!--<div class="splash-content" style="padding: 10px; height:calc(100% - 45px); overflow-y: auto;">
-
-            <h2>Welcome to openEHR Archetype Companion</h2>
-            <p>
-                Welcome! Thank you for choosing this tool to support your clinical modelling work.
-                We hope you find it intuitive, helpful, and empowering for your openEHR projects.
-            </p>
-
-            <p>
-                Developed as part of the <strong>openEHR 2025/26 Fellowship Programme</strong> to support the design and
-                management of clinical knowledge models.
-            </p>
-            <p>
-
-                Please feel free to consult the <a href="manual.html" target="_blank">USER MANUAL</a>.
-            </p>
-
-            <p style="font-size: 0.85em; color: #666;">
-                <strong>Disclaimer:</strong> The archetype data is extracted automatically from external sources (e.g.,
-                CKM) for convenience. Accuracy and completeness are not guaranteed. For authoritative information,
-                consult the original sources.
-            </p>
-            <p style="font-size: 0.85em; color: #666;">
-                This application is provided "as is" without any warranties, express or implied. By using this
-                application, you acknowledge and agree that you do so at your own risk. The developers and authors of
-                this application shall not be held liable for any direct, indirect, incidental, special, or
-                consequential damages arising out of or in connection with the use or inability to use this application,
-                even if advised of the possibility of such damages. Users are solely responsible for any decisions or
-                actions taken based on the information provided by this tool.
-            </p>
-            <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <label style="display: flex; align-items: center;">
-                    <input type="checkbox" id="dont_show_splash" style="margin-right: 8px;"
-                        onchange=createProjectFile()>
-                    Do not show this screen on start
-                </label>
-            </div>
-        </div> -->
     </div>
 
     <!-- Warning screen-->

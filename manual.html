@@ -218,9 +218,9 @@
 			<h1 id="title">Archetype Companion Manual</h1>
 			<p><em><strong>Author:</strong> Martin A. Koch, PhD</em>
 				<br>
-				<em><strong>Copyright:</strong> 2025, CatSalut. Servei Català de la Salut</em>
+				<em><strong>Copyright:</strong> 2026, CatSalut. Servei Català de la Salut</em>
 				<br>
-				<em><strong>Version:</strong> 0.8.1 (Last updated: 2026-01-12)</em>
+				<em><strong>Version:</strong> 0.9.1 (Last updated: 2026-02-05)</em>
 			</p>
 
 			<p style="text-align: center; line-height: 250%;">
@@ -1549,6 +1549,39 @@
 				</small>
 			</div>
 
+			<h3>Add archetype elements automatically</h3>
+			<p>
+				On top of the Template Planner editor you find a checkbox "Prompt archetype autofill". 
+			</p>
+			<div style="text-align: center;">
+				<img src="images/tut_tree_autofill_option.png" width="600">
+				<br>
+				<small>
+					Enable or diable the autofill option.
+				</small>
+			</div>
+			<p>
+				When selecting an archetype and the autofill lfeature is enabled, a message pops up that asks for confirmation of the autofill.
+			</p>
+			<div style="text-align: center;">
+				<img src="images/tut_tree_autofill_confirmation.png" width="350">
+				<br>
+				<small>
+					Confirm autofill on archetype selection.
+				</small>
+			</div>
+			<p>
+				If the message is confirmed, all elements of the archetype are added to the current branch. 
+			</p>
+						<div style="text-align: center;">
+				<img src="images/tut_tree_autofill_elements.png" width="1200">
+				<br>
+				<small>
+					Elements are added automatically to the archetype branch.
+				</small>
+			</div>
+
+
 			<h3>Adding a Branch</h3>
 			<p>
 				Each archetype node in the tree can have subsequent archetype or element nodes associated with it. For
@@ -1987,10 +2020,23 @@
 				<strong>Focus on Archetype:</strong> To focus on a specific archetype in the network, click on its node
 				with the left mouse button.
 			</p>
+
+
+			<p>
+				<strong>Go back one archetype at the time:</strong> When more than one archetype has been shown in the past, a button apppears in the upper left corner. By clicking this button, you can focus en the last visited archetype.
+			</p>
+			<div style="text-align: center;">
+				<img src="images/tut_vis_one_step_back.png" width="600">
+				<br>
+				<small>
+					One step back button.
+				</small>
+			</div>
+
 			<h3>The Different Views</h3>
 
 			<p>The network visualisation has various views that can be selected with the dropdown menu on the upper
-				right side of the window. You can select between <em>Archetype</em>, <em>Similar</em>, <em>Archetype +
+				right side of the window. You can select between <em>Archetype</em>, <em>Archetype Structure</em>, <em>Similar</em>, <em>Archetype +
 					Similar</em>, <em>Collection</em>, <em>Project</em>, and <em>Template Planner</em> view.</p>
 
 			<div style="text-align: center;">
@@ -2019,6 +2065,26 @@
 					The archetype view.
 				</small>
 			</div>
+
+			
+			<p>
+				<strong>Archetype Structure:</strong>
+			</p>
+			<ul>
+				<li>In the "Archetype Structure" view, you can see the relationships of the elements included in an archetype.</li>
+				<li>The currently selected archetype is shown as a red node.</li>
+				<li>Nodes with an at-code and a label are grey with a black outline, nodes without at-code are grey.</li>
+				<li>Endpoints that stand for values are pink.</li>
+			</ul>
+			<div style="text-align: center;">
+				<img src="images/tut_vis_archetype_structure_view.png" width="800">
+				<br>
+				<small>
+					The archetype structure view.
+				</small>
+			</div>
+
+
 			<p>
 				<strong>Similar:</strong>
 			</p>
