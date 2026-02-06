@@ -533,7 +533,8 @@ label {
 #new_archetype_editor {
     background-color: rgb(240, 240, 255);
     height: calc(100% - var(--TOPBARHEIGHT));
-
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 #new_archetype_concept_name,
