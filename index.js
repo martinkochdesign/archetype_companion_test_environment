@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.70.1-beta';
+const version = '0.71.0-beta';
 
 let newNodes = []
 
@@ -87,7 +87,7 @@ let circles = svg
   .attr('stroke', (node) => node.stroke || 'transparent')
   .attr('r', (node) => node.size || 10)
   .on("click", (event, d) => {
-      focusNode(d.id);
+    focusNode(d.id);
   });
 
 
@@ -156,7 +156,7 @@ function updateHeaderGradientForHoliday() {
     return;
   }
 
-  
+
   // Pride Month: June (month === 5)
   if (month === 5 && day >= 1 && day <= 15) {
     gradient = 'linear-gradient(-45deg, red, orange, yellow, green, blue, indigo, violet)';
@@ -242,7 +242,7 @@ function updateHeaderGradientForHoliday() {
     color = 'white';
     themed = true;
   }
-    
+
 
   // ----------------------------------------------------------------
   // Weekly fallback theme (only if no holiday/season theme applied)
@@ -301,12 +301,12 @@ function updateHeaderGradientForHoliday() {
  * Based on Monday as the first day of the week.
  */
 function getISOWeekNumber(date) {
-    const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    // Thursday in current week decides the year
-    const dayNum = tmp.getUTCDay() || 7;
-    tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
-    const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
-    return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
+  const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  // Thursday in current week decides the year
+  const dayNum = tmp.getUTCDay() || 7;
+  tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+  return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
 }
 
 function loadFilterData() {
@@ -801,10 +801,10 @@ function updateLists() {
       document.getElementById('show_collection_sidebar_button').style.top = '125px';
     }
 
-    if (lastIds.length > 1 && (document.getElementById('select_vis_view').value=='ARCHETYPE' || document.getElementById('select_vis_view').value=='ARCHETYPEMINDMAP'  || document.getElementById('select_vis_view').value=='SIMILAR'  || document.getElementById('select_vis_view').value=='COMBINATION')) {
+    if (lastIds.length > 1 && (document.getElementById('select_vis_view').value == 'ARCHETYPE' || document.getElementById('select_vis_view').value == 'ARCHETYPEMINDMAP' || document.getElementById('select_vis_view').value == 'SIMILAR' || document.getElementById('select_vis_view').value == 'COMBINATION')) {
       document.getElementById('visualization_back_btn').style.display = 'inline';
       document.getElementById('lastArchetypeLabel').style.display = 'inline';
-      document.getElementById('lastArchetypeLabel').innerText = lastIds[lastIds.length-2];
+      document.getElementById('lastArchetypeLabel').innerText = lastIds[lastIds.length - 2];
     } else {
       document.getElementById('visualization_back_btn').style.display = 'none';
       document.getElementById('lastArchetypeLabel').style.display = 'none';
@@ -1691,8 +1691,150 @@ function renderEditor() {
   </span>
   `
   container.appendChild(addSectionButtonDiv);
+
+
+  //render_inclusion_dropdown();
+
+  render_inclusion_popup();
+
   attachDropDownToComboInput('.mySelect');
 
+}
+
+function render_inclusion_popup() {
+  const archetypeCollectionOptions = document.getElementById('myArchetypeCollectionOptions').innerHTML;
+  const dropdowncontainer = document.getElementById('new_archetype_inclusions_container');
+  dropdowncontainer.innerHTML = `
+    <span class="combo-wrapper-dropdown">
+        <button id="new_archetype_inclusion_btn" type="button" class="" aria-label="Clear">Add/delete included archetypes</button>
+        <datalist style="text-align:left;"
+            id="myArchetypeCollectionOptions_dpdn">${archetypeCollectionOptions}</datalist>
+    </span>
+    `;
+
+  //get the button
+  const btn = document.getElementById("new_archetype_inclusion_btn");
+  //get the datalist
+  const datalist = document.getElementById('myArchetypeCollectionOptions_dpdn');
+  //get the inclusion ul 
+  const my_ul = document.getElementById('new_archetype_inclusions_ul');
+  const currentListItems = Array.from(my_ul.getElementsByTagName("li"));
+  //style the options of the datalist
+  const options = Array.from(datalist.options);
+
+  options.forEach((opt) => {
+        
+        // Find and remove the matching item
+        const itemInList = currentListItems.find(li => li.id === opt.value);
+        if (itemInList) {
+          opt.style.color = 'red';
+        }
+        else{
+          opt.style.color = 'green';
+        }
+        if (opt.value == selectedListItem.id){
+          opt.style.display = 'none';
+        }
+        //add event listener to every option
+        opt.addEventListener('click', (e) => {
+            const my_ul = document.getElementById('new_archetype_inclusions_ul');
+            const currentListItems = Array.from(my_ul.getElementsByTagName("li"));
+            const selectedItem = currentListItems.find(li => li.id === opt.value);
+            if (selectedItem){
+            //delete the item fro my_ul
+              my_ul.removeChild(selectedItem);
+              setNewNodeData();
+            }
+            else{
+            //add the item to the my_ul
+              const li = document.createElement("li");
+              li.textContent = opt.textContent;
+              li.id = opt.value;
+              li.classList.add('notselectable');
+              my_ul.appendChild(li);
+              setNewNodeData();
+            }
+
+        })
+        
+        
+      });
+
+
+
+  //show the datalist when button is pressed
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent this click from triggering the document handler
+
+    // If already visible -> hide and return
+    if (datalist.style.display === 'block') {
+      datalist.style.display = 'none';
+      return;
+    }
+
+    console.log('clicked button');
+
+    const rect = btn.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    datalist.style.display = 'block';
+    datalist.style.border = '1px solid #ccc;'
+    datalist.style.position = 'fixed';
+    datalist.style.left = rect.left + 'px';
+
+    datalist.style.maxHeight = '';
+    datalist.style.height = 'auto';
+    const listHeight = datalist.offsetHeight || 200;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    if (spaceBelow < listHeight && spaceAbove > listHeight) {
+      datalist.style.top = (rect.top - listHeight) + 'px';
+    } else {
+      datalist.style.top = rect.bottom + 'px';
+    }
+  });
+
+  //hide datalist if mouse pressed outside
+  document.addEventListener('click', (e) => {
+    // If click is on the button or inside the datalist, do nothing
+    if (btn.contains(e.target) || datalist.contains(e.target)) {
+      return;
+    }
+    // Otherwise hide the datalist
+    datalist.style.display = 'none';
+  });
+
+  //don't hide the datalist if i click an option
+  datalist.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+}
+
+function render_inclusion_dropdown() {
+  //create programatically the dropdown for the inclusion  of archetypes in new archetype placeholders
+  const archetypeCollectionOptions = document.getElementById('myArchetypeCollectionOptions').innerHTML;
+  const dropdowncontainer = document.getElementById('new_archetype_inclusions_container');
+  dropdowncontainer.innerHTML = `
+    <span class="combo-wrapper">
+        <input node_input_type="new_archetype_inclusion_input" type="text" list=""
+            data-datalist-id="myArchetypeCollectionOptions_dl" id="new_archetype_listArchetypes"
+            name="inclusion_input" class="inclusioninput_element mySelect combo-input"
+            placeholder="Select archetype from collection" value=""
+              autocomplete="off" "/>
+
+        <button type="button" class="input_clear_button" aria-label="Clear">&times;</button>
+        <datalist style="text-align:left;"
+            id="myArchetypeCollectionOptions_dl">${archetypeCollectionOptions}</datalist>
+    </span>
+    
+    <img src="images/add.png" alt="" width="15" title="Add selected archetype to included"
+                            onclick=" addArchetypeToNewArchetypeInclusionList()">
+
+                        <img src="images/remove.png" alt="" width="15" title="Remove selected archetype from included"
+                            onclick=" removeArchetypeToNewArchetypeInclusionList()">
+    `;
 }
 
 function renderViewer() {
@@ -2147,8 +2289,16 @@ function setNewNodeData() {
 function addArchetypeToNewArchetypeInclusionList() {
 
   const select = document.getElementById('new_archetype_listArchetypes');
-  const listItemID = select.value;
   const datalist = document.getElementById('myArchetypeCollectionOptions');
+  let listItemID = '';
+  // Find the matching option in the datalist
+  for (const option of datalist.options) {
+    if (option.textContent === select.value) {
+      listItemID = option.value || '';
+      break;
+    }
+  }
+
   let listItemText = '';
   // Find the matching option in the datalist
   for (const option of datalist.options) {
@@ -2177,7 +2327,7 @@ function addArchetypeToNewArchetypeInclusionList() {
   //create and add a list item
   const li = document.createElement("li");
   li.textContent = listItemText;
-  li.id = listItemID
+  li.id = listItemID;
   li.classList.add('notselectable');
   my_ul.appendChild(li);
   setNewNodeData();
@@ -2186,7 +2336,17 @@ function addArchetypeToNewArchetypeInclusionList() {
 }
 
 function removeArchetypeToNewArchetypeInclusionList() {
-  const listItemID = document.getElementById('new_archetype_listArchetypes').value;
+  let listItemID = '';
+  const datalist = document.getElementById('myArchetypeCollectionOptions');
+  const select = document.getElementById('new_archetype_listArchetypes');
+  for (const option of datalist.options) {
+    if (option.textContent === select.value) {
+      listItemID = option.value || '';
+      break;
+    }
+  }
+
+
   const my_ul = document.getElementById('new_archetype_inclusions_ul');
   // Get current list items
   const currentListItems = Array.from(my_ul.getElementsByTagName("li"));
@@ -2207,21 +2367,21 @@ function createNewArchetype() {
       allArchetypeNames.push(item.textContent);
     })
 
-  function createArchetypeId(title){
+  function createArchetypeId(title) {
     return 'openEHR-EHR-CLASS-' + title.trim()
-    // normalize accents: "Körpertemperatur" -> "Korpertemperatur"
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    // spaces and hyphens to underscore
-    .replace(/[\s-]+/g, '_')
-    // remove all characters that are not a-z, 0-9 or underscore
-    .replace(/[^a-z0-9_]/g, '')
-    // collapse multiple underscores
-    .replace(/_+/g, '_')
-    // trim leading/trailing underscores
-    .replace(/^_+|_+$/g, '')
-    // enforce max length if you like
-    .slice(0, 100) + '_v0';
+      // normalize accents: "Körpertemperatur" -> "Korpertemperatur"
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      // spaces and hyphens to underscore
+      .replace(/[\s-]+/g, '_')
+      // remove all characters that are not a-z, 0-9 or underscore
+      .replace(/[^a-z0-9_]/g, '')
+      // collapse multiple underscores
+      .replace(/_+/g, '_')
+      // trim leading/trailing underscores
+      .replace(/^_+|_+$/g, '')
+      // enforce max length if you like
+      .slice(0, 100) + '_v0';
   }
 
   let baseTitle = "A New Archetype Placeholder";
@@ -2717,14 +2877,14 @@ function redraw() {
     .attr('fill', (node) => node.color)
     .attr('r', (node) => node.size || 10)
     .attr('stroke-width', 3)
-    .attr('stroke', (node) => node.stroke || 'transparent')  
+    .attr('stroke', (node) => node.stroke || 'transparent')
     .on("click", (event, d) => {
-    if (document.getElementById('select_vis_view').value === 'TREEPLANNER') {
-      focusNode(d.secondary_text);
-    }else{
-      focusNode(d.id);
-    }
-    updateLists();
+      if (document.getElementById('select_vis_view').value === 'TREEPLANNER') {
+        focusNode(d.secondary_text);
+      } else {
+        focusNode(d.id);
+      }
+      updateLists();
     });
 
   // Rebind data to text
@@ -2845,15 +3005,15 @@ function getConnectedNodes(nodeId) {
     let globalPosY = visualization_element.offsetHeight / 2;;
 
     function parse_archetype_structure(p, pId, posX, posY, path = []) {
-      posX+=150;
+      posX += 150;
       // null or primitive → endpoint
       if (p === null || typeof p !== "object") {
         let endpointtext1 = p;
         let endpointtext2 = '';
         if (p.includes("||")) {
-            const parts = p.split("||");
-            endpointtext2 = parts[0];
-            endpointtext1  = parts[1] ?? ""; // empty string (or null) if there's no "after" part
+          const parts = p.split("||");
+          endpointtext2 = parts[0];
+          endpointtext1 = parts[1] ?? ""; // empty string (or null) if there's no "after" part
         }
         //CREATE A VALUE NODE
         tempNode = {};
@@ -2868,16 +3028,16 @@ function getConnectedNodes(nodeId) {
         nodes.push(tempNode);
         //create link
         links.push({
-                'source': pId,
-                'target': tempNode.id,
-                'dash': "0",
-                'color': 'lightgray',
-                'marker_start': 'None',
-                'marker_end': 'None'
-              });
+          'source': pId,
+          'target': tempNode.id,
+          'dash': "0",
+          'color': 'lightgray',
+          'marker_start': 'None',
+          'marker_end': 'None'
+        });
         return true;
       }
-      
+
 
 
       // Otherwise it's a plain object
@@ -2886,14 +3046,14 @@ function getConnectedNodes(nodeId) {
         // empty object: treat as endpoint with empty value
         return;
       }
-      for (const key of keys) {      
+      for (const key of keys) {
 
         let text1 = key;
         let text2 = '';
         if (key.includes("||")) {
-            const parts = key.split("||");
-            text2 = parts[0];
-            text1  = parts[1] ?? ""; // empty string (or null) if there's no "after" part
+          const parts = key.split("||");
+          text2 = parts[0];
+          text1 = parts[1] ?? ""; // empty string (or null) if there's no "after" part
         }
         //CREATE A KEY NODE
         tempNode = {};
@@ -2905,7 +3065,7 @@ function getConnectedNodes(nodeId) {
         if (key.includes("||")) {
           tempNode.stroke = 'black';
         }
-        else{
+        else {
           tempNode.stroke = 'transparent';
         }
         tempNode.fy = globalPosY;
@@ -2913,17 +3073,17 @@ function getConnectedNodes(nodeId) {
         nodes.push(tempNode);
         //create link
         links.push({
-                'source': pId,
-                'target': tempNode.id,
-                'dash': "0",
-                'color': 'lightgray',
-                'marker_start': 'None',
-                'marker_end': 'None'
-              });
+          'source': pId,
+          'target': tempNode.id,
+          'dash': "0",
+          'color': 'lightgray',
+          'marker_start': 'None',
+          'marker_end': 'None'
+        });
         parse_archetype_structure(p[key], tempNode.id, posX, posY, path.concat(key));
-        globalPosY+=65;
+        globalPosY += 65;
       }
-      globalPosY-=65;
+      globalPosY -= 65;
     }
 
     parse_archetype_structure(archetypeStructure, nodeId, visualization_element.offsetWidth / 2, 0)
@@ -2934,7 +3094,7 @@ function getConnectedNodes(nodeId) {
     selected.size = 10;
     selected.stroke = 'black';
     selected.fy = visualization_element.offsetHeight / 2;
-    selected.fx = visualization_element.offsetWidth / 2 -150;
+    selected.fx = visualization_element.offsetWidth / 2 - 150;
     nodes.push(selected);
   }
 
@@ -3896,7 +4056,7 @@ function show_new_archetype_editor() {
   wdw_new_archetype_editor.style.left = 'calc(50% - 250px)';
   wdw_new_archetype_editor.style.top = 'calc(50% - 300px)';
   wdw_new_archetype_editor.style.width = '500px';
-  wdw_new_archetype_editor.style.height = '600px';
+  wdw_new_archetype_editor.style.height = '650px';
   wdw_new_archetype_editor.style.border = '1px solid black';
   wdw_new_archetype_editor.style.backgroundColor = 'white';
   wdw_new_archetype_editor.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
@@ -4750,26 +4910,26 @@ function updateTreeNodeID(uid, value) {
       result.node.id = item ? item.id : "";
 
       //ask if you want to add elements for each atcode in this result
-      if (document.getElementById('promptAutofillTemplatePlanner').checked){
-      const message = `Do you want to add one element for each atcode in this archetype to this branch? \n Total of ${item.atcode_items.length} elements will be added.`;
-      const confirmed = confirm(message);
+      if (document.getElementById('promptAutofillTemplatePlanner').checked) {
+        const message = `Do you want to add one element for each atcode in this archetype to this branch? \n Total of ${item.atcode_items.length} elements will be added.`;
+        const confirmed = confirm(message);
 
-      if (confirmed) {
-        item.atcode_items.forEach(item => {
-          let temp_node = {};
-          temp_node.archetype_id = '';
-          temp_node.children = [];
-          temp_node.element_value = "";
-          temp_node.equivalent = item;
-          temp_node.id = "";
-          temp_node.mode = "element";
-          temp_node.name = "Element";
-          temp_node.node_uid = uuidv4();
-          temp_node.type = "";
-          result.node.children.push(temp_node);
-        });
+        if (confirmed) {
+          item.atcode_items.forEach(item => {
+            let temp_node = {};
+            temp_node.archetype_id = '';
+            temp_node.children = [];
+            temp_node.element_value = "";
+            temp_node.equivalent = item;
+            temp_node.id = "";
+            temp_node.mode = "element";
+            temp_node.name = "Element";
+            temp_node.node_uid = uuidv4();
+            temp_node.type = "";
+            result.node.children.push(temp_node);
+          });
+        }
       }
-    }
 
 
     } else {
@@ -5507,9 +5667,10 @@ function attachDropDownToComboInput(classes) {
     let currentFocus = -1;
     const options = Array.from(datalist.options);
 
-    
+
     // Show dropdown on focus
     input.addEventListener('focus', (e) => {
+      console.log('focus input')
       const rect = input.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       // Optional: if the list is already rendered/has items, measure it
@@ -5532,9 +5693,9 @@ function attachDropDownToComboInput(classes) {
 
       input.style.borderRadius = '5px';
     });
-    
 
-    
+
+
 
     //remember if the mouse is over the datalist
     let mouseOverDatalist = false;
@@ -5550,31 +5711,33 @@ function attachDropDownToComboInput(classes) {
 
     //when exiting the input
     input.addEventListener('blur', () => {
+      console.log('blurred input')
       //if the mouse is over an option DON'T make the datalist disappear, you silly goose!
       if (!mouseOverDatalist) {
         datalist.style.display = 'none';
       }
     });
 
-    
-    input.addEventListener('change', () => {
-      if (!mouseOverDatalist){
-      //hide the datalist
-      datalist.style.display = 'none';
-      //if this is not the element name input...
-      if (input.getAttribute('node_input_type') != 'tree_element_name') {
-        //...check if the input is in the options....
-        const currentValue = input.value;     
-        const hasMatch = Array.from(options).some((opt) => {
-          return opt.textContent === currentValue;
-        });
-        if (!hasMatch) {
-          //... if not, set the input to empty
-          input.value = "";
-        } else {
 
-        }
-      } //end of if statement
+    input.addEventListener('change', () => {
+      console.log('change input')
+      if (!mouseOverDatalist) {
+        //hide the datalist
+        datalist.style.display = 'none';
+        //if this is not the element name input...
+        if (input.getAttribute('node_input_type') != 'tree_element_name') {
+          //...check if the input is in the options....
+          const currentValue = input.value;
+          const hasMatch = Array.from(options).some((opt) => {
+            return opt.textContent === currentValue;
+          });
+          if (!hasMatch) {
+            //... if not, set the input to empty
+            input.value = "";
+          } else {
+
+          }
+        } //end of if statement
 
         //in any case, update the node tree information and refresh the tree view
 
@@ -5594,17 +5757,18 @@ function attachDropDownToComboInput(classes) {
         if (input.getAttribute('node_input_type') == 'checklist_archetype_input') {
           onArchetypeChange(input, input.getAttribute('node_i'), input.getAttribute('node_j'))
         };
-      
-      //make all options visible again...
-      Array.from(datalist.options).forEach((opt) => {
-        opt.style.display = 'block';
-      });
-    }//end of checking if over datalist
+
+        //make all options visible again...
+        Array.from(datalist.options).forEach((opt) => {
+          opt.style.display = 'block';
+        });
+      }//end of checking if over datalist
     });
-    
+
 
     // Filter options on input
     input.addEventListener('input', () => {
+      console.log('filter input')
       const text = input.value.toUpperCase();
       currentFocus = -1;
       options.forEach((opt) => {
@@ -5620,6 +5784,7 @@ function attachDropDownToComboInput(classes) {
     // Click on option
     options.forEach((option) => {
       option.addEventListener('click', () => {
+        console.log('option clicked')
         input.value = option.textContent;
         datalist.style.display = 'none';
         mouseOverDatalist = false;
@@ -5692,34 +5857,34 @@ document.addEventListener('dragstart', function (e) {
 //If we scroll in the checklist editor, we want to unfocus all entries and hide all datalists
 const checklisteditordiv = document.getElementById('checklistSections');
 
-  checklisteditordiv.addEventListener('scroll', function (event) {
-    // Get all elements with class "datalist"
-    checklisteditordiv.querySelectorAll('datalist').forEach(dl => {
-        // Basic visibility check
-        if (dl.style.display!= 'none') {
-          dl.style.display = 'none';  // hide
-        }
-    });
-
-    if (document.activeElement && document.activeElement !== document.body) {
-      document.activeElement.blur();
+checklisteditordiv.addEventListener('scroll', function (event) {
+  // Get all elements with class "datalist"
+  checklisteditordiv.querySelectorAll('datalist').forEach(dl => {
+    // Basic visibility check
+    if (dl.style.display != 'none') {
+      dl.style.display = 'none';  // hide
     }
   });
 
-  const treeplannereditordiv = document.getElementById('template_planner_container');
-  treeplannereditordiv.addEventListener('scroll', function (event) {
-    // Get all elements with class "datalist"
-    treeplannereditordiv.querySelectorAll('datalist').forEach(dl => {
-        // Basic visibility check
-        if (dl.style.display!= 'none') {
-          dl.style.display = 'none';  // hide
-        }
-    });
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
+});
 
-    if (document.activeElement && document.activeElement !== document.body) {
-      document.activeElement.blur();
+const treeplannereditordiv = document.getElementById('template_planner_container');
+treeplannereditordiv.addEventListener('scroll', function (event) {
+  // Get all elements with class "datalist"
+  treeplannereditordiv.querySelectorAll('datalist').forEach(dl => {
+    // Basic visibility check
+    if (dl.style.display != 'none') {
+      dl.style.display = 'none';  // hide
     }
   });
+
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
+});
 
 
 //after loading everything, make the loading signal invisible

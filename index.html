@@ -256,9 +256,10 @@
             <img src="images/back_in_time.png" alt="Undo" height="25"
                 style="position:absolute; top: 30px; left:10px; cursor: pointer; z-index: 2;" title="Go back in history"
                 onclick="oneStepBackInHistory()" id="visualization_back_btn">
-            <div style="position:absolute; top: 33px; left:35px; z-index: 2; font-size: 9pt; color:#bbb;" id="lastArchetypeLabel">
-                    the last archetype
-            </div>            
+            <div style="position:absolute; top: 33px; left:35px; z-index: 2; font-size: 9pt; color:#bbb;"
+                id="lastArchetypeLabel">
+                the last archetype
+            </div>
 
 
             <img src="images/1F4F7_color.png" alt="Save image" height="35" onclick="downloadSVG('network')"
@@ -532,8 +533,8 @@
         <div id="wdw_new_archetype_editor" class="movable-div" style="display: none;
         min-width: 300px;
         max-width: 500px;
-        min-height: 50px;
-        max-height: 600px;        
+        min-height: 350px;
+        max-height: 650px;        
         ">
             <div class="header">
                 <span></span>
@@ -588,17 +589,22 @@
                     <hr>
 
                     <label><strong>Included archetypes:</strong></label><br>
-                    <div id="new_archetype_inclusions_container">
-
+                    <!--<div id="new_archetype_inclusions_container">
+                    
                         <input list="myArchetypeCollectionOptions" type="search" id="new_archetype_listArchetypes"
                             name="myInputNewArchetypeInclusion" placeholder="-- Select archetype --"
                             autocomplete="off" />
+                    
 
                         <img src="images/add.png" alt="" width="15" title="Add selected archetype to included"
                             onclick=" addArchetypeToNewArchetypeInclusionList()">
 
                         <img src="images/remove.png" alt="" width="15" title="Remove selected archetype from included"
                             onclick=" removeArchetypeToNewArchetypeInclusionList()">
+
+                    </div>-->
+
+                    <div id="new_archetype_inclusions_container">
 
                     </div>
 

@@ -559,8 +559,8 @@ label {
 #new_archetype_editor {
     background-color: rgb(240, 240, 255);
     height: calc(100% - var(--TOPBARHEIGHT));
-    overflow: auto;
-    overflow-x: hidden;
+    /*overflow: auto;
+    overflow-x: hidden;*/
 }
 
 #new_archetype_concept_name,
@@ -596,7 +596,9 @@ label {
     margin-right: 20px;
     border-radius: 5px;
     margin-left: 10px;
+    
     background-color: white;
+
 }
 
 #assigned_elements_container li {
@@ -605,17 +607,23 @@ label {
 }
 
 #new_archetype_inclusions_container {
+ 
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 470px;
     gap: 5px;
     background-color: rgb(240, 240, 255);
     margin-bottom: 5px;
+  
+}
 
+#new_archetype_inclusion_btn{
+    height:30px;
+    border-radius: 7px;
 }
 
 #new_archetype_listArchetypes {
-    max-width: calc(100% - 90px);
+    /*max-width: calc(100% - 90px);*/
     width: 380px;
     border-radius:7px;
     padding: 5px;
@@ -628,6 +636,8 @@ label {
     border-radius: 7px;
     border: 1px solid lightgrey;
     background-color: white;
+    height: 140px;
+    overflow: auto;
 
 }
 
@@ -639,7 +649,6 @@ label {
 
 #new_archetype_inclusions_ul li {
     font-size: 12px;
-
 }
 
 #existing_sidebar_list {
@@ -1160,6 +1169,7 @@ summary {
 
    .combo-input {
       /*padding: 5px 28px 5px 5px; /* extra space for clear button */
+
     }
 
     .input_clear_button {
@@ -1188,6 +1198,7 @@ summary {
     .combo-wrapper{
         padding:0;
         white-space: nowrap;
+
     }
 
  
@@ -1218,4 +1229,5 @@ summary {
     option:hover, option.active {
       background-color: lightblue;
     }
+
 
