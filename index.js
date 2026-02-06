@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.72.0-beta';
+const version = '0.72.1-beta';
 
 let newNodes = []
 
@@ -1772,8 +1772,6 @@ function render_inclusion_popup() {
       return;
     }
 
-    console.log('clicked button');
-
     const rect = btn.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
@@ -2134,6 +2132,7 @@ function getNewNodeData() {
   document.getElementById('archetype_info').innerHTML = formatNewNodeItemAsHTML(foundItem);
   getAssignedElements(getAttributefromObject(foundItem, 'id'));
 
+
   let target = document.getElementById("info_body_right_assigned_elements");
   let source = document.getElementById("new_archetype_elements");
   target.innerHTML = source.innerHTML;
@@ -2207,13 +2206,19 @@ function formatNewNodeItemAsHTML(item) {
 `;
 }
 
-function getAssignedElements(archetype_id) {
+function getAssignedElements(archetype_uuid) {
+
+  //get the new archetype item from the uuid
+  const listItem = archetypeListItems.find(n => n.id === archetype_uuid);
+  const archetype_id = listItem.textContent;
+
   // Flatten all elements from all sections and filter
   const matchingNames = checkList
     .flatMap(section =>
       section.elements
         .filter(el => el.archetype === archetype_id)
         .map(el => section.name + ' - ' + el.name));
+
   // Inject into the DOM
   const container = document.getElementById("new_archetype_elements");
 
@@ -4054,9 +4059,9 @@ function show_new_archetype_editor() {
   wdw_new_archetype_editor.style.display = 'inline';
   wdw_new_archetype_editor.style.position = 'absolute';
   wdw_new_archetype_editor.style.left = 'calc(50% - 250px)';
-  wdw_new_archetype_editor.style.top = 'calc(50% - 300px)';
+  wdw_new_archetype_editor.style.top = 'calc(50% - 400px)';
   wdw_new_archetype_editor.style.width = '500px';
-  wdw_new_archetype_editor.style.height = '650px';
+  wdw_new_archetype_editor.style.height = '800px';
   wdw_new_archetype_editor.style.border = '1px solid black';
   wdw_new_archetype_editor.style.backgroundColor = 'white';
   wdw_new_archetype_editor.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
@@ -5670,7 +5675,6 @@ function attachDropDownToComboInput(classes) {
 
     // Show dropdown on focus
     input.addEventListener('focus', (e) => {
-      console.log('focus input')
       const rect = input.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       // Optional: if the list is already rendered/has items, measure it
@@ -5711,7 +5715,7 @@ function attachDropDownToComboInput(classes) {
 
     //when exiting the input
     input.addEventListener('blur', () => {
-      console.log('blurred input')
+
       //if the mouse is over an option DON'T make the datalist disappear, you silly goose!
       if (!mouseOverDatalist) {
         datalist.style.display = 'none';
@@ -5720,7 +5724,6 @@ function attachDropDownToComboInput(classes) {
 
 
     input.addEventListener('change', () => {
-      console.log('change input')
       if (!mouseOverDatalist) {
         //hide the datalist
         datalist.style.display = 'none';
@@ -5768,7 +5771,6 @@ function attachDropDownToComboInput(classes) {
 
     // Filter options on input
     input.addEventListener('input', () => {
-      console.log('filter input')
       const text = input.value.toUpperCase();
       currentFocus = -1;
       options.forEach((opt) => {
@@ -5784,7 +5786,6 @@ function attachDropDownToComboInput(classes) {
     // Click on option
     options.forEach((option) => {
       option.addEventListener('click', () => {
-        console.log('option clicked')
         input.value = option.textContent;
         datalist.style.display = 'none';
         mouseOverDatalist = false;
