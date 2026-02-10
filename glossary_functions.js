@@ -113,7 +113,7 @@ function renderGlossaryClass(className) {
 
       const typeSpans = types.map(t =>
         `<span style="cursor:pointer; color:darkred; text-decoration:underline;"
-              onclick="openGlossaryAtPage('${t}')">${t}</span>`
+              onclick="showGlossaryClass('${t}')">${t}</span>`
       ).join(', '); 
 
       html += `<tr>
@@ -145,7 +145,7 @@ function renderGlossaryClass(className) {
 
       const typeSpans = types.map(t =>
         `<span style="cursor:pointer; color:darkred; text-decoration:underline;"
-              onclick="openGlossaryAtPage('${t}')">${t}</span>`
+              onclick="showGlossaryClass('${t}')">${t}</span>`
       ).join(', '); 
 
 
