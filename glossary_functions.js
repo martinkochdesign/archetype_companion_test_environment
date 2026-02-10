@@ -1,7 +1,7 @@
 
 
 
-    
+
 const glossary_entryList = document.getElementById('glossary_entryList');
 const glossary_mainPanel = document.getElementById('glossary_mainPanel');
 const glossary_searchInput = document.getElementById('glossary_searchInput');
@@ -9,7 +9,7 @@ const glossary_searchAttrName = document.getElementById('glossary_searchAttrName
 const glossary_searchAttrDesc = document.getElementById('glossary_searchAttrDesc');
 const glossary_searchAttrDataType = document.getElementById('glossary_searchAttrDataType');
 
-document.getElementById('glossary_extraction_date').innerHTML = '<b>Updated:</b> ' + glossary_extraction_date ;
+document.getElementById('glossary_extraction_date').innerHTML = '<b>Updated:</b> ' + glossary_extraction_date;
 
 let glossaryClassNames = Object.keys(glossary_data).sort();
 let filteredGlossaryClassNames = glossaryClassNames.slice();
@@ -28,7 +28,7 @@ function filterGlossaryClasses() {
   const searchInAttrName = glossary_searchAttrName.checked;
   const searchInAttrDesc = glossary_searchAttrDesc.checked;
   const searchInAttrDatatype = glossary_searchAttrDataType.checked;
-  
+
   filteredGlossaryClassNames = glossaryClassNames.filter(className => {
     const cls = glossary_data[className];
     let found = className.toLowerCase().includes(q) || (cls.description && cls.description.toLowerCase().includes(q)) || (cls.type && cls.type.toLowerCase().includes(q));
@@ -59,11 +59,11 @@ function showGlossaryClass(className) {
   const activeLi = document.getElementById('entry-' + className);
   if (activeLi) activeLi.classList.add('active');
   lastSelectedGlossaryClass = className;
-  glossary_mainPanel.innerHTML= renderGlossaryClass(className)
+  glossary_mainPanel.innerHTML = renderGlossaryClass(className)
   glossary_mainPanel.scrollTo({
-  top: 0,
-  behavior: "smooth"
-});
+    top: 0,
+    behavior: "smooth"
+  });
   // glossary_mainPanel.innerHTML = html;
   // Scroll to the class title if navigated by anchor
   setTimeout(() => {
@@ -73,53 +73,93 @@ function showGlossaryClass(className) {
 }
 
 
-function renderGlossaryClass(className){
+function renderGlossaryClass(className) {
   const cls = glossary_data[className];
   let html = `<div class="class-title" id="class-${className}">${className}</div>`;
   html += `<div class="class-desc">${highlightFoundGlossaryText(cls.description || '', lastGlossarySearch)}</div>`;
 
   if (cls.inherit) {
-  const inheritList = cls.inherit
-    .split(",")
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
+    const inheritList = cls.inherit
+      .split(",")
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
 
-  const inheritHtml = inheritList.map(name => {
-    if (glossary_data[name]) {
-      // If the inherited class exists, make it a link
-      return `<a href="#class-${name}" onclick="scrollToClass('${name}');return false;">${highlightFoundGlossaryText(name, lastGlossarySearch)}</a>`;
-    } else {
-      // Just show the text if it doesn't exist in glossary_data
-      return highlightFoundGlossaryText(name, lastGlossarySearch);
-    }
-  }).join(", ");
+    const inheritHtml = inheritList.map(name => {
+      if (glossary_data[name]) {
+        // If the inherited class exists, make it a link
+        return `<a href="#class-${name}" onclick="scrollToClass('${name}');return false;">${highlightFoundGlossaryText(name, lastGlossarySearch)}</a>`;
+      } else {
+        // Just show the text if it doesn't exist in glossary_data
+        return highlightFoundGlossaryText(name, lastGlossarySearch);
+      }
+    }).join(", ");
 
-  html += `<div class="class-inherit">Inherits: ${inheritHtml}</div>`;
-}
+    html += `<div class="class-inherit">Inherits: ${inheritHtml}</div>`;
+  }
 
   if (cls.url) html += `<div class="class-url"><a href="${cls.url}" target="_blank">Specification &rarr;</a></div>`;
   if (cls.attributes && Object.keys(cls.attributes).length) {
     html += `<table class="attributes-table"><tr><th>Attribute</th><th>Description</th><th>Existence</th><th>Type</th></tr>`;
     for (const [attr, details] of Object.entries(cls.attributes)) {
+
+      const rawType = typeof details.type === 'string'
+        ? details.type
+        : (details.type != null ? String(details.type) : '');
+
+      const types = rawType
+        .split(',')
+        .map(t => t.trim())
+        .filter(t => t.length > 0);
+
+      const typeSpans = types.map(t =>
+        `<span style="cursor:pointer; color:darkred; text-decoration:underline;"
+              onclick="openGlossaryAtPage('${t}')">${t}</span>`
+      ).join(', '); 
+
       html += `<tr>
         <td>${highlightFoundGlossaryText(attr, glossary_searchAttrName.checked ? lastGlossarySearch : '')}</td>
         <td>${highlightFoundGlossaryText(details.description || '', glossary_searchAttrDesc.checked ? lastGlossarySearch : '')}</td>
         <td>${details.existence || ''}</td>
-        <td>${highlightFoundGlossaryText((details.type || []).join(', '), glossary_searchAttrDataType.checked ? lastGlossarySearch : '')}</td>
+
+        <td>${typeSpans}</td>        
+        
+        <!--<td>${highlightFoundGlossaryText((details.type || []).join(', '), glossary_searchAttrDataType.checked ? lastGlossarySearch : '')}</td>-->
+              
         <!--<td>${(details.type || []).join(', ')}</td>-->
       </tr>`;
     }
     html += `</table>`;
   }
- if (cls.functions && Object.keys(cls.functions).length) {
+  if (cls.functions && Object.keys(cls.functions).length) {
     html += `<table class="attributes-table"><tr><th>Function</th><th>Description</th><th>Existence</th><th>Return Type</th></tr>`;
     for (const [attr, details] of Object.entries(cls.functions)) {
+
+      const rawType = typeof details.return_type === 'string'
+        ? details.return_type
+        : (details.return_type != null ? String(details.return_type) : '');
+
+      const types = rawType
+        .split(',')
+        .map(t => t.trim())
+        .filter(t => t.length > 0);
+
+      const typeSpans = types.map(t =>
+        `<span style="cursor:pointer; color:darkred; text-decoration:underline;"
+              onclick="openGlossaryAtPage('${t}')">${t}</span>`
+      ).join(', '); 
+
+
       html += `<tr>
-        <td>${attr} ${details.prerequisite && details.prerequisite.trim() !== '' ? '<br><br><i>Prerequisite:</i> '+ details.prerequisite : ''}</td>
+        <td>${attr} ${details.prerequisite && details.prerequisite.trim() !== '' ? '<br><br><i>Prerequisite:</i> ' + details.prerequisite : ''}</td>
         <td>${highlightFoundGlossaryText(details.description || '', glossary_searchAttrDesc.checked ? lastGlossarySearch : '')}</td>
         <td>${details.existence || ''}</td>
-        <td>${highlightFoundGlossaryText((details.return_type || []).join(', '), glossary_searchAttrDataType.checked ? lastGlossarySearch : '')}</td>
+        
+        <td>${typeSpans}</td>        
+
+        <!--<td>${highlightFoundGlossaryText((details.return_type || []).join(', '), glossary_searchAttrDataType.checked ? lastGlossarySearch : '')}</td>-->
+        
         <!--<td>${(details.return_type || []).join(', ')}</td>-->
+        
       </tr>`;
     }
     html += `</table>`;
@@ -129,22 +169,22 @@ function renderGlossaryClass(className){
 }
 
 // For anchor navigation from "Inherits" links
-window.scrollToClass = function(className) {
-    
+window.scrollToClass = function (className) {
+
   // Select the class in the glossary_sidebar and show its details
   showGlossaryClass(className);
   // Also scroll the glossary_sidebar to the selected entry
   const li = document.getElementById('entry-' + className);
   if (li) li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  
+
 };
 
 function updateSearch() {
   filterGlossaryClasses();
   renderGlossaryEntryList();
   //what is the current active className?
-  if (lastSelectedGlossaryClass && lastSelectedGlossaryClass!=''){
-  showGlossaryClass(lastSelectedGlossaryClass);
+  if (lastSelectedGlossaryClass && lastSelectedGlossaryClass != '') {
+    showGlossaryClass(lastSelectedGlossaryClass);
   }
 }
 
