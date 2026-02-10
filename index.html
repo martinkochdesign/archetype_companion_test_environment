@@ -346,6 +346,16 @@
                 <img src="images/checklist_editor_button.png" alt="Edit" height="30" onclick="show_checklist_editor()"
                     style="position:absolute; top: 30px; right:20px; cursor: pointer;" title="Enter edit mode">
 
+                <img src="images/hide_checked_items.png" alt="hide checked items" height="25"
+                onclick="toggleViewCheckedItems()"
+                style="position:absolute; top: 80px; right:25px; cursor: pointer;" title="Hide checked items"
+                id="hide_checked_items_button">
+
+                <img src="images/show_checked_items.png" alt="show checked items" height="25"
+                onclick="toggleViewCheckedItems()"
+                style="position:absolute; top: 80px; right:25px; cursor: pointer; display: none;"
+                title="Show checked items" id="show_checked_items_button">
+
                 <div id="checklistView"></div>
             </div>
         </div>

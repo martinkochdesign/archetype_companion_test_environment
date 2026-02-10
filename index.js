@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.73.1-beta';
+const version = '0.74.0-beta';
 
 let newNodes = []
 
@@ -13,6 +13,7 @@ let checkList = [];
 let wholeProject = {};
 
 let show_collection_items = true;
+let show_checked_items = true;
 
 let filterSet = {};
 resetfilterSet();
@@ -399,6 +400,23 @@ function toggleViewCollectionItems() {
   }
   updateLists();
 }
+
+function toggleViewCheckedItems() {
+  const show_checked_items_button = document.getElementById('show_checked_items_button');
+  const hide_checked_items_button = document.getElementById('hide_checked_items_button');
+  if (show_checked_items) {
+    show_checked_items = false;
+    show_checked_items_button.style.display = 'inline';
+    hide_checked_items_button.style.display = 'none';
+  }
+  else {
+    show_checked_items = true;
+    show_checked_items_button.style.display = 'none';
+    hide_checked_items_button.style.display = 'inline';
+  }
+  renderViewer();
+}
+
 
 //WORKFLOW AT FIRST EXECUTION *********************************************************************************
 
@@ -1878,6 +1896,9 @@ function renderViewer() {
     secDiv.classList.add("checklist_section");
     secDiv.innerHTML = `<div class="checklist_section_label">${section.name}</div>`;
     section.elements.forEach((el) => {
+    
+    if (!(el.approved && !show_checked_items)){ //if the item has been "approved" and we want to "hide" the checked item, do not add this line
+
       const line = document.createElement('div');
 
       if (el.archetype === "Select archetype from collection") {
@@ -1907,6 +1928,9 @@ function renderViewer() {
           `
         ;
       secDiv.appendChild(line);
+    };
+
+
     });
     container.appendChild(secDiv);
   });
