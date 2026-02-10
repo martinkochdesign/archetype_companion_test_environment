@@ -60,6 +60,10 @@ function showGlossaryClass(className) {
   if (activeLi) activeLi.classList.add('active');
   lastSelectedGlossaryClass = className;
   glossary_mainPanel.innerHTML= renderGlossaryClass(className)
+  glossary_mainPanel.scrollTo({
+  top: 0,
+  behavior: "smooth"
+});
   // glossary_mainPanel.innerHTML = html;
   // Scroll to the class title if navigated by anchor
   setTimeout(() => {
@@ -150,3 +154,4 @@ glossary_searchAttrDesc.addEventListener('change', updateSearch);
 glossary_searchAttrDataType.addEventListener('change', updateSearch);
 
 renderGlossaryEntryList();
+
