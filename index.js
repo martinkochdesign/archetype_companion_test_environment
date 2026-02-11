@@ -5278,7 +5278,7 @@ function renderTree(node, parent) {
       <img src="images/remove.png" alt="Delete element" height="14" style="cursor: pointer;" title="Delete element">
       </button>
      
-      <span class="archetype-class"><small>${node.type ? node.type.toUpperCase() : ''}</small></span>
+      <span class="archetype-class" style="cursor:pointer;" onclick="openGlossaryAtPage('${node.type ? node.type.toUpperCase() : ''}')"><small>${node.type ? node.type.toUpperCase() : ''}</small></span>
       <span class="compatibility-warning">${class_compatibility_check(node, parent)}</span>
       
       <button class="icon-btn" title="toggle comment" onclick="showNodeComment('node_comment_${node.node_uid}', '${node.node_uid}')"}>
