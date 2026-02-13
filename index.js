@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.74.1-beta';
+const version = '0.74.2-beta';
 
 let newNodes = []
 
@@ -822,7 +822,12 @@ function updateLists() {
     if (lastIds.length > 1 && (document.getElementById('select_vis_view').value == 'ARCHETYPE' || document.getElementById('select_vis_view').value == 'ARCHETYPEMINDMAP' || document.getElementById('select_vis_view').value == 'SIMILAR' || document.getElementById('select_vis_view').value == 'COMBINATION')) {
       document.getElementById('visualization_back_btn').style.display = 'inline';
       document.getElementById('lastArchetypeLabel').style.display = 'inline';
-      document.getElementById('lastArchetypeLabel').innerText = lastIds[lastIds.length - 2];
+
+      const beforeArchetype = lastIds[lastIds.length - 2];
+      const beforItem = archetypeListItems.find(item => item.id === beforeArchetype);
+      
+
+      document.getElementById('lastArchetypeLabel').innerText = beforItem.textContent;
     } else {
       document.getElementById('visualization_back_btn').style.display = 'none';
       document.getElementById('lastArchetypeLabel').style.display = 'none';
