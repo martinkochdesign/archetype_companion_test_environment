@@ -4125,9 +4125,9 @@ function show_new_archetype_editor() {
   wdw_new_archetype_editor.style.display = 'inline';
   wdw_new_archetype_editor.style.position = 'absolute';
   wdw_new_archetype_editor.style.left = 'calc(50% - 250px)';
-  wdw_new_archetype_editor.style.top = 'calc(50% - 400px)';
+  wdw_new_archetype_editor.style.top = '20px';
   wdw_new_archetype_editor.style.width = '500px';
-  wdw_new_archetype_editor.style.height = '800px';
+  wdw_new_archetype_editor.style.height = 'calc(100% - 30px)';
   wdw_new_archetype_editor.style.border = '1px solid black';
   wdw_new_archetype_editor.style.backgroundColor = 'white';
   wdw_new_archetype_editor.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
