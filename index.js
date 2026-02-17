@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.75.1-beta';
+const version = '0.75.2-beta';
 
 let newNodes = []
 
@@ -3901,7 +3901,7 @@ function show_search_history_page() {
 //show button_bar
 function show_button_bar() {
   const wdw_button_bar = document.getElementById("wdw_button_bar");
-  if (wdw_button_bar.style.display == 'none') {
+  //if (wdw_button_bar.style.display == 'none') {
     wdw_button_bar.style.display = 'inline';
     wdw_button_bar.style.position = 'absolute';
     wdw_button_bar.style.left = 'calc(100% - 35px)';
@@ -3912,7 +3912,7 @@ function show_button_bar() {
     wdw_button_bar.style.backgroundColor = 'rgb(240,240,255)';
     wdw_button_bar.style.boxShadow = '0 2px 16px rgba(0,0,0,0.2)';
     wdw_button_bar.style.overflow = "hidden";
-  }
+  //}
   wdw_button_bar.style.zIndex = reset_dragabbles_z_index();
 }
 
