@@ -507,6 +507,9 @@ label {
     padding-bottom: 8px;
     margin: 0px;
     user-select: none;
+    /* No text wrapping */
+    white-space: nowrap;
+
     /* For modern browsers */
     -webkit-user-select: none;
     /* For Safari */
