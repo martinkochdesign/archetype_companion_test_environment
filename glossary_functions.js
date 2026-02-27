@@ -4,6 +4,7 @@
 
 const glossary_entryList = document.getElementById('glossary_entryList');
 const glossary_mainPanel = document.getElementById('glossary_mainPanel');
+const glossary_searchClassDescription = document.getElementById('glossary_searchClassDescription');
 const glossary_searchInput = document.getElementById('glossary_searchInput');
 const glossary_searchAttrName = document.getElementById('glossary_searchAttrName');
 const glossary_searchAttrDesc = document.getElementById('glossary_searchAttrDesc');
@@ -25,15 +26,18 @@ function highlightFoundGlossaryText(text, term) {
 function filterGlossaryClasses() {
   const q = glossary_searchInput.value.trim().toLowerCase();
   lastGlossarySearch = q;
+  const searchClassDescription = glossary_searchClassDescription.checked;
   const searchInAttrName = glossary_searchAttrName.checked;
   const searchInAttrDesc = glossary_searchAttrDesc.checked;
   const searchInAttrDatatype = glossary_searchAttrDataType.checked;
 
   filteredGlossaryClassNames = glossaryClassNames.filter(className => {
     const cls = glossary_data[className];
-    let found = className.toLowerCase().includes(q) || (cls.description && cls.description.toLowerCase().includes(q)) || (cls.type && cls.type.toLowerCase().includes(q));
-    if (!found && (searchInAttrName || searchInAttrDesc || searchInAttrDatatype) && cls.attributes) {
-      for (const [attr, details] of Object.entries(cls.attributes)) {
+    //let found = className.toLowerCase().includes(q) || (cls.description && cls.description.toLowerCase().includes(q)) || (cls.type && cls.type.toLowerCase().includes(q));
+    let found = className.toLowerCase().includes(q);
+    if (searchClassDescription && cls.description.toLowerCase().includes(q)){ found = true;}
+    if (!found && (searchInAttrName || searchInAttrDesc || searchInAttrDatatype) && cls.attributes) {    
+      for (const [attr, details] of Object.entries(cls.attributes)) {        
         if (searchInAttrName && attr.toLowerCase().includes(q)) { found = true; break; }
         if (searchInAttrDesc && details.description && details.description.toLowerCase().includes(q)) { found = true; break; }
         if (searchInAttrDatatype && details.type && details.type.join(', ').toLowerCase().includes(q)) { found = true; break; }
@@ -189,6 +193,7 @@ function updateSearch() {
 }
 
 glossary_searchInput.addEventListener('input', updateSearch);
+glossary_searchClassDescription.addEventListener('change', updateSearch);
 glossary_searchAttrName.addEventListener('change', updateSearch);
 glossary_searchAttrDesc.addEventListener('change', updateSearch);
 glossary_searchAttrDataType.addEventListener('change', updateSearch);
