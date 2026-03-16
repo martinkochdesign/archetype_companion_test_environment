@@ -573,7 +573,6 @@ label {
     margin-right: 20px;
     border-radius: 5px;
     margin-left: 10px;
-    
     background-color: white;
 
 }
@@ -620,6 +619,7 @@ label {
     background-color: white;
     height: 140px;
     overflow: auto;
+    margin-bottom: 10px;
 
 }
 
@@ -627,6 +627,7 @@ label {
     width: calc(100% - 10px);
     border-radius:7px;
     padding: 5px;
+
 }
 
 #new_archetype_inclusions_ul li {

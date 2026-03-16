@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.76.0-beta';
+const version = '0.77.0-beta';
 
 let newNodes = []
 
@@ -197,6 +197,13 @@ function updateHeaderGradientForHoliday() {
   else if (month === 2 && day === 17) {
     gradient = 'linear-gradient(45deg, #007f3f 0%, #b6e880 100%)'; // green shades
     color = 'white';
+    themed = true;
+  }
+
+   // Trans Visibility Day: March 31
+  else if (month === 2 && day === 31) {
+    gradient = 'linear-gradient(90deg, #5BCEFA 0%, #F5A9B8 25%, white 50%, #F5A9B8 75%, #5BCEFA 100%)'; // green shades
+    color = 'black';
     themed = true;
   }
   /*
@@ -2486,6 +2493,7 @@ function createNewArchetype() {
   updateLists();
   renderEditor();
   renderViewer();
+  show_new_archetype_editor();
 }
 
 function deleteNewArchetype(event) {
