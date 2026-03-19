@@ -3683,25 +3683,8 @@ function focusNode(nodeId) {
 
 
     if (sel_view === 'ECOSYSTEM') {
-      let scale = 2;
+      let scale = 2.25;
       nodes = [];
-      /*
-      econodes.forEach(en => {
-        //find the node from allNodes
-        tempNode = allNodes.find(n => n.id == en.id);       
-        if (tempNode){
-          tempNode.color = 'skyblue';//en.color;
-          tempNode.size = 10;//en.size;
-          tempNode.stroke = "transparent";//en.stroke;
-          tempNode.fx = en.posx*scale;
-          tempNode.fy = en.posy*scale;
-          nodes.push(tempNode);}
-        else {
-          en.stroke = "white"
-          nodes.push(en);
-        }
-
-      })*/
 
       //THE NODE CREATEION SHOULD BE DONE DIRECTLY FROM THE allNodes VARIABLE... 
       allNodes.forEach(en => {
@@ -3720,7 +3703,7 @@ function focusNode(nodeId) {
           l.color='red';
         }
         else{
-          l.color='lightgray';
+          l.color='gainsboro';
         }
       })     
       //nodes.forEach(n => {n.color='skyblue';})
