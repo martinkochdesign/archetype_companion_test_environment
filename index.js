@@ -2897,6 +2897,19 @@ function resetZoom() {
   }
 }
 
+function zoomToPos(x, y, scale = 0.7, duration = 100) {
+  const svg = d3.select('svg');
+
+  const t = d3.zoomIdentity
+    .scale(scale)
+    .translate(-x+visualization_element.offsetWidth / (2 * scale), -y+visualization_element.offsetHeight / (2 * scale));  // translate first…
+       // …then scale
+
+  svg
+    .transition()
+    .duration(duration)
+    .call(myZoom.transform, t);
+}
 
 function redraw() {
   d3.selectAll("svg g > *").remove(); //remove everything from the svg
@@ -3668,6 +3681,56 @@ function focusNode(nodeId) {
 
     } // END OF CREATE PROJECT VIEW
 
+
+    if (sel_view === 'ECOSYSTEM') {
+      let scale = 2;
+      nodes = [];
+      /*
+      econodes.forEach(en => {
+        //find the node from allNodes
+        tempNode = allNodes.find(n => n.id == en.id);       
+        if (tempNode){
+          tempNode.color = 'skyblue';//en.color;
+          tempNode.size = 10;//en.size;
+          tempNode.stroke = "transparent";//en.stroke;
+          tempNode.fx = en.posx*scale;
+          tempNode.fy = en.posy*scale;
+          nodes.push(tempNode);}
+        else {
+          en.stroke = "white"
+          nodes.push(en);
+        }
+
+      })*/
+
+      //THE NODE CREATEION SHOULD BE DONE DIRECTLY FROM THE allNodes VARIABLE... 
+      allNodes.forEach(en => {
+          tempNode = en;
+          tempNode.color = 'skyblue';//en.color;
+          tempNode.size = 10;//en.size;
+          tempNode.stroke = "transparent";//en.stroke;
+          tempNode.fx = en.posx*scale;
+          tempNode.fy = en.posy*scale;
+          nodes.push(tempNode);
+      })
+
+      links = ecolinks;
+      links.forEach(l => {
+        if (l.target.id==nodeId || l.source.id==nodeId){
+          l.color='red';
+        }
+        else{
+          l.color='lightgray';
+        }
+      })     
+      //nodes.forEach(n => {n.color='skyblue';})
+      selected = nodes.find(n => n.id === nodeId);
+      selected.color = 'red';
+      selected.size = 75;
+
+      //zoomToPos(selected.fx, selected.fy);
+      
+    }
 
     // CREATE TEMPLATE PLANNER VIEW
     if (sel_view === 'TREEPLANNER') {

@@ -10,11 +10,10 @@ import customtkinter
 from customtkinter import filedialog
 import shutil
 import time
-import networkx as nx
 
 # VARIABLES ******************************************************************
 # general things
-version = 'v4.29'
+version = 'v4.28'
 author = 'Martin A. Koch, PhD'
 copyright = '(c) 2026, CatSalut. Servei Català de la Salut'
 license = 'License: Apache 2.0'
@@ -2063,71 +2062,10 @@ def transformWorkflow(zipFileName):
 			recommendationList = recommendationList[0:10]
 		ex_arch['similar'] = recommendationList
 
-	print('Creating network for ecosystem visualization...')
-
-	ecosystem = {}
-	for d in existing_archetypes:
-		ecosystem[d['id']]={'id':d['id'],'archetype_id':d['archetype_id'],'similar':d['similar']}
-
-	pairs = []
-	for key in ecosystem.keys():
-		for s in ecosystem[key]['similar']:
-			if s != []:
-				temp = [key,s]
-				temp.sort()
-				if temp not in pairs:
-					pairs.append(tuple(temp))
-
-	nodes_in_pairs = []
-	for p in pairs:
-		for n in p:
-			if n not in nodes_in_pairs:
-				nodes_in_pairs.append(n)
-
-	singles = []
-	for key in ecosystem.keys():
-		if key not in nodes_in_pairs:
-			singles.append(key)
-
-	for e in ecosystem.keys():
-		count = 0
-		for p in pairs:
-			if e in p:
-				count+=1
-		ecosystem[e]['connections']=count
-
-	G = nx.Graph()
-	# add nodes and edges
-	for p in pairs:
-		G.add_edge(p[0], p[1])
-	for s in singles:
-		G.add_node(s)
-
-	pos = nx.spring_layout(G, k=1.0, iterations=150, scale=5000)
-
-	print('Add position to node')
-	for node in existing_archetypes:
-		node['posx'] = pos[node['id']][0]
-		node['posy'] = pos[node['id']][1]
-
-	print('create liks of ecosystem')
-	eco_links = []
-	for p in pairs:
-		l = {
-			"source":p[0],
-			"target":p[1],
-			"dash": "0",
-			"marker_start": "None",
-			"marker_end": "None",
-			"color": "darkgray"
-			}
-		eco_links.append(l)
-
 	print('Saving to file...')
 	#prepare and save our edges and nodes
 	nodeText = 'const provenance = "' + provenance + '";\nconst extraction_date = "' + download_time + '";\n'
 	nodeText += "const allNodes = " + json.dumps(existing_archetypes, ensure_ascii=False) + ";\n"
-	nodeText += "const ecolinks = " + json.dumps(eco_links, ensure_ascii=False) + ";\n"
 
 	f = open("dataset.js", "w", encoding='utf-8')
 	f.write(nodeText)
