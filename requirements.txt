@@ -4,3 +4,4 @@ pandas
 customtkinter
 bs4
 networkx
+scipy
