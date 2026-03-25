@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.78.1-beta';
+const version = '0.78.2-beta';
 
 let newNodes = []
 
@@ -2911,6 +2911,44 @@ function zoomToPos(x, y, scale = 0.7, duration = 100) {
     .call(myZoom.transform, t);
 }
 
+function goToPos_old(x, y, duration = 1500) {
+  const svg = d3.select('svg');
+
+
+  const t = d3.zoomIdentity
+    .translate(-x+visualization_element.offsetWidth / (2), -y+visualization_element.offsetHeight / (2));  // translate first…
+       // …then scale
+
+  svg
+    .transition()
+    .duration(duration)
+    .call(myZoom.transform, t);
+}
+
+function goToPos(x, y, duration = 2000) {
+  const svg = d3.select('svg');
+
+  // Get the current zoom transform
+  const currentTransform = d3.zoomTransform(svg.node());
+  const k = currentTransform.k;       // keep current scale
+
+  // Compute the new translate so that (x, y) is centered
+  const cx = visualization_element.offsetWidth  / 2;
+  const cy = visualization_element.offsetHeight / 2;
+
+  const t = d3.zoomIdentity
+    .translate(cx, cy)        // move origin to center of viewport
+    .scale(k)                 // keep existing zoom level
+    .translate(-x, -y);       // move node to origin
+  
+  myZoom.interpolate(d3.interpolate);   // linear interpolation of the transform
+
+  svg
+    .transition()
+    .duration(duration)
+    .call(myZoom.transform, t);
+}
+
 function redraw() {
   d3.selectAll("svg g > *").remove(); //remove everything from the svg
 
@@ -3712,6 +3750,7 @@ function focusNode(nodeId) {
       selected.size = 75;
 
       //zoomToPos(selected.fx, selected.fy);
+      goToPos(selected.fx, selected.fy)
       
     }
 
