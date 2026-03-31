@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.78.2-beta';
+const version = '0.78.3-beta';
 
 let newNodes = []
 
@@ -2337,7 +2337,7 @@ function setNewNodeData() {
     // trim leading/trailing underscores
     .replace(/^_+|_+$/g, '')
     // enforce max length if you like
-    .slice(0, 100) + '_v0';
+    .slice(0, 100) + '.v0';
 
   //add the auto-generate archetype ID
   foundItem.archetype_id = autoArchetypeID;
@@ -2459,7 +2459,7 @@ function createNewArchetype() {
       // trim leading/trailing underscores
       .replace(/^_+|_+$/g, '')
       // enforce max length if you like
-      .slice(0, 100) + '_v0';
+      .slice(0, 100) + '.v0';
   }
 
   let baseTitle = "A New Archetype Placeholder";
