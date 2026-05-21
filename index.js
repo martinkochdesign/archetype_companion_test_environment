@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.78.3-beta';
+const version = '0.79.0-beta';
 
 let newNodes = []
 
@@ -2768,6 +2768,7 @@ document.getElementById('load_project_button').addEventListener('click', functio
   this.value = '';
 });
 
+/*
 document.getElementById('load_project_button').addEventListener('change', function (e) {
   const file = e.target.files[0];
   if (!file)
@@ -2789,7 +2790,40 @@ document.getElementById('load_project_button').addEventListener('change', functi
   };
   reader.readAsText(file);
 })
+*/
+document.getElementById('load_project_button').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const reader = new FileReader();
+
+  reader.onerror = function () {
+    alert("Failed to read file: " + reader.error.message);
+  };
+
+  reader.onload = function (event) {
+    try {
+      let text = event.target.result;
+
+      // Strip BOM if present
+      if (text.charCodeAt(0) === 0xFEFF) {
+        text = text.slice(1);
+      }
+
+      selectedListItem = null;
+      wholeProject = JSON.parse(text);
+      populateProject();
+      updateLists();
+      renderEditor();
+      renderViewer();
+    } catch (err) {
+      console.error("JSON parse error:", err);
+      alert("Invalid JSON file: " + err.message);
+    }
+  };
+
+  reader.readAsText(file, 'UTF-8');
+});
 
 function triggerProjectFileInput() {
   document.getElementById('load_project_button').click();
