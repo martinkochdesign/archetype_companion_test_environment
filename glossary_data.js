@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-05-01 06:37:16";
+const glossary_extraction_date = "2026-07-06 08:34:46";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
@@ -277,8 +277,7 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_archetype_id_class"
+        "type": "Class"
     },
     "ATTESTATION": {
         "attributes": {
@@ -435,7 +434,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_authored_resource_class"
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_authored_resource_class"
     },
     "Any": {
         "abstract": "true",
@@ -454,8 +453,7 @@ const glossary_data = {
             "Boolean",
             "Ordered"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_any_class"
+        "type": "Class"
     },
     "Array": {
         "description": "Container whose storage is assumed to be contiguous.",
@@ -470,13 +468,11 @@ const glossary_data = {
             }
         },
         "inherit": "Container",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_array_class"
+        "type": "Class"
     },
     "BASIC_DEFINITIONS": {
         "description": "Defines globally used constant values.",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_basic_definitions_class"
+        "type": "Class"
     },
     "Boolean": {
         "description": "Type representing minimal interface of built-in Boolean type.",
@@ -539,8 +535,7 @@ const glossary_data = {
             }
         },
         "inherit": "Any",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_boolean_class"
+        "type": "Class"
     },
     "CAPABILITY": {
         "attributes": {
@@ -635,7 +630,7 @@ const glossary_data = {
         },
         "description": "A fully coordinated (i.e. all coordination has been performed) term from a terminology service (as distinct from a particular terminology).",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_code_phrase_class"
+        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_code_phrase_class"
     },
     "CODE_SET_ACCESS": {
         "description": "Defines an object providing proxy access to a code_set.",
@@ -863,14 +858,12 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_cardinality_class"
+        "type": "Class"
     },
     "Character": {
         "description": "Type representing minimal interface of built-in Character type.",
         "inherit": "Ordered",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_character_class"
+        "type": "Class"
     },
     "Container": {
         "abstract": "true",
@@ -941,8 +934,7 @@ const glossary_data = {
             "Array",
             "Hash<K,V>"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_container_class"
+        "type": "Class"
     },
     "DATA_STRUCTURE": {
         "abstract": "true",
@@ -2025,6 +2017,23 @@ const glossary_data = {
                     "Real"
                 ]
             },
+            "normal_range": {
+                "description": "Optional normal range.",
+                "existence": "0..1",
+                "type": [
+                    "DV_INTERVAL",
+                    "DV_QUANTITY"
+                ]
+            },
+            "other_reference_ranges": {
+                "description": "Optional tagged other reference ranges for this value in its particular measurement context.",
+                "existence": "0..1",
+                "type": [
+                    "List",
+                    "REFERENCE_RANGE",
+                    "DV_QUANTITY"
+                ]
+            },
             "precision": {
                 "description": "Precision to which the value of the quantity is expressed, in terms of number of decimal places. The value 0 implies an integral quantity.\nThe value -1 implies no limit, i.e. any number of decimal places.",
                 "existence": "0..1",
@@ -2501,11 +2510,40 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_double_class"
+        "type": "Class"
     },
     "EHR": {
         "attributes": {
+            "compositions": {
+                "description": "Master list of all Versioned Composition references in this EHR.",
+                "existence": "0..1",
+                "type": [
+                    "List",
+                    "OBJECT_REF"
+                ]
+            },
+            "contributions": {
+                "description": "List of contributions causing changes to this EHR. Each contribution contains a list of versions, which may include references to any number of VERSION instances, i.e. items of type VERSIONED_COMPOSITION and VERSIONED_FOLDER.",
+                "existence": "0..1",
+                "type": [
+                    "List",
+                    "OBJECT_REF"
+                ]
+            },
+            "directory": {
+                "description": "Optional directory structure for this EHR. If present, this is a reference to the first member of folders.",
+                "existence": "0..1",
+                "type": [
+                    "OBJECT_REF"
+                ]
+            },
+            "ehr_access": {
+                "description": "Reference to EHR_ACCESS object for this EHR.",
+                "existence": "1..1",
+                "type": [
+                    "OBJECT_REF"
+                ]
+            },
             "ehr_id": {
                 "description": "The unique identifier of this EHR.\n\n\n\n\n\nNote\n\n\nis is strongly recommended that a UUID always be used for this field.",
                 "existence": "1..1",
@@ -2513,11 +2551,33 @@ const glossary_data = {
                     "HIER_OBJECT_ID"
                 ]
             },
+            "ehr_status": {
+                "description": "Reference to EHR_STATUS object for this EHR.",
+                "existence": "1..1",
+                "type": [
+                    "OBJECT_REF"
+                ]
+            },
+            "folders": {
+                "description": "Optional additional Folder structures for this EHR. If set, the directory attribute refers to the first member.",
+                "existence": "0..1",
+                "type": [
+                    "List",
+                    "OBJECT_REF"
+                ]
+            },
             "system_id": {
                 "description": "The identifier of the logical EHR management system in which this EHR was created.",
                 "existence": "1..1",
                 "type": [
                     "HIER_OBJECT_ID"
+                ]
+            },
+            "time_created": {
+                "description": "Time of creation of the EHR.",
+                "existence": "1..1",
+                "type": [
+                    "DV_DATE_TIME"
                 ]
             }
         },
@@ -3297,8 +3357,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_env_interface"
+        "type": "Interface"
     },
     "FEEDER_AUDIT": {
         "attributes": {
@@ -3557,8 +3616,7 @@ const glossary_data = {
         },
         "description": "Generic identifier type for identifiers whose format is otherwise unknown to openEHR. Includes an attribute for naming the identification scheme (which may well be local).",
         "inherit": "OBJECT_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_generic_id_class"
+        "type": "Class"
     },
     "GROUP": {
         "description": "A group is a real world group of parties which is created by another party, usually an organisation, for some specific purpose. A typical clinical example is that of the specialist care team, e.g.  cardiology team . The members of the group usually work together.",
@@ -3569,8 +3627,7 @@ const glossary_data = {
     "HIER_OBJECT_ID": {
         "description": "Concrete type corresponding to hierarchical identifiers of the form defined by UID_BASED_ID.",
         "inherit": "UID_BASED_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_hier_object_id_class"
+        "type": "Class"
     },
     "HISTORY": {
         "attributes": {
@@ -3767,8 +3824,7 @@ const glossary_data = {
     "INTERNET_ID": {
         "description": "Model of a reverse internet domain, as used to uniquely identify an internet domain. In the form of a dot-separated string in the reverse order of a domain name, specified by IETF RFC 1034.",
         "inherit": "UID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_internet_id_class"
+        "type": "Class"
     },
     "INTERVAL_EVENT": {
         "attributes": {
@@ -3849,8 +3905,7 @@ const glossary_data = {
     "ISO_OID": {
         "description": "Model of ISO\u2019s Object Identifier (oid) as defined by the standard ISO/IEC 8824. Oids are formed from integers separated by dots. Each non-leaf node in an Oid starting from the left corresponds to an assigning authority, and identifies that authority\u2019s namespace, inside which the remaining part of the identifier is locally unique.",
         "inherit": "UID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_iso_oid_class"
+        "type": "Class"
     },
     "ITEM": {
         "abstract": "true",
@@ -4195,8 +4250,7 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_integer_class"
+        "type": "Class"
     },
     "Integer64": {
         "description": "Type representing minimal interface of built-in Integer64 type.",
@@ -4275,8 +4329,7 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_integer64_class"
+        "type": "Class"
     },
     "Interval": {
         "abstract": "true",
@@ -4364,8 +4417,7 @@ const glossary_data = {
             "Point_interval",
             "Proper_interval"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_interval_class"
+        "type": "Class"
     },
     "Iso8601_date": {
         "description": "Represents an ISO 8601 date, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DD (extended, preferred)\n\n\nYYYYMMDD (compact)\n\n\na partial invariant.\n\n\n\n\nSee Time_definitions.valid_iso8601_date() for validity.",
@@ -4484,8 +4536,7 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_date_class"
+        "type": "Class"
     },
     "Iso8601_date_time": {
         "description": "Represents an ISO 8601 date/time, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DDThh:mm:ss[(,|.)sss][Z | \u00b1hh[:mm]] (extended, preferred) or\n\n\nYYYYMMDDThhmmss[(,|.)sss][Z | \u00b1hh[mm]] (compact)\n\n\nor a partial variant.\n\n\n\n\nSee valid_iso8601_date_time() for validity.\n\n\nNote that this class includes 2 deviations from ISO 8601:2004:\n\n\n\n\nfor partial date/times, any part of the date/time up to the month may be missing, not just seconds and minutes as in the standard;\n\n\nthe time 24:00:00 is not allowed, since it would mean the date was really on the next day.",
@@ -4668,8 +4719,7 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_date_time_class"
+        "type": "Class"
     },
     "Iso8601_duration": {
         "description": "Represents an ISO 8601 duration, which may have multiple parts from years down to seconds. The value attribute is a String in the format:\n\n\n\n\nP[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]]\n\n\n\n\n\n\n\nNote\n\n\ntwo deviations from ISO 8601 are supported, the first, to allow a negative sign, and the second allowing the 'W' designator to be mixed with other designators.",
@@ -4820,8 +4870,7 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_duration_class"
+        "type": "Class"
     },
     "Iso8601_time": {
         "description": "Represents an ISO 8601 time, including partial and extended forms. Value may be:\n\n\n\n\nhh:mm:ss[(,|.)sss][Z|\u00b1hh[:mm]] (extended, preferred) or\n\n\nhhmmss[(,|.)sss][Z|\u00b1hh[mm]] (compact)\n\n\nor a partial invariant.\n\n\n\n\nSee valid_iso8601_time() for validity.\n\n\n\n\n\nNote\n\n\nA small deviation to the ISO 8601:2004 standard in this class is that the time 24:00:00 is not allowed, for consistency with Iso8601_date_time.",
@@ -4948,8 +4997,7 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_time_class"
+        "type": "Class"
     },
     "Iso8601_timezone": {
         "description": "ISO8601 timezone string, in format:\n\n\n\n\nZ | \u00b1hh[mm]\n\n\n\n\nwhere:\n\n\n\n\nhh is \"00\" - \"23\" (0-filled to two digits)\n\n\nmm is \"00\" - \"59\" (0-filled to two digits)\n\n\nZ is a literal meaning UTC (modern replacement for GMT), i.e. timezone +0000",
@@ -5020,8 +5068,7 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_timezone_class"
+        "type": "Class"
     },
     "Iso8601_type": {
         "abstract": "true",
@@ -5061,8 +5108,7 @@ const glossary_data = {
             "Iso8601_duration",
             "Iso8601_timezone"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_iso8601_type_class"
+        "type": "Class"
     },
     "LINK": {
         "attributes": {
@@ -5191,8 +5237,7 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_REF",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_locatable_ref_class"
+        "type": "Class"
     },
     "List": {
         "description": "Ordered container that may contain duplicates.",
@@ -5215,8 +5260,7 @@ const glossary_data = {
             }
         },
         "inherit": "Container",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_list_class"
+        "type": "Class"
     },
     "Locale": {
         "description": "Class representing current Locale.",
@@ -5230,8 +5274,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_locale_interface"
+        "type": "Interface"
     },
     "MEASUREMENT_SERVICE": {
         "description": "Defines an object providing proxy access to a measurement information service.",
@@ -5312,8 +5355,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_math_interface"
+        "type": "Interface"
     },
     "Multiplicity_interval": {
         "description": "An Interval of Integer, used to represent multiplicity, cardinality and optionality in models.",
@@ -5352,8 +5394,7 @@ const glossary_data = {
             }
         },
         "inherit": "Proper_interval",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_multiplicity_interval_class"
+        "type": "Class"
     },
     "Numeric": {
         "abstract": "true",
@@ -5409,8 +5450,7 @@ const glossary_data = {
             }
         },
         "inherit": "Any",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_numeric_class"
+        "type": "Class"
     },
     "OBJECT_ID": {
         "abstract": "true",
@@ -5427,8 +5467,7 @@ const glossary_data = {
         "specialization": [
             "UID_BASED_ID"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_object_id_class"
+        "type": "Class"
     },
     "OBJECT_REF": {
         "attributes": {
@@ -5455,8 +5494,7 @@ const glossary_data = {
             }
         },
         "description": "Class describing a reference to another object, which may exist locally or be maintained outside the current namespace, e.g. in another service. Services are usually external, e.g. available in a LAN (including on the same host) or the internet via Corba, SOAP, or some other distributed protocol. However, in small systems they may be part of the same executable as the data containing the Id.",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_object_ref_class"
+        "type": "Class"
     },
     "OBJECT_VERSION_ID": {
         "description": "Globally unique identifier for one version of a versioned object; lexical form: object_id  '::' creating_system_id  '::' version_tree_id.",
@@ -5495,8 +5533,7 @@ const glossary_data = {
             }
         },
         "inherit": "UID_BASED_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_object_version_id_class"
+        "type": "Class"
     },
     "OBSERVATION": {
         "attributes": {
@@ -5564,8 +5601,7 @@ const glossary_data = {
         },
         "description": "Inheritance class to provide access to constants defined in other packages.",
         "inherit": "BASIC_DEFINITIONS",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_openehr_definitions_class"
+        "type": "Class"
     },
     "OPENEHR_TERMINOLOGY_GROUP_IDENTIFIERS": {
         "description": "List of identifiers for groups in the openEHR terminology.",
@@ -5653,8 +5689,7 @@ const glossary_data = {
     "Octet": {
         "description": "Type representing minimal interface of built-in Octet type.",
         "inherit": "Ordered",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_octet_class"
+        "type": "Class"
     },
     "Ordered": {
         "abstract": "true",
@@ -5699,8 +5734,7 @@ const glossary_data = {
             "Octet",
             "String"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_ordered_class"
+        "type": "Class"
     },
     "Ordered_Numeric": {
         "abstract": "true",
@@ -5712,8 +5746,7 @@ const glossary_data = {
             "Real",
             "Double"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_ordered_numeric_class"
+        "type": "Class"
     },
     "PARTICIPATION": {
         "attributes": {
@@ -5879,8 +5912,7 @@ const glossary_data = {
     "PARTY_REF": {
         "description": "Identifier for parties in a demographic or identity service. There are typically a number of subtypes of the PARTY class, including PERSON, ORGANISATION, etc. Abstract supertypes are allowed if the referenced object is of a type not known by the current implementation of this class (in other words, if the demographic model is changed by the addition of a new PARTY or ACTOR subtypes, valid PARTY_REFs can still be constructed to them).",
         "inherit": "OBJECT_REF",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_party_ref_class"
+        "type": "Class"
     },
     "PARTY_RELATED": {
         "attributes": {
@@ -6076,14 +6108,12 @@ const glossary_data = {
         },
         "description": "Type representing an Interval that happens to be a point value. Provides an efficient representation that is substitutable for Interval<T> where needed.",
         "inherit": "Interval",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_point_interval_class"
+        "type": "Class"
     },
     "Proper_interval": {
         "description": "Type representing a 'proper' Interval, i.e. any two-sided or one-sided interval.",
         "inherit": "Interval",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_proper_interval_class"
+        "type": "Class"
     },
     "Quantity_converter": {
         "description": "Quantity conversion.",
@@ -6097,8 +6127,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_quantity_converter_interface"
+        "type": "Interface"
     },
     "REFERENCE_RANGE": {
         "attributes": {
@@ -6261,7 +6290,7 @@ const glossary_data = {
         },
         "description": "Defines the descriptive meta-data of a resource.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_resource_description_class"
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_resource_description_class"
     },
     "RESOURCE_DESCRIPTION_ITEM": {
         "attributes": {
@@ -6322,7 +6351,7 @@ const glossary_data = {
         },
         "description": "Language-specific detail of resource description. When a resource is translated for use in another language environment, each RESOURCE_DESCRIPTION_ITEM needs to be copied and translated into the new language.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_resource_description_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_resource_description_item_class"
     },
     "REVISION_HISTORY": {
         "attributes": {
@@ -6491,8 +6520,7 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_real_class"
+        "type": "Class"
     },
     "SECTION": {
         "attributes": {
@@ -6587,8 +6615,7 @@ const glossary_data = {
     "Set": {
         "description": "Unordered container that may not contain duplicates.",
         "inherit": "Container",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_set_class"
+        "type": "Class"
     },
     "Statistical_evaluator": {
         "description": "A basic statistical evaluator class providing common functions on collections of numbers.",
@@ -6666,8 +6693,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_statistical_evaluator_interface"
+        "type": "Interface"
     },
     "String": {
         "description": "Type representing minimal interface of built-in String type, as used to represent textual data in any natural or formal language.",
@@ -6722,14 +6748,12 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_string_class"
+        "type": "Class"
     },
     "TEMPLATE_ID": {
         "description": "Identifier for templates. Lexical form to be determined.",
         "inherit": "OBJECT_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_template_id_class"
+        "type": "Class"
     },
     "TERMINOLOGY_ACCESS": {
         "description": "Defines an object providing proxy access to a terminology.",
@@ -6809,8 +6833,7 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_ID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_terminology_id_class"
+        "type": "Class"
     },
     "TERMINOLOGY_SERVICE": {
         "description": "Defines an object providing proxy access to a terminology service.",
@@ -7010,12 +7033,11 @@ const glossary_data = {
         },
         "description": "Class providing details of a natural language translation.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/resource.html#_translation_details_class"
+        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_translation_details_class"
     },
     "TUPLE": {
         "description": "Parent type of all TUPLE types.",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_tuple_class"
+        "type": "Class"
     },
     "TUPLE1<A>": {
         "description": "A Tuple type used, among other things, for representing a single typed argument within a Routine signature.",
@@ -7031,8 +7053,7 @@ const glossary_data = {
         "abstract": "true",
         "description": "Abstract ancestor of time-related classes.",
         "inherit": "Ordered",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_temporal_class"
+        "type": "Class"
     },
     "Terminology_code": {
         "attributes": {
@@ -7067,8 +7088,7 @@ const glossary_data = {
         },
         "description": "Primitive type representing a standalone reference to a terminology concept, in the form of a terminology identifier, optional version, and a code or code string from the terminology.",
         "inherit": "Any",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_terminology_code_class"
+        "type": "Class"
     },
     "Terminology_term": {
         "attributes": {
@@ -7089,8 +7109,7 @@ const glossary_data = {
         },
         "description": "Leaf type representing a standalone term from a terminology, which consists of the term text and the code, i.e. a concept reference.",
         "inherit": "Any",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_terminology_term_class"
+        "type": "Class"
     },
     "Time_Definitions": {
         "description": "Definitions for date/time classes. Note that the timezone limits are set by where the international dateline is. Thus, time in New Zealand is quoted using +12:00, not -12:00.",
@@ -7184,8 +7203,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_time_definitions_class"
+        "type": "Class"
     },
     "UID": {
         "abstract": "true",
@@ -7204,8 +7222,7 @@ const glossary_data = {
             "UUID",
             "INTERNET_ID"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_uid_class"
+        "type": "Class"
     },
     "UID_BASED_ID": {
         "abstract": "true",
@@ -7241,26 +7258,22 @@ const glossary_data = {
             "HIER_OBJECT_ID",
             "OBJECT_VERSION_ID"
         ],
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_uid_based_id_class"
+        "type": "Class"
     },
     "UUID": {
         "description": "Model of the DCE Universal Unique Identifier or UUID which takes the form of hexadecimal integers separated by hyphens, following the pattern 8-4-4-4-12 as defined by the Open Group, CDE 1.1 Remote Procedure Call specification, Appendix A. Also known as a GUID.",
         "inherit": "UID",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_uuid_class"
+        "type": "Class"
     },
     "Uri": {
         "description": "A kind of String constrained to obey the syntax of RFC 3986.",
         "inherit": "String",
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/foundation_types.html#_uri_class"
+        "type": "Class"
     },
     "VALIDITY_KIND": {
         "attributes": {},
         "description": "An enumeration of three values that may commonly occur in constraint models.\n\n\nUse as the type of any attribute within this model, which expresses constraint on some attribute in a class in a reference model. For example to indicate validity\nof Date/Time fields.",
-        "type": "Enumeration",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_validity_kind_enumeration"
+        "type": "Enumeration"
     },
     "VERSION": {
         "abstract": "true",
@@ -7556,8 +7569,7 @@ const glossary_data = {
     "VERSION_STATUS": {
         "attributes": {},
         "description": "Status of a versioned artefact, as one of a number of possible values: uncontrolled, prerelease, release, build.",
-        "type": "Enumeration",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_version_status_enumeration"
+        "type": "Enumeration"
     },
     "VERSION_TREE_ID": {
         "attributes": {
@@ -7604,8 +7616,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class",
-        "url": "https://specifications.openehr.org/releases/BASE/development/base_types.html#_version_tree_id_class"
+        "type": "Class"
     },
     "X_CONTRIBUTION": {
         "attributes": {
