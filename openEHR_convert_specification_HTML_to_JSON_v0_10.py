@@ -75,31 +75,35 @@ def download_RM(outputdir):
 						RM['RM'][RM_class]['abstract']='true'
 				if len(header_cells) == 3 and header_cells[0].text == "Attributes":
 					RM['RM'][RM_class]['attributes']={}
+
 					for j in range(i+1,len(table_rows)):
 						row = table_rows[j]
 						header_cells = row.find_all('th')
 						table_cells = row.find_all('td')
-						if len(header_cells)==1:
-							#if header_cells[0].text == '1..1' or header_cells[0].text == '0..1':
-							if 	header_cells[0].text.find('1..1')>-1 or header_cells[0].text.find('0..1')>-1:
-								name_type = table_cells[0].text.split(':')
-								name = name_type[0].strip()
-								types = name_type[1].strip().split('\n')
-								type = types[0].strip()
-								type = type.replace('>','')
-								type = type.replace('<',',')
-								types = type.split(',')
-								existence = ''
-								if header_cells[0].text.find('1..1')>-1:
-									existence = '1..1'
-								elif header_cells[0].text.find('0..1')>-1:
-									existence = '0..1'
-								RM['RM'][RM_class]['attributes'][name]={}
-								RM['RM'][RM_class]['attributes'][name]['existence']= existence
-								RM['RM'][RM_class]['attributes'][name]['type'] = types
-								RM['RM'][RM_class]['attributes'][name]['description'] = table_cells[1].text.strip()
-							else:
-								break
+
+						# if len(header_cells)==1:
+						if len(table_cells)!=0:
+							if len(header_cells)!=0:
+								#if header_cells[0].text == '1..1' or header_cells[0].text == '0..1':
+								if 	header_cells[0].text.find('1..1')>-1 or header_cells[0].text.find('0..1')>-1:
+									name_type = table_cells[0].text.split(':')
+									name = name_type[0].strip()
+									types = name_type[1].strip().split('\n')
+									type = types[0].strip()
+									type = type.replace('>','')
+									type = type.replace('<',',')
+									types = type.split(',')
+									existence = ''
+									if header_cells[0].text.find('1..1')>-1:
+										existence = '1..1'
+									elif header_cells[0].text.find('0..1')>-1:
+										existence = '0..1'
+									RM['RM'][RM_class]['attributes'][name]={}
+									RM['RM'][RM_class]['attributes'][name]['existence']= existence
+									RM['RM'][RM_class]['attributes'][name]['type'] = types
+									RM['RM'][RM_class]['attributes'][name]['description'] = table_cells[1].text.strip()
+								else:
+									break
 						else:
 							break
 
