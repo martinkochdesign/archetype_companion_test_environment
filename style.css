@@ -68,7 +68,7 @@ small {
 #top_container {
     display: grid;
     width: 100%;
-    grid-template-columns: 310px auto 50px 50px 50px 50px 50px 35px 35px 35px 35px 35px 35px;
+    grid-template-columns: 310px auto 50px 50px 50px 50px 50px 35px 35px 35px 35px 35px 35px 35px;
     text-align: left;
 
     z-index: 0;
