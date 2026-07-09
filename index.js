@@ -1,5 +1,5 @@
 //INITIATE CONSTANTS and GLOBAL VARIABLES *****************************************************************************************
-const version = '0.79.0-beta';
+const version = '0.79.1-beta';
 
 let newNodes = []
 
