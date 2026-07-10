@@ -25,7 +25,7 @@ jobs:
 
       - name: Run extractor script
         run: |
-          python openEHR_convert_specification_HTML_to_JSON_v0_10.py
+          python openEHR_convert_specification_HTML_to_JSON_v0_11.py
 
       - name: Commit and push updated dataset
         run: |

@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-07-06 08:34:46";
+const glossary_extraction_date = "2026-07-10 09:05:24";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
@@ -37,7 +37,7 @@ const glossary_data = {
         "description": "Used to record a clinical action that has been performed, which may have been ad hoc, or due to the execution of an Activity in an Instruction workflow. Every Action corresponds to a careflow step of some kind or another.",
         "inherit": "CARE_ENTRY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_action_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_action_class"
     },
     "ACTIVITY": {
         "attributes": {
@@ -66,7 +66,7 @@ const glossary_data = {
         "description": "Defines a single activity within an Instruction, such as a medication administration.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_activity_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_activity_class"
     },
     "ACTOR": {
         "abstract": "true",
@@ -97,7 +97,7 @@ const glossary_data = {
             "AGENT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_actor_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_actor_class"
     },
     "ADDRESS": {
         "attributes": {
@@ -122,7 +122,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_address_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_address_class"
     },
     "ADDRESSED_MESSAGE": {
         "attributes": {
@@ -165,7 +165,7 @@ const glossary_data = {
         },
         "description": "The concept of a message addressed to nominated recipients.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_addressed_message_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_addressed_message_class"
     },
     "ADMIN_ENTRY": {
         "attributes": {
@@ -180,13 +180,13 @@ const glossary_data = {
         "description": "Entry subtype for administrative information, i.e. information about setting up the clinical process, but not itself clinically relevant. Archetypes will define contained information.\n\n\nUsed for administrative details of admission, episode, ward location, discharge, appointment (if not stored in a practice management or appointments system).\n\n\nNot to be used for any clinically significant information.",
         "inherit": "ENTRY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_admin_entry_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_admin_entry_class"
     },
     "AGENT": {
         "description": "Generic concept of any kind of agent, including devices, software systems, but not humans or organisations.",
         "inherit": "ACTOR",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_agent_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_agent_class"
     },
     "ARCHETYPED": {
         "attributes": {
@@ -214,7 +214,7 @@ const glossary_data = {
         },
         "description": "Archetypes act as the configuration basis for the particular structures of instances defined by the reference model. To enable archetypes to be used to create valid data, key classes in the reference model act as  root  points for archetyping; accordingly, these classes have the archetype_details attribute set.\n\n\nAn instance of the class ARCHETYPED contains the relevant archetype identification information, allowing generating archetypes to be matched up with data instances.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_archetyped_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_archetyped_class"
     },
     "ARCHETYPE_ID": {
         "description": "Identifier for archetypes. Ideally these would identify globally unique archetypes.\n\n\nLexical form: rm_originator  '-' rm_name  '-' rm_entity  '.' concept_name {  '-' specialisation }*  '.v' number.",
@@ -277,7 +277,8 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_archetype_id_class"
     },
     "ATTESTATION": {
         "attributes": {
@@ -321,7 +322,7 @@ const glossary_data = {
         "description": "Record an attestation of a party (the committer) to item(s) of record content. An attestation is an explicit signing by one healthcare agent of particular content for various particular purposes, including:\n\n\n\n\nfor authorisation of a controlled substance or procedure (e.g. sectioning of patient under mental health act);\n\n\nwitnessing of content by senior clinical professional;\n\n\nindicating acknowledgement of content by intended recipient, e.g. GP who ordered a test result.",
         "inherit": "AUDIT_DETAILS",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_attestation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_attestation_class"
     },
     "AUDIT_DETAILS": {
         "attributes": {
@@ -363,7 +364,7 @@ const glossary_data = {
         },
         "description": "The set of attributes required to document the committal of an information item to a repository.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_audit_details_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_audit_details_class"
     },
     "AUTHORED_RESOURCE": {
         "abstract": "true",
@@ -434,7 +435,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_authored_resource_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_authored_resource_class"
     },
     "Any": {
         "abstract": "true",
@@ -453,7 +454,8 @@ const glossary_data = {
             "Boolean",
             "Ordered"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_any_class"
     },
     "Array": {
         "description": "Container whose storage is assumed to be contiguous.",
@@ -468,11 +470,13 @@ const glossary_data = {
             }
         },
         "inherit": "Container",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_array_class"
     },
     "BASIC_DEFINITIONS": {
         "description": "Defines globally used constant values.",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_basic_definitions_class"
     },
     "Boolean": {
         "description": "Type representing minimal interface of built-in Boolean type.",
@@ -535,7 +539,8 @@ const glossary_data = {
             }
         },
         "inherit": "Any",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_boolean_class"
     },
     "CAPABILITY": {
         "attributes": {
@@ -558,7 +563,7 @@ const glossary_data = {
         "description": "Capability of a role, such as  ehr modifier ,  health care provider . Capability should be backed up by credentials.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_capability_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_capability_class"
     },
     "CARE_ENTRY": {
         "abstract": "true",
@@ -586,7 +591,7 @@ const glossary_data = {
             "INSTRUCTION"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_care_entry_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_care_entry_class"
     },
     "CLUSTER": {
         "attributes": {
@@ -602,7 +607,7 @@ const glossary_data = {
         "description": "The grouping variant of ITEM, which may contain further instances of ITEM, in an ordered list.",
         "inherit": "ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_cluster_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_cluster_class"
     },
     "CODE_PHRASE": {
         "attributes": {
@@ -630,7 +635,7 @@ const glossary_data = {
         },
         "description": "A fully coordinated (i.e. all coordination has been performed) term from a terminology service (as distinct from a particular terminology).",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_code_phrase_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class"
     },
     "CODE_SET_ACCESS": {
         "description": "Defines an object providing proxy access to a code_set.",
@@ -669,8 +674,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_code_set_access_interface"
+        "type": "Interface"
     },
     "COMPOSITION": {
         "attributes": {
@@ -731,7 +735,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_composition_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_composition_class"
     },
     "CONTACT": {
         "attributes": {
@@ -765,7 +769,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_contact_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_contact_class"
     },
     "CONTENT_ITEM": {
         "abstract": "true",
@@ -776,7 +780,7 @@ const glossary_data = {
             "ENTRY"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_content_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_content_item_class"
     },
     "CONTRIBUTION": {
         "attributes": {
@@ -805,7 +809,7 @@ const glossary_data = {
         },
         "description": "Documents a Contribution (change set) of one or more versions added to a change-controlled repository.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_contribution_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_contribution_class"
     },
     "Cardinality": {
         "attributes": {
@@ -858,12 +862,14 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_cardinality_class"
     },
     "Character": {
         "description": "Type representing minimal interface of built-in Character type.",
         "inherit": "Ordered",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_character_class"
     },
     "Container": {
         "abstract": "true",
@@ -934,7 +940,8 @@ const glossary_data = {
             "Array",
             "Hash<K,V>"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_container_class"
     },
     "DATA_STRUCTURE": {
         "abstract": "true",
@@ -954,7 +961,7 @@ const glossary_data = {
             "ITEM_STRUCTURE"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_data_structure_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_data_structure_class"
     },
     "DATA_VALUE": {
         "abstract": "true",
@@ -967,7 +974,7 @@ const glossary_data = {
             "DV_TEXT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_data_value_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_data_value_class"
     },
     "DV_ABSOLUTE_QUANTITY": {
         "abstract": "true",
@@ -1012,7 +1019,7 @@ const glossary_data = {
             "DV_TEMPORAL"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_absolute_quantity_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_absolute_quantity_class"
     },
     "DV_AMOUNT": {
         "abstract": "true",
@@ -1097,7 +1104,7 @@ const glossary_data = {
             "DV_COUNT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_amount_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_amount_class"
     },
     "DV_BOOLEAN": {
         "attributes": {
@@ -1112,7 +1119,7 @@ const glossary_data = {
         "description": "Items which are truly boolean data, such as true/false or yes/no answers. For such data, it is important to devise the meanings (usually questions in subjective data)  carefully, so that the only allowed results are in fact true or false.\n\n\nMisuse: The DV_BOOLEAN class should not be used as a replacement for naively modelled enumerated types such as male/female etc. Such values should be coded, and in any case the enumeration often has more than two values.",
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_boolean_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_boolean_class"
     },
     "DV_CODED_TEXT": {
         "attributes": {
@@ -1127,7 +1134,7 @@ const glossary_data = {
         "description": "A text item whose value must be the rubric from a controlled terminology, the key (i.e. the 'code') of which is the defining_code attribute. In other words: a DV_CODED_TEXT is a combination of a CODE_PHRASE (effectively a code) and the rubric of that term, from a terminology service, in the language in which the data were authored.\n\n\nSince DV_CODED_TEXT is a subtype of DV_TEXT, it can be used in place of it, effectively allowing the type DV_TEXT to mean  a text item, which may optionally be coded.\n\n\nMisuse: If the intention is to represent a term code attached in some way to a fragment of plain text, DV_CODED_TEXT should not be used; instead use a DV_TEXT and a TERM_MAPPING to a CODE_PHRASE.",
         "inherit": "DV_TEXT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_coded_text_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class"
     },
     "DV_COUNT": {
         "attributes": {
@@ -1201,7 +1208,7 @@ const glossary_data = {
         },
         "inherit": "DV_AMOUNT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_count_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class"
     },
     "DV_DATE": {
         "attributes": {
@@ -1274,7 +1281,7 @@ const glossary_data = {
         },
         "inherit": "DV_TEMPORAL, Iso8601_date",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_date_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_date_class"
     },
     "DV_DATE_TIME": {
         "attributes": {
@@ -1339,7 +1346,7 @@ const glossary_data = {
         },
         "inherit": "DV_TEMPORAL, Iso8601_date_time",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_date_time_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_date_time_class"
     },
     "DV_DURATION": {
         "attributes": {
@@ -1412,13 +1419,13 @@ const glossary_data = {
         },
         "inherit": "DV_AMOUNT, Iso8601_duration",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_duration_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_duration_class"
     },
     "DV_EHR_URI": {
         "description": "A DV_EHR_URI is a DV_URI which has the scheme name 'ehr', and which can only reference items in EHRs.\n\n\nUsed to reference items in an EHR, which may be the same as the current EHR (containing this link), or another.",
         "inherit": "DV_URI",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_ehr_uri_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ehr_uri_class"
     },
     "DV_ENCAPSULATED": {
         "abstract": "true",
@@ -1445,7 +1452,7 @@ const glossary_data = {
             "DV_PARSABLE"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_encapsulated_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_encapsulated_class"
     },
     "DV_GENERAL_TIME_SPECIFICATION": {
         "description": "Specifies points in time in a general syntax. Based on the HL7v3 GTS data type.",
@@ -1477,7 +1484,7 @@ const glossary_data = {
         },
         "inherit": "DV_TIME_SPECIFICATION",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_general_time_specification_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_general_time_specification_class"
     },
     "DV_IDENTIFIER": {
         "attributes": {
@@ -1513,13 +1520,13 @@ const glossary_data = {
         "description": "Type for representing identifiers of real-world entities. Typical identifiers include drivers licence number, social security number, veterans affairs number, prescription id, order id, and so on.\n\n\nDV_IDENTIFIER is used to represent any identifier of a real thing, issued by some authority or agency.\n\n\nMisuse: DV_IDENTIFIER is not used to express identifiers generated by the infrastructure to refer to information items; the types OBJECT_ID and OBJECT_REF and subtypes are defined for this purpose.",
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_identifier_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_identifier_class"
     },
     "DV_INTERVAL": {
         "description": "Generic class defining an interval (i.e. range) of a comparable type. An interval is a contiguous subrange of a comparable base type. Used to define intervals of dates, times, quantities (whose units match) and so on. The type parameter, T, must be a descendant of the type DV_ORDERED, which is necessary (but not sufficient) for instances to be compared (strictly_comparable is also needed).\n\n\nWithout the DV_INTERVAL class, quite a few more DV_ classes would be needed to express logical intervals, namely interval versions of all the date/time classes, and of quantity classes. Further, it allows the semantics of intervals to be stated in one place unequivocally, including the conditions for strict comparison.\n\n\nThe basic semantics are derived from the class Interval<T>, described in the support RM.",
         "inherit": "DATA_VALUE, Interval",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_interval_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class"
     },
     "DV_MULTIMEDIA": {
         "attributes": {
@@ -1626,7 +1633,7 @@ const glossary_data = {
         },
         "inherit": "DV_ENCAPSULATED",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_multimedia_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_multimedia_class"
     },
     "DV_ORDERED": {
         "abstract": "true",
@@ -1691,7 +1698,7 @@ const glossary_data = {
         },
         "inherit": "DATA_VALUE, Ordered",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_ordered_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordered_class"
     },
     "DV_ORDINAL": {
         "attributes": {
@@ -1731,7 +1738,7 @@ const glossary_data = {
         },
         "inherit": "DV_ORDERED",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_ordinal_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordinal_class"
     },
     "DV_PARAGRAPH": {
         "attributes": {
@@ -1747,7 +1754,7 @@ const glossary_data = {
         "description": "DEPRECATED: use markdown formatted DV_TEXT instead.\n\n\nOriginal definition:\n\n\nA logical composite text value consisting of a series of DV_TEXTs, i.e. plain text (optionally coded) potentially with simple formatting, to form a larger tract of prose, which may be interpreted for display purposes as a paragraph.\n\n\nDV_PARAGRAPH is the standard way for constructing longer text items in summaries, reports and so on.",
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_paragraph_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_paragraph_class"
     },
     "DV_PARSABLE": {
         "attributes": {
@@ -1779,7 +1786,7 @@ const glossary_data = {
         },
         "inherit": "DV_ENCAPSULATED",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_parsable_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_parsable_class"
     },
     "DV_PERIODIC_TIME_SPECIFICATION": {
         "description": "Specifies periodic points in time, linked to the calendar (phase-linked), or a real world repeating event, such as  breakfast  (event-linked). Based on the HL7v3 data types PIVL<T> and EIVL<T>.\n\n\nUsed in therapeutic prescriptions, expressed as INSTRUCTIONs in the openEHR model.",
@@ -1819,7 +1826,7 @@ const glossary_data = {
         },
         "inherit": "DV_TIME_SPECIFICATION",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_periodic_time_specification_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_periodic_time_specification_class"
     },
     "DV_PROPORTION": {
         "attributes": {
@@ -1938,7 +1945,7 @@ const glossary_data = {
         },
         "inherit": "PROPORTION_KIND, DV_AMOUNT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_proportion_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class"
     },
     "DV_QUANTIFIED": {
         "abstract": "true",
@@ -2006,7 +2013,7 @@ const glossary_data = {
             "DV_AMOUNT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_quantified_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantified_class"
     },
     "DV_QUANTITY": {
         "attributes": {
@@ -2116,7 +2123,7 @@ const glossary_data = {
         },
         "inherit": "DV_AMOUNT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_quantity_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantity_class"
     },
     "DV_SCALE": {
         "attributes": {
@@ -2156,7 +2163,7 @@ const glossary_data = {
         },
         "inherit": "DV_ORDERED",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_scale_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_scale_class"
     },
     "DV_STATE": {
         "attributes": {
@@ -2178,7 +2185,7 @@ const glossary_data = {
         "description": "For representing state values which obey a defined state machine, such as a variable  representing the states of an instruction or care process.\n\n\nDV_STATE is expressed as a String but its values are driven by archetype-defined  state machines. This provides a powerful way of capturing stateful complex processes  in simple data.",
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_state_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_state_class"
     },
     "DV_TEMPORAL": {
         "abstract": "true",
@@ -2220,7 +2227,7 @@ const glossary_data = {
         },
         "inherit": "DV_ABSOLUTE_QUANTITY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_temporal_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_temporal_class"
     },
     "DV_TEXT": {
         "attributes": {
@@ -2271,7 +2278,7 @@ const glossary_data = {
         "description": "A text item, which may contain any amount of legal characters arranged as e.g. words, sentences etc (i.e. one DV_TEXT may be more than one word). Visual formatting and hyperlinks may be included via markdown.\n\n\nIf the formatting field is set, the value field is affected as follows:\n\n\n\n\nformatting = \"plain\": plain text, may contain newlines;\n\n\nformatting = \"plain_no_newlines\": plain text with no newlines;\n\n\nformatting = \"markdown\": text in markdown format; use of CommonMark strongly recommended.\n\n\n\n\nA DV_TEXT can be coded by adding mappings to it.",
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_text_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class"
     },
     "DV_TIME": {
         "attributes": {
@@ -2336,7 +2343,7 @@ const glossary_data = {
         },
         "inherit": "DV_TEMPORAL, Iso8601_time",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_time_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_class"
     },
     "DV_TIME_SPECIFICATION": {
         "abstract": "true",
@@ -2382,7 +2389,7 @@ const glossary_data = {
             "DV_GENERAL_TIME_SPECIFICATION"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_time_specification_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_specification_class"
     },
     "DV_URI": {
         "attributes": {
@@ -2431,7 +2438,7 @@ const glossary_data = {
         },
         "inherit": "DATA_VALUE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_dv_uri_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_uri_class"
     },
     "Double": {
         "description": "Type used to represent double-precision decimal numbers. Corresponds to a double-precision floating point value in most languages.",
@@ -2510,7 +2517,8 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_double_class"
     },
     "EHR": {
         "attributes": {
@@ -2583,7 +2591,7 @@ const glossary_data = {
         },
         "description": "The EHR object is the root object and access point of an EHR for a subject of care.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_ehr_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_class"
     },
     "EHR_ACCESS": {
         "attributes": {
@@ -2608,7 +2616,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_ehr_access_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_access_class"
     },
     "EHR_STATUS": {
         "attributes": {
@@ -2644,7 +2652,7 @@ const glossary_data = {
         "description": "Single object per EHR containing various EHR-wide status flags and settings, including whether this EHR can be queried, modified etc. This object is always modifiable, in order to change the status of the EHR as a whole.\n\n\n\n\n\nNote\n\n\nIt is strongly recommended that the inherited attribute uid be populated in EHR_STATUS objects, using the UID copied from the object_id() of the uid field of the enclosing VERSION object.\nFor example, the ORIGINAL_VERSION.uid 87284370-2D4B-4e3d-A3F3-F303D2F4F34B::uk.nhs.ehr1::2  would be copied to the uid field of the EHR_STATUS object.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_ehr_status_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_ehr_status_class"
     },
     "ELEMENT": {
         "attributes": {
@@ -2683,7 +2691,7 @@ const glossary_data = {
         },
         "inherit": "ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_element_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_element_class"
     },
     "ENTRY": {
         "abstract": "true",
@@ -2749,7 +2757,7 @@ const glossary_data = {
             "CARE_ENTRY"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_entry_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_entry_class"
     },
     "EVALUATION": {
         "attributes": {
@@ -2764,7 +2772,7 @@ const glossary_data = {
         "description": "Entry type for evaluation statements. Used for all kinds of statements which evaluate other information, such as interpretations of observations, diagnoses, differential diagnoses, hypotheses, risk assessments, goals and plans.\n\n\nShould not be used for actionable statements such as medication orders - these are represented using the INSTRUCTION type.",
         "inherit": "CARE_ENTRY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_evaluation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_evaluation_class"
     },
     "EVENT": {
         "abstract": "true",
@@ -2808,7 +2816,7 @@ const glossary_data = {
             "INTERVAL_EVENT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/PROC/development/task_planning.html#_event_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_event_class"
     },
     "EVENT_CONTEXT": {
         "attributes": {
@@ -2866,14 +2874,14 @@ const glossary_data = {
         "description": "Documents the context information of a healthcare event involving the subject of care and the health system. The context information recorded here are independent of the attributes recorded in the version audit, which document the  system interaction  context, i.e. the context of a user interacting with the health record system. Healthcare events include patient contacts, and any other business activity, such as pathology investigations which take place on behalf of the patient.",
         "inherit": "PATHABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_event_context_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_event_context_class"
     },
     "EXTERNAL_ENVIRONMENT_ACCESS": {
         "abstract": "true",
         "description": "A mixin class providing access to services in the external environment.",
         "inherit": "TERMINOLOGY_SERVICE, MEASUREMENT_SERVICE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_external_environment_access_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_external_environment_access_class"
     },
     "EXTRACT": {
         "attributes": {
@@ -2932,7 +2940,7 @@ const glossary_data = {
         "description": "Generic model of an Extract of some information from a repository.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_class"
     },
     "EXTRACT_ACTION_REQUEST": {
         "attributes": {
@@ -2961,7 +2969,7 @@ const glossary_data = {
         "description": "Generic model of a Request for an Extract, containing an Extract specification.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_action_request_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_action_request_class"
     },
     "EXTRACT_CHAPTER": {
         "attributes": {
@@ -2977,7 +2985,7 @@ const glossary_data = {
         "description": "One content chapter of an Extract; contains information relating to only one entity.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_chapter_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_chapter_class"
     },
     "EXTRACT_CONTENT_ITEM": {
         "abstract": "true",
@@ -3017,7 +3025,7 @@ const glossary_data = {
             "OPENEHR_CONTENT_ITEM"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_content_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_content_item_class"
     },
     "EXTRACT_ENTITY_CHAPTER": {
         "attributes": {
@@ -3032,7 +3040,7 @@ const glossary_data = {
         "description": "Type of chapter that contains information relating to a single demographic entity.",
         "inherit": "EXTRACT_CHAPTER",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_entity_chapter_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_entity_chapter_class"
     },
     "EXTRACT_ENTITY_MANIFEST": {
         "attributes": {
@@ -3076,7 +3084,7 @@ const glossary_data = {
         },
         "description": "The manifest for one entity (e.g. EHR subject), identifying the entity and optionally specifying top-level items to be included in the Extract. The list actually included may be modified by the version_spec part of the specification, and also by the link_depth attribute. In repeat (standing order) requests, the final inclusion may be modified by the send_changes_only value for EXTRACT_UPDATE_SPEC.update_method.\n\n\nVarious identifiers may be provided for the entity; these are to be used by the receiver system to locate the entity. The extract_id_key attribute is used to record the identifier that will be used throughout the Extract for this entity, including in instances of EXTRACT_ENTITY_IDENTIFIER.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_entity_manifest_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_entity_manifest_class"
     },
     "EXTRACT_FOLDER": {
         "attributes": {
@@ -3092,7 +3100,7 @@ const glossary_data = {
         "description": "Folder in local Folder structure in an Extract. Empty Folders are allowed.",
         "inherit": "EXTRACT_ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_folder_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_folder_class"
     },
     "EXTRACT_ITEM": {
         "abstract": "true",
@@ -3103,7 +3111,7 @@ const glossary_data = {
             "EXTRACT_CONTENT_ITEM"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_item_class"
     },
     "EXTRACT_MANIFEST": {
         "attributes": {
@@ -3118,7 +3126,7 @@ const glossary_data = {
         },
         "description": "Specification of the candidate entities and optionally top-level items (e.g. Compositions) to be included in the Extract.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_manifest_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_manifest_class"
     },
     "EXTRACT_PARTICIPATION": {
         "attributes": {
@@ -3154,7 +3162,7 @@ const glossary_data = {
         },
         "description": "Model of a participation of a Party (any Actor or Role) in an activity.  Used to represent any participation of a Party in some activity, which is not  explicitly in the model, e.g. assisting nurse. Can be used to record past or  future participations.\n\n\nShould not be used in place of more permanent relationships between demographic entities.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_participation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_participation_class"
     },
     "EXTRACT_REQUEST": {
         "attributes": {
@@ -3183,7 +3191,7 @@ const glossary_data = {
         "description": "Generic model of a Request for an Extract, containing an Extract specification.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_request_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_request_class"
     },
     "EXTRACT_SPEC": {
         "attributes": {
@@ -3247,7 +3255,7 @@ const glossary_data = {
         },
         "description": "Specification of an Extract\u2019s contents. Subtypes can be used to add details specific to the type of Extract. The specification consists of attributes specifying the directory, and two further groups of attributes in their own classes, namely a version specfication (which versions of information items are to be included) and a manifest (which entities are to be included in the extract).\n\n\nUse: Used in a request to specify an Extract, as well as to describe what is contained in an Extract.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_spec_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_spec_class"
     },
     "EXTRACT_UPDATE_SPEC": {
         "attributes": {
@@ -3283,7 +3291,7 @@ const glossary_data = {
         },
         "description": "Specification of the how the request should be processed by server. The request can be persisted in the server, meaning that a) it can be re-activated by the requesting system simply by indicating Request id, and b) that a changes-only pattern of Extract updates can be set up. To achieve this, the server has to remember what was sent in the previous response.\n\n\nThe update mode may be event-driven and periodic update or a mixture of both. The candidate items to be sent each time are the result of re-evaluating the content and versioning parts of the specification; what is actually sent is determined by the send_changes_only flag.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_update_spec_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_update_spec_class"
     },
     "EXTRACT_VERSION_SPEC": {
         "attributes": {
@@ -3319,7 +3327,7 @@ const glossary_data = {
         },
         "description": "Specification of what versions should be included in an Extract. By default, only latest versions are included in the Extract, in which case this part of the Extract specification is not needed at all. The attributes include_all_versions and commit_time_interval are used to modify this; the former forces all versions to be included; the latter limits the versions to be those latest versions committed in the time interval, or if include_all_versions is True, all versions committed in the time interval.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_extract_version_spec_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_version_spec_class"
     },
     "Env": {
         "description": "Class representing the real-world environment, providing basic information like current time, date, etc.",
@@ -3401,7 +3409,7 @@ const glossary_data = {
         },
         "description": "The FEEDER_AUDIT class defines the semantics of an audit trail which is constructed to describe the origin of data that have been transformed into openEHR form and committed to the system.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_feeder_audit_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_feeder_audit_class"
     },
     "FEEDER_AUDIT_DETAILS": {
         "attributes": {
@@ -3457,7 +3465,7 @@ const glossary_data = {
         },
         "description": "Audit details for any system in a feeder system chain. Audit details here means the general notion of who/where/when the information item to which the audit is attached was created. None of the attributes is defined as mandatory, however, in different scenarios, various combinations of attributes will usually be mandatory. This can be controlled by specifying feeder audit details in legacy archetypes.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_feeder_audit_details_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_feeder_audit_details_class"
     },
     "FOLDER": {
         "attributes": {
@@ -3488,7 +3496,7 @@ const glossary_data = {
         "description": "The concept of a named folder.\n\n\n\n\n\nNote\n\n\nIt is strongly recommended that the inherited attribute uid be populated in top-level (i.e. tree-root) FOLDER objects, using the UID copied from the object_id() of the uid field of the enclosing VERSION object.\nFor example, the ORIGINAL_VERSION.uid 87284370-2D4B-4e3d-A3F3-F303D2F4F34B::uk.nhs.ehr1::2  would be copied to the uid field of the top FOLDER object.",
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_folder_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_folder_class"
     },
     "FUNCTION<ARGS,RESULT>": {
         "description": "Type representing a function with a return type and 0 or more arguments represented as a TUPLE.",
@@ -3587,7 +3595,7 @@ const glossary_data = {
         "description": "Single item in generic extract, designed for 13606 and CDA data.",
         "inherit": "EXTRACT_CONTENT_ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_generic_content_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_generic_content_item_class"
     },
     "GENERIC_ENTRY": {
         "attributes": {
@@ -3602,7 +3610,7 @@ const glossary_data = {
         "description": "This class is used to create intermediate representations of data from sources not otherwise conforming to openEHR classes, such as HL7 messages, relational databases and so on.",
         "inherit": "CONTENT_ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/integration.html#_generic_entry_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/integration.html#_generic_entry_class"
     },
     "GENERIC_ID": {
         "attributes": {
@@ -3616,18 +3624,20 @@ const glossary_data = {
         },
         "description": "Generic identifier type for identifiers whose format is otherwise unknown to openEHR. Includes an attribute for naming the identification scheme (which may well be local).",
         "inherit": "OBJECT_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_generic_id_class"
     },
     "GROUP": {
         "description": "A group is a real world group of parties which is created by another party, usually an organisation, for some specific purpose. A typical clinical example is that of the specialist care team, e.g.  cardiology team . The members of the group usually work together.",
         "inherit": "ACTOR",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_group_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_group_class"
     },
     "HIER_OBJECT_ID": {
         "description": "Concrete type corresponding to hierarchical identifiers of the form defined by UID_BASED_ID.",
         "inherit": "UID_BASED_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_hier_object_id_class"
     },
     "HISTORY": {
         "attributes": {
@@ -3681,7 +3691,7 @@ const glossary_data = {
         },
         "inherit": "DATA_STRUCTURE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_history_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_history_class"
     },
     "Hash<K,V>": {
         "description": "Type representing a keyed table of values. V is the value type, and K the type of the keys.",
@@ -3753,7 +3763,7 @@ const glossary_data = {
         },
         "inherit": "VERSION",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_imported_version_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_imported_version_class"
     },
     "INSTRUCTION": {
         "attributes": {
@@ -3790,7 +3800,7 @@ const glossary_data = {
         "description": "Used to specify actions in the future. Enables simple and complex specifications to be expressed, including in a fully-computable workflow form. Used for any actionable statement such as medication and therapeutic orders, monitoring, recall and review. Enough details must be provided for the specification to be directly executed by an actor, either human or machine.\n\n\nNot to be used for plan items which are only specified in general terms.",
         "inherit": "CARE_ENTRY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_instruction_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_instruction_class"
     },
     "INSTRUCTION_DETAILS": {
         "attributes": {
@@ -3819,12 +3829,13 @@ const glossary_data = {
         "description": "Used to record details of the Instruction causing an Action.",
         "inherit": "PATHABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_instruction_details_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_instruction_details_class"
     },
     "INTERNET_ID": {
         "description": "Model of a reverse internet domain, as used to uniquely identify an internet domain. In the form of a dot-separated string in the reverse order of a domain name, specified by IETF RFC 1034.",
         "inherit": "UID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_internet_id_class"
     },
     "INTERVAL_EVENT": {
         "attributes": {
@@ -3863,7 +3874,7 @@ const glossary_data = {
         },
         "inherit": "EVENT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_interval_event_class"
     },
     "ISM_TRANSITION": {
         "attributes": {
@@ -3900,12 +3911,13 @@ const glossary_data = {
         "description": "Model of a transition in the Instruction State Machine, caused by a careflow step. The attributes document the careflow step as well as the ISM transition.",
         "inherit": "PATHABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_ism_transition_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_ism_transition_class"
     },
     "ISO_OID": {
         "description": "Model of ISO\u2019s Object Identifier (oid) as defined by the standard ISO/IEC 8824. Oids are formed from integers separated by dots. Each non-leaf node in an Oid starting from the left corresponds to an assigning authority, and identifies that authority\u2019s namespace, inside which the remaining part of the identifier is locally unique.",
         "inherit": "UID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_iso_oid_class"
     },
     "ITEM": {
         "abstract": "true",
@@ -3916,7 +3928,7 @@ const glossary_data = {
             "ELEMENT"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_class"
     },
     "ITEM_LIST": {
         "attributes": {
@@ -3975,7 +3987,7 @@ const glossary_data = {
         },
         "inherit": "ITEM_STRUCTURE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_list_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_list_class"
     },
     "ITEM_SINGLE": {
         "attributes": {
@@ -4000,7 +4012,7 @@ const glossary_data = {
         },
         "inherit": "ITEM_STRUCTURE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_single_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_single_class"
     },
     "ITEM_STRUCTURE": {
         "abstract": "true",
@@ -4013,7 +4025,7 @@ const glossary_data = {
             "ITEM_TREE"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_structure_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_structure_class"
     },
     "ITEM_TABLE": {
         "attributes": {
@@ -4129,7 +4141,7 @@ const glossary_data = {
         },
         "inherit": "ITEM_STRUCTURE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_table_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_table_class"
     },
     "ITEM_TREE": {
         "attributes": {
@@ -4171,7 +4183,7 @@ const glossary_data = {
         },
         "inherit": "ITEM_STRUCTURE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_item_tree_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_item_tree_class"
     },
     "Integer": {
         "description": "Type representing minimal interface of built-in Integer type.",
@@ -4250,7 +4262,8 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_integer_class"
     },
     "Integer64": {
         "description": "Type representing minimal interface of built-in Integer64 type.",
@@ -4329,7 +4342,8 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_integer64_class"
     },
     "Interval": {
         "abstract": "true",
@@ -4417,7 +4431,8 @@ const glossary_data = {
             "Point_interval",
             "Proper_interval"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_interval_class"
     },
     "Iso8601_date": {
         "description": "Represents an ISO 8601 date, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DD (extended, preferred)\n\n\nYYYYMMDD (compact)\n\n\na partial invariant.\n\n\n\n\nSee Time_definitions.valid_iso8601_date() for validity.",
@@ -4536,7 +4551,8 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_date_class"
     },
     "Iso8601_date_time": {
         "description": "Represents an ISO 8601 date/time, including partial and extended forms. Value may be:\n\n\n\n\nYYYY-MM-DDThh:mm:ss[(,|.)sss][Z | \u00b1hh[:mm]] (extended, preferred) or\n\n\nYYYYMMDDThhmmss[(,|.)sss][Z | \u00b1hh[mm]] (compact)\n\n\nor a partial variant.\n\n\n\n\nSee valid_iso8601_date_time() for validity.\n\n\nNote that this class includes 2 deviations from ISO 8601:2004:\n\n\n\n\nfor partial date/times, any part of the date/time up to the month may be missing, not just seconds and minutes as in the standard;\n\n\nthe time 24:00:00 is not allowed, since it would mean the date was really on the next day.",
@@ -4719,7 +4735,8 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_date_time_class"
     },
     "Iso8601_duration": {
         "description": "Represents an ISO 8601 duration, which may have multiple parts from years down to seconds. The value attribute is a String in the format:\n\n\n\n\nP[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]]\n\n\n\n\n\n\n\nNote\n\n\ntwo deviations from ISO 8601 are supported, the first, to allow a negative sign, and the second allowing the 'W' designator to be mixed with other designators.",
@@ -4870,7 +4887,8 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_duration_class"
     },
     "Iso8601_time": {
         "description": "Represents an ISO 8601 time, including partial and extended forms. Value may be:\n\n\n\n\nhh:mm:ss[(,|.)sss][Z|\u00b1hh[:mm]] (extended, preferred) or\n\n\nhhmmss[(,|.)sss][Z|\u00b1hh[mm]] (compact)\n\n\nor a partial invariant.\n\n\n\n\nSee valid_iso8601_time() for validity.\n\n\n\n\n\nNote\n\n\nA small deviation to the ISO 8601:2004 standard in this class is that the time 24:00:00 is not allowed, for consistency with Iso8601_date_time.",
@@ -4997,7 +5015,8 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_time_class"
     },
     "Iso8601_timezone": {
         "description": "ISO8601 timezone string, in format:\n\n\n\n\nZ | \u00b1hh[mm]\n\n\n\n\nwhere:\n\n\n\n\nhh is \"00\" - \"23\" (0-filled to two digits)\n\n\nmm is \"00\" - \"59\" (0-filled to two digits)\n\n\nZ is a literal meaning UTC (modern replacement for GMT), i.e. timezone +0000",
@@ -5068,7 +5087,8 @@ const glossary_data = {
             }
         },
         "inherit": "Iso8601_type",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_timezone_class"
     },
     "Iso8601_type": {
         "abstract": "true",
@@ -5108,7 +5128,8 @@ const glossary_data = {
             "Iso8601_duration",
             "Iso8601_timezone"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_type_class"
     },
     "LINK": {
         "attributes": {
@@ -5136,7 +5157,7 @@ const glossary_data = {
         },
         "description": "The LINK type defines a logical relationship between two items, such as two ENTRYs or an ENTRY and a COMPOSITION. Links can be used across compositions, and across EHRs. Links can potentially be used between interior (i.e. non archetype root) nodes, although this probably should be prevented in archetypes. Multiple LINKs can be attached to the root object of any archetyped structure to give the effect of a 1\u2192N link.\n\n\n1:1 and 1:N relationships between archetyped content elements (e.g. ENTRYs) can be expressed by using one, or more than one, respectively, LINKs. Chains of links can be used to see  problem threads  or other logical groupings of items.\n\n\nLinks should be between archetyped structures only, i.e. between objects representing complete domain concepts because relationships between sub-elements of whole concepts are not necessarily meaningful, and may be downright confusing. Sensible links only exist between whole ENTRYs, SECTIONs, COMPOSITIONs and so on.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_link_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_link_class"
     },
     "LOCATABLE": {
         "abstract": "true",
@@ -5206,7 +5227,7 @@ const glossary_data = {
         },
         "inherit": "PATHABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_locatable_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class"
     },
     "LOCATABLE_REF": {
         "attributes": {
@@ -5237,7 +5258,8 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_REF",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_locatable_ref_class"
     },
     "List": {
         "description": "Ordered container that may contain duplicates.",
@@ -5260,7 +5282,8 @@ const glossary_data = {
             }
         },
         "inherit": "Container",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_list_class"
     },
     "Locale": {
         "description": "Class representing current Locale.",
@@ -5297,7 +5320,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_measurement_service_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_measurement_service_class"
     },
     "MESSAGE": {
         "attributes": {
@@ -5325,7 +5348,7 @@ const glossary_data = {
         },
         "description": "A \u201cmessage\u201d is an authored, possibly signed, piece of content intended for one or more recipients. Since the recipient may or may not be known directly, recipients are specified in the ADDRESSED_MESSAGE class.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_message_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_message_class"
     },
     "Math": {
         "description": "Mathematical computation.",
@@ -5394,7 +5417,8 @@ const glossary_data = {
             }
         },
         "inherit": "Proper_interval",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_multiplicity_interval_class"
     },
     "Numeric": {
         "abstract": "true",
@@ -5450,7 +5474,8 @@ const glossary_data = {
             }
         },
         "inherit": "Any",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_numeric_class"
     },
     "OBJECT_ID": {
         "abstract": "true",
@@ -5467,7 +5492,8 @@ const glossary_data = {
         "specialization": [
             "UID_BASED_ID"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_object_id_class"
     },
     "OBJECT_REF": {
         "attributes": {
@@ -5494,7 +5520,8 @@ const glossary_data = {
             }
         },
         "description": "Class describing a reference to another object, which may exist locally or be maintained outside the current namespace, e.g. in another service. Services are usually external, e.g. available in a LAN (including on the same host) or the internet via Corba, SOAP, or some other distributed protocol. However, in small systems they may be part of the same executable as the data containing the Id.",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_object_ref_class"
     },
     "OBJECT_VERSION_ID": {
         "description": "Globally unique identifier for one version of a versioned object; lexical form: object_id  '::' creating_system_id  '::' version_tree_id.",
@@ -5533,7 +5560,8 @@ const glossary_data = {
             }
         },
         "inherit": "UID_BASED_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_object_version_id_class"
     },
     "OBSERVATION": {
         "attributes": {
@@ -5557,7 +5585,7 @@ const glossary_data = {
         "description": "Entry subtype for all clinical data in the past or present, i.e. which (by the time it is recorded) has already occurred. OBSERVATION data is expressed using the class HISTORY<T>, which guarantees that it is situated in time. OBSERVATION is used for all notionally objective (i.e. measured in some way) observations of phenomena, and patient-reported phenomena, e.g. pain.\n\n\nNot to be used for recording opinion or future statements of any kind, including instructions, intentions, plans etc.",
         "inherit": "CARE_ENTRY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_observation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_observation_class"
     },
     "OPENEHR_CODE_SET_IDENTIFIERS": {
         "description": "List of identifiers for code sets in the openEHR terminology.",
@@ -5572,7 +5600,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_openehr_code_set_identifiers_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_openehr_code_set_identifiers_class"
     },
     "OPENEHR_CONTENT_ITEM": {
         "attributes": {
@@ -5587,7 +5615,7 @@ const glossary_data = {
         "description": "Form of EHR EXTRACT_ITEM containing openEHR serialised VERSIONED_OBJECTs.",
         "inherit": "EXTRACT_CONTENT_ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_openehr_content_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_openehr_content_item_class"
     },
     "OPENEHR_DEFINITIONS": {
         "attributes": {
@@ -5601,7 +5629,8 @@ const glossary_data = {
         },
         "description": "Inheritance class to provide access to constants defined in other packages.",
         "inherit": "BASIC_DEFINITIONS",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_openehr_definitions_class"
     },
     "OPENEHR_TERMINOLOGY_GROUP_IDENTIFIERS": {
         "description": "List of identifiers for groups in the openEHR terminology.",
@@ -5616,13 +5645,13 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_openehr_terminology_group_identifiers_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_openehr_terminology_group_identifiers_class"
     },
     "ORGANISATION": {
         "description": "Generic description of organisations. An organisation is a legally constituted body whose existence (in general) outlives the existence of parties considered to be part of it.",
         "inherit": "ACTOR",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_organisation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_organisation_class"
     },
     "ORIGINAL_VERSION": {
         "attributes": {
@@ -5684,12 +5713,13 @@ const glossary_data = {
         },
         "inherit": "VERSION",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_original_version_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_original_version_class"
     },
     "Octet": {
         "description": "Type representing minimal interface of built-in Octet type.",
         "inherit": "Ordered",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_octet_class"
     },
     "Ordered": {
         "abstract": "true",
@@ -5734,7 +5764,8 @@ const glossary_data = {
             "Octet",
             "String"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_ordered_class"
     },
     "Ordered_Numeric": {
         "abstract": "true",
@@ -5746,7 +5777,8 @@ const glossary_data = {
             "Real",
             "Double"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_ordered_numeric_class"
     },
     "PARTICIPATION": {
         "attributes": {
@@ -5782,7 +5814,7 @@ const glossary_data = {
         },
         "description": "Model of a participation of a Party (any Actor or Role) in an activity.  Used to represent any participation of a Party in some activity, which is not  explicitly in the model, e.g. assisting nurse. Can be used to record past or  future participations.\n\n\nShould not be used in place of more permanent relationships between demographic entities.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_participation_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class"
     },
     "PARTY": {
         "abstract": "true",
@@ -5840,7 +5872,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_party_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_party_class"
     },
     "PARTY_IDENTIFIED": {
         "attributes": {
@@ -5863,7 +5895,7 @@ const glossary_data = {
         "description": "Proxy data for an identified party other than the subject of the record, minimally consisting of human-readable identifier(s), such as name, formal (and possibly computable) identifiers such as NHS number, and an optional link to external data. There must be at least one of name, identifier or external_ref present.\n\n\nUsed to describe parties where only identifiers may be known, and there is no entry at all in the demographic system (or even no demographic system). Typically for health care providers, e.g. name and provider number of an institution.\n\n\nShould not be used to include patient identifying information.",
         "inherit": "PARTY_PROXY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_party_identified_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_party_identified_class"
     },
     "PARTY_IDENTITY": {
         "attributes": {
@@ -5888,7 +5920,7 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_party_identity_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_party_identity_class"
     },
     "PARTY_PROXY": {
         "abstract": "true",
@@ -5907,12 +5939,13 @@ const glossary_data = {
             "PARTY_IDENTIFIED"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_party_proxy_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_party_proxy_class"
     },
     "PARTY_REF": {
         "description": "Identifier for parties in a demographic or identity service. There are typically a number of subtypes of the PARTY class, including PERSON, ORGANISATION, etc. Abstract supertypes are allowed if the referenced object is of a type not known by the current implementation of this class (in other words, if the demographic model is changed by the addition of a new PARTY or ACTOR subtypes, valid PARTY_REFs can still be constructed to them).",
         "inherit": "OBJECT_REF",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_party_ref_class"
     },
     "PARTY_RELATED": {
         "attributes": {
@@ -5927,7 +5960,7 @@ const glossary_data = {
         "description": "Proxy type for identifying a party and its relationship to the subject of the record. Use where the relationship between the party and the subject of the record must be known.",
         "inherit": "PARTY_IDENTIFIED",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_party_related_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_party_related_class"
     },
     "PARTY_RELATIONSHIP": {
         "attributes": {
@@ -5974,13 +6007,13 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_party_relationship_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_party_relationship_class"
     },
     "PARTY_SELF": {
         "description": "Party proxy representing the subject of the record. Used to indicate that the party is the owner of the record. May or may not have external_ref set.",
         "inherit": "PARTY_PROXY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_party_self_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_party_self_class"
     },
     "PATHABLE": {
         "abstract": "true",
@@ -6041,19 +6074,19 @@ const glossary_data = {
             "LOCATABLE"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_pathable_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_pathable_class"
     },
     "PERSON": {
         "description": "Generic description of persons. Provides a dedicated type to which Person archetypes can be targeted.",
         "inherit": "ACTOR",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_person_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_person_class"
     },
     "POINT_EVENT": {
         "description": "Defines a single point event in a series.",
         "inherit": "EVENT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_structures.html#_point_event_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_point_event_class"
     },
     "PROCEDURE<ARGS>": {
         "description": "Type representing a procedure with 0 or more arguments represented as a TUPLE.",
@@ -6073,7 +6106,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_proportion_kind_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_proportion_kind_class"
     },
     "Point_interval": {
         "attributes": {
@@ -6108,12 +6141,14 @@ const glossary_data = {
         },
         "description": "Type representing an Interval that happens to be a point value. Provides an efficient representation that is substitutable for Interval<T> where needed.",
         "inherit": "Interval",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_point_interval_class"
     },
     "Proper_interval": {
         "description": "Type representing a 'proper' Interval, i.e. any two-sided or one-sided interval.",
         "inherit": "Interval",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_proper_interval_class"
     },
     "Quantity_converter": {
         "description": "Quantity conversion.",
@@ -6158,7 +6193,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_reference_range_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_reference_range_class"
     },
     "RESOURCE_DESCRIPTION": {
         "attributes": {
@@ -6290,7 +6325,7 @@ const glossary_data = {
         },
         "description": "Defines the descriptive meta-data of a resource.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_resource_description_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_resource_description_class"
     },
     "RESOURCE_DESCRIPTION_ITEM": {
         "attributes": {
@@ -6351,7 +6386,7 @@ const glossary_data = {
         },
         "description": "Language-specific detail of resource description. When a resource is translated for use in another language environment, each RESOURCE_DESCRIPTION_ITEM needs to be copied and translated into the new language.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_resource_description_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_resource_description_item_class"
     },
     "REVISION_HISTORY": {
         "attributes": {
@@ -6384,7 +6419,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_revision_history_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_revision_history_class"
     },
     "REVISION_HISTORY_ITEM": {
         "attributes": {
@@ -6406,7 +6441,7 @@ const glossary_data = {
         },
         "description": "An entry in a revision history, corresponding to a version from a versioned container. Consists of AUDIT_DETAILS instances with revision identifier of the revision to which the AUDIT_DETAILS instance belongs.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_revision_history_item_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_revision_history_item_class"
     },
     "ROLE": {
         "attributes": {
@@ -6437,7 +6472,7 @@ const glossary_data = {
         "description": "Generic description of a role performed by an Actor. The role corresponds to a competency of the Party. Roles are used to define the responsibilities undertaken by a Party for a purpose. Roles should have credentials qualifying the performer to perform the role.",
         "inherit": "PARTY",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_role_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_role_class"
     },
     "ROUTINE<ARGS>": {
         "description": "Type representing a function with a return type and 0 or more arguments represented as a TUPLE.",
@@ -6520,7 +6555,8 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered_Numeric",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_real_class"
     },
     "SECTION": {
         "attributes": {
@@ -6536,7 +6572,7 @@ const glossary_data = {
         "description": "Represents a heading in a heading structure, or  section tree.  Created according to archetyped structures for typical headings such as SOAP,  physical examination, but also pathology result heading structures.  Should not be used instead of ENTRY hierarchical structures.",
         "inherit": "CONTENT_ITEM",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_section_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_section_class"
     },
     "SYNC_EXTRACT": {
         "attributes": {
@@ -6559,7 +6595,7 @@ const glossary_data = {
         "description": "",
         "inherit": "MESSAGE_CONTENT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_sync_extract_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_sync_extract_class"
     },
     "SYNC_EXTRACT_REQUEST": {
         "attributes": {
@@ -6574,7 +6610,7 @@ const glossary_data = {
         "description": "Type of request designed for synchronisation of Contributions between openEHR servers.",
         "inherit": "MESSAGE_CONTENT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_sync_extract_request_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_sync_extract_request_class"
     },
     "SYNC_EXTRACT_SPEC": {
         "attributes": {
@@ -6610,12 +6646,13 @@ const glossary_data = {
         },
         "description": "Details of specification of Extract, used in a request to specify an Extract, or in a response, to describe what is actually in the Extract.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_sync_extract_spec_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_sync_extract_spec_class"
     },
     "Set": {
         "description": "Unordered container that may not contain duplicates.",
         "inherit": "Container",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_set_class"
     },
     "Statistical_evaluator": {
         "description": "A basic statistical evaluator class providing common functions on collections of numbers.",
@@ -6748,12 +6785,14 @@ const glossary_data = {
             }
         },
         "inherit": "Ordered",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class"
     },
     "TEMPLATE_ID": {
         "description": "Identifier for templates. Lexical form to be determined.",
         "inherit": "OBJECT_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_template_id_class"
     },
     "TERMINOLOGY_ACCESS": {
         "description": "Defines an object providing proxy access to a terminology.",
@@ -6809,8 +6848,7 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_terminology_access_interface"
+        "type": "Interface"
     },
     "TERMINOLOGY_ID": {
         "description": "Identifier for terminologies such as accessed via a terminology query service. In this class, the value attribute identifies the Terminology in the terminology service, e.g.  SNOMED-CT . A terminology is assumed to be in a particular language, which must be explicitly specified.\n\n\nThe value if the id attribute is the precise terminology id identifier, including actual release (i.e. actual  version), local modifications etc; e.g. ICPC2.\n\n\nLexical form: name [  '(' version  ')' ].",
@@ -6833,7 +6871,8 @@ const glossary_data = {
             }
         },
         "inherit": "OBJECT_ID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_terminology_id_class"
     },
     "TERMINOLOGY_SERVICE": {
         "description": "Defines an object providing proxy access to a terminology service.",
@@ -6909,7 +6948,7 @@ const glossary_data = {
         },
         "inherit": "OPENEHR_TERMINOLOGY_GROUP_IDENTIFIERS, OPENEHR_CODE_SET_IDENTIFIERS",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/support.html#_terminology_service_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_terminology_service_class"
     },
     "TERM_MAPPING": {
         "attributes": {
@@ -6979,7 +7018,7 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/data_types.html#_term_mapping_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_term_mapping_class"
     },
     "TRANSLATION_DETAILS": {
         "attributes": {
@@ -7033,11 +7072,12 @@ const glossary_data = {
         },
         "description": "Class providing details of a natural language translation.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_translation_details_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_translation_details_class"
     },
     "TUPLE": {
         "description": "Parent type of all TUPLE types.",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_tuple_class"
     },
     "TUPLE1<A>": {
         "description": "A Tuple type used, among other things, for representing a single typed argument within a Routine signature.",
@@ -7053,7 +7093,8 @@ const glossary_data = {
         "abstract": "true",
         "description": "Abstract ancestor of time-related classes.",
         "inherit": "Ordered",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_temporal_class"
     },
     "Terminology_code": {
         "attributes": {
@@ -7088,7 +7129,8 @@ const glossary_data = {
         },
         "description": "Primitive type representing a standalone reference to a terminology concept, in the form of a terminology identifier, optional version, and a code or code string from the terminology.",
         "inherit": "Any",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_terminology_code_class"
     },
     "Terminology_term": {
         "attributes": {
@@ -7109,7 +7151,8 @@ const glossary_data = {
         },
         "description": "Leaf type representing a standalone term from a terminology, which consists of the term text and the code, i.e. a concept reference.",
         "inherit": "Any",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_terminology_term_class"
     },
     "Time_Definitions": {
         "description": "Definitions for date/time classes. Note that the timezone limits are set by where the international dateline is. Thus, time in New Zealand is quoted using +12:00, not -12:00.",
@@ -7203,7 +7246,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_time_definitions_class"
     },
     "UID": {
         "abstract": "true",
@@ -7222,7 +7266,8 @@ const glossary_data = {
             "UUID",
             "INTERNET_ID"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_uid_class"
     },
     "UID_BASED_ID": {
         "abstract": "true",
@@ -7258,17 +7303,20 @@ const glossary_data = {
             "HIER_OBJECT_ID",
             "OBJECT_VERSION_ID"
         ],
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_uid_based_id_class"
     },
     "UUID": {
         "description": "Model of the DCE Universal Unique Identifier or UUID which takes the form of hexadecimal integers separated by hyphens, following the pattern 8-4-4-4-12 as defined by the Open Group, CDE 1.1 Remote Procedure Call specification, Appendix A. Also known as a GUID.",
         "inherit": "UID",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_uuid_class"
     },
     "Uri": {
         "description": "A kind of String constrained to obey the syntax of RFC 3986.",
         "inherit": "String",
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_uri_class"
     },
     "VALIDITY_KIND": {
         "attributes": {},
@@ -7364,7 +7412,7 @@ const glossary_data = {
             "IMPORTED_VERSION"
         ],
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_version_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_version_class"
     },
     "VERSIONED_COMPOSITION": {
         "description": "Version-controlled composition abstraction, defined by inheriting VERSIONED_OBJECT<COMPOSITION>.",
@@ -7380,25 +7428,25 @@ const glossary_data = {
         },
         "inherit": "VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_versioned_composition_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_versioned_composition_class"
     },
     "VERSIONED_EHR_ACCESS": {
         "description": "Version container for EHR_ACCESS instance.",
         "inherit": "VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_versioned_ehr_access_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_versioned_ehr_access_class"
     },
     "VERSIONED_EHR_STATUS": {
         "description": "Version container for EHR_STATUS instance.",
         "inherit": "VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr.html#_versioned_ehr_status_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_versioned_ehr_status_class"
     },
     "VERSIONED_FOLDER": {
         "description": "A version-controlled hierarchy of FOLDERs giving the effect of a directory.",
         "inherit": "VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_versioned_folder_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_versioned_folder_class"
     },
     "VERSIONED_OBJECT": {
         "attributes": {
@@ -7558,13 +7606,13 @@ const glossary_data = {
             }
         },
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/common.html#_versioned_object_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_versioned_object_class"
     },
     "VERSIONED_PARTY": {
         "description": "Static type formed by binding generic parameter of VERSIONED_OBJECT<T> to PARTY.",
         "inherit": "VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/demographic.html#_versioned_party_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_versioned_party_class"
     },
     "VERSION_STATUS": {
         "attributes": {},
@@ -7616,7 +7664,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Class"
+        "type": "Class",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_version_tree_id_class"
     },
     "X_CONTRIBUTION": {
         "attributes": {
@@ -7645,31 +7694,31 @@ const glossary_data = {
         },
         "description": "Serialised form of Contribution for an Extract.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_contribution_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_contribution_class"
     },
     "X_VERSIONED_COMPOSITION": {
         "description": "Form of X_VERSIONED_OBJECT for COMPOSITION EHR object.",
         "inherit": "X_VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_composition_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_composition_class"
     },
     "X_VERSIONED_EHR_ACCESS": {
         "description": "Form of X_VERSIONED_OBJECT for EHR_ACCESS EHR object.",
         "inherit": "X_VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_ehr_access_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_ehr_access_class"
     },
     "X_VERSIONED_EHR_STATUS": {
         "description": "Form of X_VERSIONED_OBJECT for EHR_STATUS EHR object.",
         "inherit": "X_VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_ehr_status_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_ehr_status_class"
     },
     "X_VERSIONED_FOLDER": {
         "description": "Form of X_VERSIONED_OBJECT for FOLDER EHR object.",
         "inherit": "X_VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_folder_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_folder_class"
     },
     "X_VERSIONED_OBJECT": {
         "attributes": {
@@ -7726,13 +7775,13 @@ const glossary_data = {
         },
         "description": "Variety of Extract content that consists is a sharable data-oriented version of VERSIONED_OBJECT<T>.",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_object_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_object_class"
     },
     "X_VERSIONED_PARTY": {
         "description": "Form of X_VERSIONED_OBJECT for PARTY demographic object.",
         "inherit": "X_VERSIONED_OBJECT",
         "type": "Class",
-        "url": "https://specifications.openehr.org/releases/RM/development/ehr_extract.html#_x_versioned_party_class"
+        "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_x_versioned_party_class"
     }
 };
 
