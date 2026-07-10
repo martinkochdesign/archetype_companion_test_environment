@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-07-10 09:05:24";
+const glossary_extraction_date = "2026-07-10 11:23:37";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
@@ -451,8 +451,14 @@ const glossary_data = {
             }
         },
         "specialization": [
+            "PATHABLE",
             "Boolean",
-            "Ordered"
+            "Ordered",
+            "Numeric",
+            "Container",
+            "Interval",
+            "Terminology_term",
+            "Terminology_code"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_any_class"
@@ -588,7 +594,8 @@ const glossary_data = {
         "specialization": [
             "OBSERVATION",
             "EVALUATION",
-            "INSTRUCTION"
+            "INSTRUCTION",
+            "ACTION"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_care_entry_class"
@@ -777,7 +784,8 @@ const glossary_data = {
         "inherit": "LOCATABLE",
         "specialization": [
             "SECTION",
-            "ENTRY"
+            "ENTRY",
+            "GENERIC_ENTRY"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/ehr.html#_content_item_class"
@@ -958,7 +966,8 @@ const glossary_data = {
         },
         "inherit": "LOCATABLE",
         "specialization": [
-            "ITEM_STRUCTURE"
+            "ITEM_STRUCTURE",
+            "HISTORY"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_structures.html#_data_structure_class"
@@ -971,7 +980,13 @@ const glossary_data = {
             "DV_BOOLEAN",
             "DV_STATE",
             "DV_IDENTIFIER",
-            "DV_TEXT"
+            "DV_TEXT",
+            "DV_PARAGRAPH",
+            "DV_ORDERED",
+            "DV_INTERVAL",
+            "DV_TIME_SPECIFICATION",
+            "DV_ENCAPSULATED",
+            "DV_URI"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_data_value_class"
@@ -1101,7 +1116,9 @@ const glossary_data = {
         "inherit": "DV_QUANTIFIED",
         "specialization": [
             "DV_QUANTITY",
-            "DV_COUNT"
+            "DV_COUNT",
+            "DV_PROPORTION",
+            "DV_DURATION"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_amount_class"
@@ -1697,6 +1714,11 @@ const glossary_data = {
             }
         },
         "inherit": "DATA_VALUE, Ordered",
+        "specialization": [
+            "DV_ORDINAL",
+            "DV_SCALE",
+            "DV_QUANTIFIED"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordered_class"
     },
@@ -2010,7 +2032,8 @@ const glossary_data = {
         },
         "inherit": "DV_ORDERED",
         "specialization": [
-            "DV_AMOUNT"
+            "DV_AMOUNT",
+            "DV_ABSOLUTE_QUANTITY"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_quantified_class"
@@ -2226,6 +2249,11 @@ const glossary_data = {
             }
         },
         "inherit": "DV_ABSOLUTE_QUANTITY",
+        "specialization": [
+            "DV_DATE",
+            "DV_TIME",
+            "DV_DATE_TIME"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_temporal_class"
     },
@@ -3022,7 +3050,8 @@ const glossary_data = {
         "description": "Abstract model of a wrapper for one content item in an Extract, containing various meta-data. Indicates whether it was part of the primary set and what its original path was. Intended to be subtyped for wrappers of specific types of content.",
         "inherit": "EXTRACT_ITEM",
         "specialization": [
-            "OPENEHR_CONTENT_ITEM"
+            "OPENEHR_CONTENT_ITEM",
+            "GENERIC_CONTENT_ITEM"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/ehr_extract.html#_extract_content_item_class"
@@ -4428,6 +4457,7 @@ const glossary_data = {
         },
         "inherit": "Any",
         "specialization": [
+            "DV_INTERVAL",
             "Point_interval",
             "Proper_interval"
         ],
@@ -5226,6 +5256,28 @@ const glossary_data = {
             }
         },
         "inherit": "PATHABLE",
+        "specialization": [
+            "FOLDER",
+            "DATA_STRUCTURE",
+            "ITEM",
+            "EVENT",
+            "PARTY",
+            "PARTY_RELATIONSHIP",
+            "PARTY_IDENTITY",
+            "CONTACT",
+            "ADDRESS",
+            "CAPABILITY",
+            "EXTRACT_REQUEST",
+            "EXTRACT_ACTION_REQUEST",
+            "EXTRACT",
+            "EXTRACT_CHAPTER",
+            "EXTRACT_ITEM",
+            "EHR_ACCESS",
+            "EHR_STATUS",
+            "COMPOSITION",
+            "CONTENT_ITEM",
+            "ACTIVITY"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class"
     },
@@ -5474,6 +5526,9 @@ const glossary_data = {
             }
         },
         "inherit": "Any",
+        "specialization": [
+            "Ordered_Numeric"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_numeric_class"
     },
@@ -5490,7 +5545,11 @@ const glossary_data = {
         },
         "description": "Ancestor class of identifiers of informational objects. Ids may be completely meaningless, in which case their only job is to refer to something, or may carry some information to do with the identified object.\n\n\nObject ids are used inside an object to identify that object. To identify another object in another service, use an OBJECT_REF, or else use a UID for local objects identified by UID. If none of the subtypes is suitable, direct instances of this class may be used.",
         "specialization": [
-            "UID_BASED_ID"
+            "UID_BASED_ID",
+            "ARCHETYPE_ID",
+            "TEMPLATE_ID",
+            "TERMINOLOGY_ID",
+            "GENERIC_ID"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_object_id_class"
@@ -5760,9 +5819,12 @@ const glossary_data = {
         },
         "inherit": "Any",
         "specialization": [
+            "DV_ORDERED",
             "Character",
             "Octet",
-            "String"
+            "String",
+            "Ordered_Numeric",
+            "Temporal"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_ordered_class"
@@ -5871,6 +5933,10 @@ const glossary_data = {
             }
         },
         "inherit": "LOCATABLE",
+        "specialization": [
+            "ROLE",
+            "ACTOR"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/demographic.html#_party_class"
     },
@@ -6071,7 +6137,10 @@ const glossary_data = {
         },
         "inherit": "Any",
         "specialization": [
-            "LOCATABLE"
+            "LOCATABLE",
+            "EVENT_CONTEXT",
+            "INSTRUCTION_DETAILS",
+            "ISM_TRANSITION"
         ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/RM/latest/common.html#_pathable_class"
@@ -7093,6 +7162,9 @@ const glossary_data = {
         "abstract": "true",
         "description": "Abstract ancestor of time-related classes.",
         "inherit": "Ordered",
+        "specialization": [
+            "Iso8601_type"
+        ],
         "type": "Class",
         "url": "https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_temporal_class"
     },
