@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-07-10 11:23:37";
+const glossary_extraction_date = "2026-07-13 10:34:40";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
@@ -978,6 +978,8 @@ const glossary_data = {
         "inherit": "OPENEHR_DEFINITIONS",
         "specialization": [
             "DV_BOOLEAN",
+            "DV_CODED_TEXT",
+            "DV_EHR_URI",
             "DV_STATE",
             "DV_IDENTIFIER",
             "DV_TEXT",
