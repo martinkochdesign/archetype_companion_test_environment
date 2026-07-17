@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-07-13 10:34:40";
+const glossary_extraction_date = "2026-07-17 11:08:11";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
@@ -681,7 +681,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_code_set_access_interface"
     },
     "COMPOSITION": {
         "attributes": {
@@ -3396,7 +3397,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_env_interface"
     },
     "FEEDER_AUDIT": {
         "attributes": {
@@ -5351,7 +5353,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_locale_interface"
     },
     "MEASUREMENT_SERVICE": {
         "description": "Defines an object providing proxy access to a measurement information service.",
@@ -5432,7 +5435,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_math_interface"
     },
     "Multiplicity_interval": {
         "description": "An Interval of Integer, used to represent multiplicity, cardinality and optionality in models.",
@@ -6233,7 +6237,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_quantity_converter_interface"
     },
     "REFERENCE_RANGE": {
         "attributes": {
@@ -6801,7 +6806,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_statistical_evaluator_interface"
     },
     "String": {
         "description": "Type representing minimal interface of built-in String type, as used to represent textual data in any natural or formal language.",
@@ -6919,7 +6925,8 @@ const glossary_data = {
                 ]
             }
         },
-        "type": "Interface"
+        "type": "Interface",
+        "url": "https://specifications.openehr.org/releases/RM/latest/support.html#_terminology_access_interface"
     },
     "TERMINOLOGY_ID": {
         "description": "Identifier for terminologies such as accessed via a terminology query service. In this class, the value attribute identifies the Terminology in the terminology service, e.g.  SNOMED-CT . A terminology is assumed to be in a particular language, which must be explicitly specified.\n\n\nThe value if the id attribute is the precise terminology id identifier, including actual release (i.e. actual  version), local modifications etc; e.g. ICPC2.\n\n\nLexical form: name [  '(' version  ')' ].",
@@ -7395,7 +7402,8 @@ const glossary_data = {
     "VALIDITY_KIND": {
         "attributes": {},
         "description": "An enumeration of three values that may commonly occur in constraint models.\n\n\nUse as the type of any attribute within this model, which expresses constraint on some attribute in a class in a reference model. For example to indicate validity\nof Date/Time fields.",
-        "type": "Enumeration"
+        "type": "Enumeration",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_validity_kind_enumeration"
     },
     "VERSION": {
         "abstract": "true",
@@ -7691,7 +7699,8 @@ const glossary_data = {
     "VERSION_STATUS": {
         "attributes": {},
         "description": "Status of a versioned artefact, as one of a number of possible values: uncontrolled, prerelease, release, build.",
-        "type": "Enumeration"
+        "type": "Enumeration",
+        "url": "https://specifications.openehr.org/releases/BASE/latest/base_types.html#_version_status_enumeration"
     },
     "VERSION_TREE_ID": {
         "attributes": {
