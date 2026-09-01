@@ -1,4 +1,4 @@
-const glossary_extraction_date = "2026-08-01 06:29:10";
+const glossary_extraction_date = "2026-09-01 09:13:23";
 
 const glossary_extraction_source = ['https://specifications.openehr.org/releases/BASE/latest/base_types.html', 'https://specifications.openehr.org/releases/RM/latest/common.html', 'https://specifications.openehr.org/releases/RM/latest/data_structures.html', 'https://specifications.openehr.org/releases/RM/latest/data_types.html', 'https://specifications.openehr.org/releases/RM/latest/demographic.html', 'https://specifications.openehr.org/releases/RM/latest/ehr_extract.html', 'https://specifications.openehr.org/releases/RM/latest/ehr.html', 'https://specifications.openehr.org/releases/RM/latest/integration.html', 'https://specifications.openehr.org/releases/RM/latest/support.html', 'https://specifications.openehr.org/releases/BASE/latest/foundation_types.html', 'https://specifications.openehr.org/releases/BASE/latest/resource.html'];
 
