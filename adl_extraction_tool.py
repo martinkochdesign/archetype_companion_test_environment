@@ -14,7 +14,7 @@ import networkx as nx
 
 # VARIABLES ******************************************************************
 # general things
-version = 'v4.29'
+version = 'v4.30'
 author = 'Martin A. Koch, PhD'
 copyright = '(c) 2026, CatSalut. Servei Català de la Salut'
 license = 'License: Apache 2.0'
@@ -1640,71 +1640,113 @@ import re
 import ast
 
 
+def resolve_datatype_OLD2(datatype):
+	if isinstance(datatype, list):
+		print('this is a list', datatype)
+	if not isinstance(datatype, str):
+		return datatype
+
+	stripped = datatype.strip()
+	if not (stripped.startswith("[") and stripped.endswith("]")):
+		return datatype
+
+	try:
+		items = ast.literal_eval(stripped)
+		print(items)
+	except (ValueError, SyntaxError):
+		return datatype
+
+	if not isinstance(items, list):
+		return datatype
+
+	def try_parse_numeric(val):
+		"""Returns ('int', int_val), ('float', float_val), or None."""
+		try:
+			int_val = int(val)
+			return ('int', int_val)
+		except (ValueError, TypeError):
+			pass
+		try:
+			f = float(val)
+			if f == int(f):  # e.g. 1.0, 2.0 — whole number floats
+				return ('float', int(f))
+		except (ValueError, TypeError):
+			pass
+		return None
+
+	result = []
+	i = 0
+	while i < len(items):
+		# Try to collect a run of same-type numeric strings starting at i
+		run_values = []
+		run_type = None
+		j = i
+		while j < len(items):
+			parsed = try_parse_numeric(items[j])
+			if parsed is None:
+				break
+			kind, num = parsed
+			if run_type is None:
+				run_type = kind
+			elif run_type != kind:
+				break  # mixed int/float — stop the run
+			run_values.append(num)
+			j += 1
+
+		if len(run_values) >= 2:
+			run_sorted = sorted(run_values)
+			if run_sorted == list(range(run_sorted[0], run_sorted[0] + len(run_sorted))):
+				label = "DV_ORDINAL" if run_type == 'int' else "DV_SCALE"
+				result.append(label)
+				i = j
+				continue
+
+		result.append(items[i])
+		i += 1
+
+	if result == items:
+		return datatype
+
+	return str(result)
+
 def resolve_datatype(datatype):
-    if not isinstance(datatype, str):
-        return datatype
+	#separate strings, floats and integers
+	S = []
+	F = []
+	I = []
 
-    stripped = datatype.strip()
-    if not (stripped.startswith("[") and stripped.endswith("]")):
-        return datatype
+	if not isinstance(datatype, str):
+		return datatype
 
-    try:
-        items = ast.literal_eval(stripped)
-    except (ValueError, SyntaxError):
-        return datatype
+	stripped = datatype.strip()
+	if not (stripped.startswith("[") and stripped.endswith("]")):
+		return datatype
 
-    if not isinstance(items, list):
-        return datatype
+	try:
+		mixed_list = ast.literal_eval(stripped)
+	except (ValueError, SyntaxError):
+		return datatype
 
-    def try_parse_numeric(val):
-        """Returns ('int', int_val), ('float', float_val), or None."""
-        try:
-            int_val = int(val)
-            return ('int', int_val)
-        except (ValueError, TypeError):
-            pass
-        try:
-            f = float(val)
-            if f == int(f):  # e.g. 1.0, 2.0 — whole number floats
-                return ('float', int(f))
-        except (ValueError, TypeError):
-            pass
-        return None
+	if not isinstance(mixed_list, list):
+		return datatype
 
-    result = []
-    i = 0
-    while i < len(items):
-        # Try to collect a run of same-type numeric strings starting at i
-        run_values = []
-        run_type = None
-        j = i
-        while j < len(items):
-            parsed = try_parse_numeric(items[j])
-            if parsed is None:
-                break
-            kind, num = parsed
-            if run_type is None:
-                run_type = kind
-            elif run_type != kind:
-                break  # mixed int/float — stop the run
-            run_values.append(num)
-            j += 1
+	for item in mixed_list:
+		try:
+			int_val = int(item)
+			I.append(int_val)
+		except ValueError:
+			try:
+				float_val = float(item)
+				F.append(float_val)
+			except ValueError:
+				S.append(item)
+	if len(I)>0:
+		S.append('DV_ORDINAL')
+	if len(F)>0:
+		S.append('DV_SCALE')
+	S = list(set(S))
+	return str(S)
 
-        if len(run_values) >= 2:
-            run_sorted = sorted(run_values)
-            if run_sorted == list(range(run_sorted[0], run_sorted[0] + len(run_sorted))):
-                label = "DV_ORDINAL" if run_type == 'int' else "DV_SCALE"
-                result.append(label)
-                i = j
-                continue
-
-        result.append(items[i])
-        i += 1
-
-    if result == items:
-        return datatype
-
-    return str(result)
 
 def OLDresolve_datatype(datatype):
 	datatype = str(datatype)
